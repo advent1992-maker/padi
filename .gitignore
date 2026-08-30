@@ -1,0 +1,8 @@
+config/ai_helper.php
+config/api_key
+config/cek_model_gemini.php
+config/config_ai.php
+config/identifikasi.php
+config/koneksi.php
+config/session.php
+config/templete_ai.html
