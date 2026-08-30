@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Sejarah: Kerajaan Hindu-Buddha</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #d4a373;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid #d4a373;
+        }
+        h2 { color: #bc6c25; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .highlight {
+            background-color: #fefae0;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        /* Interaktif Button */
+        .btn-check {
+            background-color: #606c38;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-check:hover { background-color: #283618; }
+        
+        #quiz-result {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #283618;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏰 Jejak Kerajaan Hindu-Buddha di Indonesia</h1>
+    <p>Materi IPAS Kelas 4 - Mengenal Sejarah Nusantara</p>
+</header>
+
+<div class="container">
+    
+    <div class="card">
+        <h2>1. Bagaimana Agama Hindu-Buddha Masuk?</h2>
+        <p>Ribuan tahun lalu, para pedagang dari India datang ke Indonesia. Sambil berdagang, mereka juga memperkenalkan agama dan budaya mereka. Hal ini mengubah cara hidup masyarakat Indonesia saat itu, dari yang awalnya kesukuan menjadi sistem kerajaan.</p>
+    </div>
+
+    <div class="card">
+        <h2>2. Kerajaan-Kerajaan Penting</h2>
+        <div class="grid">
+            <div class="highlight">
+                <h3>👑 Kerajaan Kutai</h3>
+                <p>Kerajaan Hindu tertua di Indonesia (Kalimantan Timur). Rajanya yang terkenal adalah <b>Mulawarman</b>.</p>
+            </div>
+            <div class="highlight">
+                <h3>👑 Kerajaan Tarumanegara</h3>
+                <p>Terletak di Jawa Barat. Raja terkenalnya adalah <b>Purnawarman</b> yang membangun irigasi untuk rakyat.</p>
+            </div>
+            <div class="highlight">
+                <h3>🌊 Kerajaan Sriwijaya</h3>
+                <p>Kerajaan Buddha terbesar di Sumatra. Pusat ilmu pengetahuan dan perdagangan laut.</p>
+            </div>
+            <div class="highlight">
+                <h3>⚔️ Kerajaan Majapahit</h3>
+                <p>Kerajaan Hindu-Buddha terbesar yang menyatukan Nusantara dengan <b>Sumpah Palapa</b> dari Gajah Mada.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>3. Peninggalan Sejarah</h2>
+        <p>Coba ingat-ingat, apakah kamu pernah melihat bangunan ini?</p>
+        <ul>
+            <li><b>Candi:</b> Tempat ibadah (Contoh: Borobudur & Prambanan).</li>
+            <li><b>Prasasti:</b> Tulisan di batu besar yang berisi informasi kerajaan.</li>
+            <li><b>Arca:</b> Patung dewa atau tokoh penting.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>🧠 Kuis Cepat!</h2>
+        <p>Siapakah Patih dari Majapahit yang sangat terkenal dengan Sumpah Palapa-nya?</p>
+        <input type="text" id="quiz-answer" placeholder="Ketik nama di sini...">
+        <button class="btn-check" onclick="checkAnswer()">Cek Jawaban</button>
+        <p id="quiz-result"></p>
+    </div>
+
+</div>
+
+<script>
+    function checkAnswer() {
+        const answer = document.getElementById('quiz-answer').value.toLowerCase();
+        const result = document.getElementById('quiz-result');
+        
+        if (answer.includes('gajah mada')) {
+            result.innerText = "✅ Hebat! Jawabanmu benar. Gajah Mada adalah Patih yang ingin menyatukan Nusantara.";
+            result.style.color = "green";
+        } else {
+            result.innerText = "❌ Ayo coba lagi! Petunjuk: Namanya mirip dengan hewan besar berbelalai.";
+            result.style.color = "red";
+        }
+    }
+</script>
+
+</body>
+</html>

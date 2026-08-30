@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi Persiapan Olimpiade MIPAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --mat:    #1565C0;
+  --mat-l:  #E3F0FF;
+  --indo:   #B71C1C;
+  --indo-l: #FFEBEE;
+  --ipa:    #2E7D32;
+  --ipa-l:  #E8F5E9;
+  --pu:     #6A1B9A;
+  --pu-l:   #F3E5F5;
+  --yellow: #FFD600;
+  --dark:   #1A1A2E;
+  --gray:   #546E7A;
+  --bg:     #F5F7FA;
+  --white:  #FFFFFF;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--dark);
+  padding: 40px 24px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(21,101,192,.35) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 50%, rgba(106,27,154,.3) 0%, transparent 60%);
+}
+.hero-inner { position:relative; z-index:1; max-width:860px; margin:0 auto; }
+.hero-tag {
+  display:inline-block;
+  background: var(--yellow);
+  color: var(--dark);
+  font-size:11px; font-weight:800;
+  letter-spacing:2px; text-transform:uppercase;
+  padding:5px 16px; border-radius:30px;
+  margin-bottom:16px;
+}
+.hero h1 {
+  font-family:'Baloo 2', cursive;
+  font-size: clamp(24px,5vw,42px);
+  font-weight:800; color:#fff;
+  line-height:1.2; margin-bottom:8px;
+}
+.hero h1 span { color: var(--yellow); }
+.hero p { color:rgba(255,255,255,.65); font-size:14px; margin-bottom:28px; }
+.mapel-pills {
+  display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
+}
+.mpill {
+  padding:8px 18px; border-radius:30px;
+  font-size:13px; font-weight:700;
+  border:2px solid;
+}
+.mpill.mat  { background:rgba(21,101,192,.2);  border-color:#1565C0; color:#90CAF9; }
+.mpill.indo { background:rgba(183,28,28,.2);   border-color:#B71C1C; color:#EF9A9A; }
+.mpill.ipa  { background:rgba(46,125,50,.2);   border-color:#2E7D32; color:#A5D6A7; }
+.mpill.pu   { background:rgba(106,27,154,.2);  border-color:#6A1B9A; color:#CE93D8; }
+
+/* ===== NAV ===== */
+.sticky-nav {
+  position:sticky; top:0; z-index:100;
+  background:#fff;
+  border-bottom:1px solid #E0E0E0;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.nav-wrap {
+  max-width:900px; margin:0 auto;
+  display:flex; overflow-x:auto;
+  padding:0 16px;
+  scrollbar-width:none;
+}
+.nav-wrap::-webkit-scrollbar { display:none; }
+.ntab {
+  padding:13px 18px;
+  font-size:13px; font-weight:700;
+  white-space:nowrap;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  text-decoration:none;
+  transition:all .2s;
+  display:flex; align-items:center; gap:6px;
+}
+.ntab.mat  { color:var(--mat);  } .ntab.mat:hover,  .ntab.mat.act  { border-color:var(--mat);  }
+.ntab.indo { color:var(--indo); } .ntab.indo:hover, .ntab.indo.act { border-color:var(--indo); }
+.ntab.ipa  { color:var(--ipa);  } .ntab.ipa:hover,  .ntab.ipa.act  { border-color:var(--ipa);  }
+.ntab.pu   { color:var(--pu);   } .ntab.pu:hover,   .ntab.pu.act   { border-color:var(--pu);   }
+
+/* ===== CONTAINER ===== */
+.wrap { max-width:900px; margin:0 auto; padding:32px 20px 80px; }
+
+/* ===== SECTION TITLE ===== */
+.sec-title {
+  display:flex; align-items:center; gap:14px;
+  padding:18px 22px; border-radius:14px;
+  margin-bottom:24px; color:#fff;
+  font-family:'Baloo 2', cursive;
+}
+.sec-title.mat  { background:linear-gradient(135deg,#0D47A1,#1976D2); }
+.sec-title.indo { background:linear-gradient(135deg,#7F0000,#C62828); }
+.sec-title.ipa  { background:linear-gradient(135deg,#1B5E20,#388E3C); }
+.sec-title.pu   { background:linear-gradient(135deg,#4A148C,#7B1FA2); }
+.sec-icon { font-size:32px; }
+.sec-info { flex:1; }
+.sec-sub  { font-size:10px; letter-spacing:2px; text-transform:uppercase; opacity:.65; margin-bottom:2px; }
+.sec-name { font-size:20px; font-weight:800; }
+.sec-badge {
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.3);
+  color:#fff; font-size:12px; font-weight:700;
+  padding:5px 14px; border-radius:20px;
+}
+
+/* ===== TOPIK CARD ===== */
+.topik-card {
+  background:#fff;
+  border-radius:14px;
+  margin-bottom:16px;
+  border:1.5px solid #E8EAF0;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  transition: box-shadow .2s;
+}
+.topik-card:hover { box-shadow:0 6px 20px rgba(0,0,0,.09); }
+
+.topik-head {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 18px;
+  cursor:pointer;
+  user-select:none;
+}
+.topik-head.mat  { background:var(--mat-l);  }
+.topik-head.indo { background:var(--indo-l); }
+.topik-head.ipa  { background:var(--ipa-l);  }
+.topik-head.pu   { background:var(--pu-l);   }
+
+.t-num {
+  width:34px; height:34px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:800; color:#fff; flex-shrink:0;
+}
+.mat  .t-num { background:var(--mat);  }
+.indo .t-num { background:var(--indo); }
+.ipa  .t-num { background:var(--ipa);  }
+.pu   .t-num { background:var(--pu);   }
+
+.t-title { flex:1; font-size:14.5px; font-weight:700; }
+.t-soal  { font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; margin-right:8px; }
+.mat  .t-soal { background:#BBDEFB; color:#0D47A1; }
+.indo .t-soal { background:#FFCDD2; color:#7F0000; }
+.ipa  .t-soal { background:#C8E6C9; color:#1B5E20; }
+.pu   .t-soal { background:#E1BEE7; color:#4A148C; }
+
+.arrow { font-size:12px; color:#9E9E9E; transition:transform .25s; }
+.topik-head.open .arrow { transform:rotate(90deg); }
+
+.topik-body { display:none; padding:18px 22px 20px; }
+.topik-body.show { display:block; }
+
+/* MATERI CONTENT */
+.materi-box { margin-bottom:16px; }
+.materi-box:last-child { margin-bottom:0; }
+
+.label-poin {
+  font-size:11px; font-weight:800;
+  letter-spacing:1.5px; text-transform:uppercase;
+  margin-bottom:8px; padding:3px 0;
+}
+.mat  .label-poin { color:var(--mat);  border-bottom:2px solid var(--mat-l);  }
+.indo .label-poin { color:var(--indo); border-bottom:2px solid var(--indo-l); }
+.ipa  .label-poin { color:var(--ipa);  border-bottom:2px solid var(--ipa-l);  }
+.pu   .label-poin { color:var(--pu);   border-bottom:2px solid var(--pu-l);   }
+
+.poin-list { list-style:none; }
+.poin-list li {
+  padding:6px 0 6px 24px;
+  position:relative;
+  font-size:14px;
+  border-bottom:1px solid #F5F5F5;
+}
+.poin-list li:last-child { border:none; }
+.poin-list li::before {
+  content:'✦';
+  position:absolute; left:0; top:7px;
+  font-size:10px;
+}
+.mat  .poin-list li::before { color:var(--mat);  }
+.indo .poin-list li::before { color:var(--indo); }
+.ipa  .poin-list li::before { color:var(--ipa);  }
+.pu   .poin-list li::before { color:var(--pu);   }
+
+.rumus-box {
+  background:#FAFAFA;
+  border:1.5px dashed #CFD8DC;
+  border-radius:10px;
+  padding:12px 16px;
+  margin:10px 0;
+  font-size:13.5px;
+}
+.rumus-box strong { font-size:14px; }
+
+.contoh-box {
+  border-radius:10px;
+  padding:12px 16px;
+  margin:10px 0;
+  font-size:13.5px;
+}
+.mat  .contoh-box { background:var(--mat-l);  }
+.indo .contoh-box { background:var(--indo-l); }
+.ipa  .contoh-box { background:var(--ipa-l);  }
+.pu   .contoh-box { background:var(--pu-l);   }
+
+.contoh-box .contoh-label {
+  font-size:10px; font-weight:800;
+  letter-spacing:1.2px; text-transform:uppercase;
+  margin-bottom:5px;
+}
+.mat  .contoh-box .contoh-label { color:var(--mat);  }
+.indo .contoh-box .contoh-label { color:var(--indo); }
+.ipa  .contoh-box .contoh-label { color:var(--ipa);  }
+.pu   .contoh-box .contoh-label { color:var(--pu);   }
+
+.ingat-box {
+  background:linear-gradient(135deg,#FFF8E1,#FFF3CD);
+  border-left:4px solid #FFD600;
+  border-radius:0 10px 10px 0;
+  padding:10px 14px;
+  margin:10px 0;
+  font-size:13px;
+  font-weight:700;
+}
+.ingat-box::before { content:'⚠️  INGAT: '; }
+
+/* divider */
+.div { border:none; border-top:1.5px dashed #CFD8DC; margin:36px 0 32px; }
+
+/* footer */
+footer {
+  text-align:center; padding:24px;
+  font-size:12px; color:var(--gray);
+  border-top:1px solid #E0E0E0;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">📚 Bahan Belajar</div>
+    <h1>Materi Persiapan<br><span>Seleksi Olimpiade MIPAS</span></h1>
+    <p>Pelajari ringkasan materi berikut sebelum mengerjakan soal seleksi· SDN 06 Martapura</p>
+    <div class="mapel-pills">
+      <span class="mpill mat">🔢 Matematika · 15 soal</span>
+      <span class="mpill indo">📖 B. Indonesia · 10 soal</span>
+      <span class="mpill ipa">🔬 IPA · 15 soal</span>
+      <span class="mpill pu">🧠 PU/Sains · 10 soal</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="sticky-nav">
+  <div class="nav-wrap">
+    <a class="ntab mat" href="#mat">🔢 Matematika</a>
+    <a class="ntab indo" href="#indo">📖 B. Indonesia</a>
+    <a class="ntab ipa" href="#ipa">🔬 IPA</a>
+    <a class="ntab pu" href="#pu">🧠 PU/Sains</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ===================== MATEMATIKA ===================== -->
+<div id="mat">
+  <div class="sec-title mat">
+    <div class="sec-icon">🔢</div>
+    <div class="sec-info">
+      <div class="sec-sub">Mata Pelajaran</div>
+      <div class="sec-name">MATEMATIKA</div>
+    </div>
+    <span class="sec-badge">Soal No. 1–15</span>
+  </div>
+
+  <!-- 1. Operasi Hitung Campuran -->
+  <div class="topik-card mat">
+    <div class="topik-head mat" onclick="buka(this)">
+      <div class="t-num mat">1</div>
+      <div class="t-title">Operasi Hitung Campuran</div>
+      <span class="t-soal">Soal No. 1 & 2</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="materi-box">
+        <div class="label-poin">Aturan Wajib Dihapal</div>
+        <ul class="poin-list">
+          <li>Kerjakan operasi dalam <strong>tanda kurung ( )</strong> terlebih dahulu.</li>
+          <li>Setelah itu kerjakan <strong>perkalian (×)</strong> dan <strong>pembagian (÷)</strong> dari kiri ke kanan.</li>
+          <li>Terakhir kerjakan <strong>penjumlahan (+)</strong> dan <strong>pengurangan (−)</strong> dari kiri ke kanan.</li>
+          <li>Jangan asal kiri ke kanan tanpa memperhatikan aturan ini!</li>
+        </ul>
+        <div class="contoh-box mat">
+          <div class="contoh-label">Contoh Soal No. 1</div>
+          4 + 8 × 3 − 6 ÷ 2<br>
+          = 4 + <strong>(8×3)</strong> − <strong>(6÷2)</strong> &nbsp;← kali & bagi dulu<br>
+          = 4 + 24 − 3<br>
+          = <strong>25</strong>
+        </div>
+        <div class="ingat-box">Kalau ada yang langsung kerjakan dari kiri (4+8=12, lalu ×3) → itu SALAH!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Pecahan -->
+  <div class="topik-card mat">
+    <div class="topik-head mat" onclick="buka(this)">
+      <div class="t-num mat">2</div>
+      <div class="t-title">Pecahan (Penjumlahan, Pengurangan & Perbandingan)</div>
+      <span class="t-soal">Soal No. 3 & 4</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="materi-box">
+        <div class="label-poin">Cara Menyamakan Penyebut</div>
+        <ul class="poin-list">
+          <li>Sebelum menjumlah atau mengurangi pecahan, samakan penyebutnya dulu dengan KPK.</li>
+          <li>Contoh: ½ + ⅓ = 3/6 + 2/6 = <strong>5/6</strong></li>
+          <li>Untuk mengubah pecahan ke bentuk satuan: kalikan pecahan × jumlah total bagian.</li>
+        </ul>
+        <div class="rumus-box">
+          <strong>Pecahan → Potongan:</strong><br>
+          Bagian seseorang = Pecahan × Total potongan<br><br>
+          Sisa = Total − bagian A − bagian B − ...
+        </div>
+        <div class="contoh-box mat">
+          <div class="contoh-label">Contoh Soal No. 3</div>
+          Pizza 12 potong: Sari=⅓, Tono=¼, Rina=sisa<br>
+          Sari: ⅓ × 12 = <strong>4 potong</strong><br>
+          Tono: ¼ × 12 = <strong>3 potong</strong><br>
+          Rina: 12 − 4 − 3 = <strong>5 potong</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. KPK & FPB -->
+  <div class="topik-card mat">
+    <div class="topik-head mat" onclick="buka(this)">
+      <div class="t-num mat">3</div>
+      <div class="t-title">KPK dan FPB</div>
+      <span class="t-soal">Soal No. 5 & 6</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="materi-box">
+        <div class="label-poin">Kapan Pakai KPK, Kapan Pakai FPB?</div>
+        <ul class="poin-list">
+          <li><strong>KPK</strong> (Kelipatan Persekutuan Terkecil) → soal tentang <em>penjadwalan</em> / kapan dua kegiatan bertemu lagi.</li>
+          <li><strong>FPB</strong> (Faktor Persekutuan Terbesar) → soal tentang <em>pembagian merata</em> tanpa sisa.</li>
+        </ul>
+        <div class="rumus-box">
+          <strong>Cara Cari KPK:</strong> tulis kelipatan masing-masing, ambil yang sama paling kecil.<br>
+          KPK(6,8): kel.6 = 6,12,18,<u>24</u>... kel.8 = 8,16,<u>24</u>... → KPK = <strong>24</strong><br><br>
+          <strong>Cara Cari FPB:</strong> tulis faktor masing-masing, ambil yang sama paling besar.<br>
+          FPB(60,84): faktor 60=1,2,3,4,5,6,10,12... faktor 84=1,2,3,4,6,7,<u>12</u>... → FPB = <strong>12</strong>
+        </div>
+        <div class="contoh-box mat">
+          <div class="contoh-label">Contoh Soal No. 5</div>
+          Les 6 hari sekali, olahraga 8 hari sekali, mulai 2 Januari.<br>
+          KPK(6,8) = 24 hari → 2 Jan + 24 = <strong>26 Januari</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Pengukuran & Perbandingan -->
+  <div class="topik-card mat">
+    <div class="topik-head mat" onclick="buka(this)">
+      <div class="t-num mat">4</div>
+      <div class="t-title">Pengukuran, Kecepatan & Satuan Berat</div>
+      <span class="t-soal">Soal No. 7 & 8</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="materi-box">
+        <div class="label-poin">Rumus Kecepatan</div>
+        <div class="rumus-box">
+          <strong>Kecepatan = Jarak ÷ Waktu</strong><br>
+          Satuan: km/jam
+        </div>
+        <div class="label-poin">Konversi Satuan Berat</div>
+        <ul class="poin-list">
+          <li>1 kg = 1.000 gram</li>
+          <li>0,75 kg = 750 gram · 1,25 kg = 1.250 gram</li>
+          <li>Samakan dulu semua ke gram sebelum membandingkan!</li>
+        </ul>
+        <div class="ingat-box">Untuk membandingkan berat, WAJIB samakan satuannya dulu!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Bangun Datar -->
+  <div class="topik-card mat">
+    <div class="topik-head mat" onclick="buka(this)">
+      <div class="t-num mat">5</div>
+      <div class="t-title">Bangun Datar & Luas Keliling</div>
+      <span class="t-soal">Soal No. 9 & 10</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="materi-box">
+        <div class="label-poin">Ciri-Ciri Bangun Datar</div>
+        <ul class="poin-list">
+          <li><strong>Persegi:</strong> 4 sisi sama, 4 sudut siku-siku, 4 sumbu simetri.</li>
+          <li><strong>Persegi panjang:</strong> 2 pasang sisi sama, 4 sudut siku-siku, 2 sumbu simetri.</li>
+          <li><strong>Jajargenjang:</strong> 2 pasang sisi sejajar sama panjang, sudut tidak harus 90°, <em>tidak punya sumbu simetri</em>.</li>
+          <li><strong>Trapesium:</strong> 1 pasang sisi sejajar, sisi lain tidak sejajar.</li>
+          <li><strong>Belah ketupat:</strong> 4 sisi sama, sudut tidak 90°, punya 2 sumbu simetri.</li>
+        </ul>
+        <div class="rumus-box">
+          <strong>Luas lantai dan keramik:</strong><br>
+          Jumlah keramik = Luas lantai ÷ Luas 1 keramik<br>
+          Total biaya = Jumlah keramik × Harga per keramik<br>
+          <em>Ubah semua satuan ke cm dulu!</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Bangun Ruang -->
+  <div class="topik-card mat">
+    <div class="topik-head mat" onclick="buka(this)">
+      <div class="t-num mat">6</div>
+      <div class="t-title">Jaring-Jaring Bangun Ruang</div>
+      <span class="t-soal">Soal No. 11</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Jaring-jaring <strong>kubus</strong> = 6 persegi sama besar. Ada <strong>11 bentuk valid</strong>, tidak semua susunan 6 persegi bisa jadi kubus.</li>
+        <li>Jaring-jaring <strong>balok</strong> = 3 pasang persegi panjang yang berbeda ukuran.</li>
+        <li>Jaring-jaring kubus yang valid: tidak boleh ada 2 persegi yang akan saling tumpang tindih saat dilipat.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. Statistika -->
+  <div class="topik-card mat">
+    <div class="topik-head mat" onclick="buka(this)">
+      <div class="t-num mat">7</div>
+      <div class="t-title">Statistika & Penyajian Data</div>
+      <span class="t-soal">Soal No. 12 & 13</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="rumus-box">
+        <strong>Rata-rata = Jumlah semua nilai ÷ Banyak data</strong>
+      </div>
+      <div class="label-poin">Jenis Diagram & Kegunaannya</div>
+      <ul class="poin-list">
+        <li><strong>Diagram garis</strong> → menunjukkan <em>perubahan data dari waktu ke waktu (tren)</em>. ← paling sering muncul!</li>
+        <li><strong>Diagram batang</strong> → membandingkan data antar kategori.</li>
+        <li><strong>Diagram lingkaran</strong> → menunjukkan proporsi/persentase dari keseluruhan.</li>
+        <li><strong>Piktogram</strong> → data sederhana menggunakan gambar/ikon.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 8. Skala -->
+  <div class="topik-card mat">
+    <div class="topik-head mat" onclick="buka(this)">
+      <div class="t-num mat">8</div>
+      <div class="t-title">Skala Peta & Persen/Diskon</div>
+      <span class="t-soal">Soal No. 14 & 15</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="rumus-box">
+        <strong>Jarak Sebenarnya = Jarak di Peta × Skala</strong><br>
+        Skala 1:500.000 → 1 cm di peta = 500.000 cm = <strong>5 km</strong>
+      </div>
+      <div class="rumus-box">
+        <strong>Harga setelah diskon = Harga awal × (100% − Diskon%)</strong><br>
+        Contoh: Rp200.000 diskon 20% = 200.000 × 80% = <strong>Rp160.000</strong>
+      </div>
+      <div class="ingat-box">Bandingkan harga AKHIR setelah diskon, bukan harga awal atau % diskonnya!</div>
+    </div>
+  </div>
+</div><!-- end mat -->
+
+<hr class="div">
+
+<!-- ===================== BAHASA INDONESIA ===================== -->
+<div id="indo">
+  <div class="sec-title indo">
+    <div class="sec-icon">📖</div>
+    <div class="sec-info">
+      <div class="sec-sub">Mata Pelajaran</div>
+      <div class="sec-name">BAHASA INDONESIA</div>
+    </div>
+    <span class="sec-badge">Soal No. 16–25</span>
+  </div>
+
+  <!-- 1. Fakta vs Opini -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">1</div>
+      <div class="t-title">Fakta dan Opini dalam Teks</div>
+      <span class="t-soal">Soal No. 16</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Fakta</strong> = pernyataan yang bisa dibuktikan kebenarannya. Biasanya berisi kejadian nyata, angka, atau kegiatan yang terlihat.</li>
+        <li><strong>Opini</strong> = pendapat, penilaian, atau perasaan seseorang. Kata petunjuknya: <em>"menurutnya", "sangat", "paling", "sepertinya", "indah", "terasa"</em>, dll.</li>
+      </ul>
+      <div class="contoh-box indo">
+        <div class="contoh-label">Cara Membedakan</div>
+        Fakta: <em>"Kak Lena menyiram tanaman setiap pagi."</em> → bisa dilihat langsung ✓<br>
+        Opini: <em>"Taman Lena sangat indah."</em> → penilaian seseorang, berbeda-beda ✗
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Judul Teks -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">2</div>
+      <div class="t-title">Menentukan Judul Teks yang Tepat</div>
+      <span class="t-soal">Soal No. 17</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Judul yang tepat harus mencerminkan <strong>keseluruhan isi teks</strong>, bukan hanya satu bagian.</li>
+        <li>Judul yang terlalu sempit (hanya menyebut satu detail) → salah.</li>
+        <li>Judul yang terlalu luas (tidak fokus ke topik utama) → salah.</li>
+      </ul>
+      <div class="ingat-box">Baca dulu keseluruhan teks, cari topik UTAMA yang dibahas dari awal sampai akhir.</div>
+    </div>
+  </div>
+
+  <!-- 3. Unsur Cerita & Amanat -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">3</div>
+      <div class="t-title">Unsur Cerita, Amanat & Tindakan Tokoh</div>
+      <span class="t-soal">Soal No. 18 & 19</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="label-poin">Unsur-Unsur Cerita</div>
+      <ul class="poin-list">
+        <li><strong>Tokoh</strong> = pelaku dalam cerita (protagonis/antagonis).</li>
+        <li><strong>Watak</strong> = sifat tokoh (baik, jahat, pemarah, dll).</li>
+        <li><strong>Latar</strong> = tempat, waktu, dan suasana cerita.</li>
+        <li><strong>Alur</strong> = urutan kejadian dalam cerita.</li>
+        <li><strong>Amanat</strong> = pesan moral/nilai yang ingin disampaikan pengarang.</li>
+      </ul>
+      <div class="contoh-box indo">
+        <div class="contoh-label">Tips Mencari Amanat</div>
+        Lihat <strong>akibat</strong> dari perbuatan tokoh. Kalau tokoh berbuat buruk dan mendapat akibat buruk → amanatnya adalah jangan lakukan hal itu. Kalau tokoh baik dan berhasil → amanatnya adalah lakukan hal yang baik tersebut.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Teks Deskripsi -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">4</div>
+      <div class="t-title">Kalimat Tidak Relevan dalam Teks Deskripsi</div>
+      <span class="t-soal">Soal No. 20</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Teks deskripsi yang baik harus <strong>padu</strong>: semua kalimat membahas topik yang sama.</li>
+        <li>Kalimat tidak relevan = kalimat yang membahas topik <strong>berbeda</strong> dari topik utama teks.</li>
+        <li>Cara menemukan: tanyakan "Apakah kalimat ini masih bicara tentang topik utama?"</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5. Kosakata -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">5</div>
+      <div class="t-title">Makna Kata, Sinonim & Antonim</div>
+      <span class="t-soal">Soal No. 21</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Sinonim</strong> = kata yang maknanya sama/mirip. Contoh: <em>apresiasi = penghargaan</em>, <em>gigih = tekun</em>.</li>
+        <li><strong>Antonim</strong> = kata yang maknanya berlawanan. Contoh: <em>rajin ↔ malas</em>.</li>
+        <li>Pilih sinonim yang paling tepat sesuai <strong>konteks kalimat</strong>, bukan hanya artinya saja.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6. Ejaan & Tanda Baca -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">6</div>
+      <div class="t-title">Ejaan, Tanda Baca & Kalimat Efektif</div>
+      <span class="t-soal">Soal No. 22</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="label-poin">Aturan Penting EYD</div>
+      <ul class="poin-list">
+        <li>Huruf pertama kalimat baru harus <strong>kapital</strong>.</li>
+        <li>Nama orang dan nama diri ditulis kapital: <em>Rudi, Ibu, Jakarta</em>.</li>
+        <li>Kata ulang ditulis pakai tanda hubung: <em>buah-buahan, sayur-mayur, bermain-main</em>.</li>
+        <li>Dialog/ucapan langsung diapit tanda petik dua: <em>"…"</em> dan diakhiri tanda baca yang tepat.</li>
+        <li>Kata "Ibu/Ayah/Kakak" kapital jika dipakai sebagai panggilan, huruf kecil jika diikuti nama: <em>ibu Rudi</em>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. Susunan Paragraf -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">7</div>
+      <div class="t-title">Urutan Kalimat yang Logis & Padu</div>
+      <span class="t-soal">Soal No. 23</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Cari <strong>kalimat utama/topik</strong> terlebih dahulu → biasanya pernyataan umum tanpa kata penghubung.</li>
+        <li>Kalimat penjelas mengikuti kalimat utama.</li>
+        <li>Kata penghubung membantu urutan: <em>"selain itu"</em> → menambahkan, <em>"oleh karena itu"</em> → kesimpulan.</li>
+        <li>Kalimat simpulan biasanya di akhir paragraf.</li>
+      </ul>
+      <div class="contoh-box indo">
+        <div class="contoh-label">Pola Umum Paragraf</div>
+        Kalimat Utama → Penjelas 1 → Penjelas 2 → Simpulan
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Pantun & Puisi -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">8</div>
+      <div class="t-title">Pantun vs Syair</div>
+      <span class="t-soal">Soal No. 24</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Pantun:</strong> 4 baris, baris 1–2 = <em>sampiran</em> (hiasan, tidak bermakna langsung), baris 3–4 = <em>isi/pesan</em>. Sajak: <strong>ABAB</strong>.</li>
+        <li><strong>Syair:</strong> 4 baris, <em>semua baris = isi/pesan</em>, tidak ada sampiran. Sajak: <strong>AAAA</strong>.</li>
+        <li>Perbedaan utama: Pantun punya sampiran, syair tidak.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 9. Menulis Kreatif -->
+  <div class="topik-card indo">
+    <div class="topik-head indo" onclick="buka(this)">
+      <div class="t-num indo">9</div>
+      <div class="t-title">Kerangka Cerita & Kalimat Pembuka yang Menarik</div>
+      <span class="t-soal">Soal No. 25</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Kalimat pembuka cerita yang baik langsung memperkenalkan <strong>tokoh, latar, dan konflik awal</strong> sekaligus.</li>
+        <li>Hindari kalimat pembuka yang terlalu umum seperti <em>"Pada suatu hari..."</em> atau berisi pesan moral langsung.</li>
+        <li>Kalimat pembuka harus <strong>padu</strong> dengan kerangka cerita yang diberikan.</li>
+      </ul>
+    </div>
+  </div>
+</div><!-- end indo -->
+
+<hr class="div">
+
+<!-- ===================== IPA ===================== -->
+<div id="ipa">
+  <div class="sec-title ipa">
+    <div class="sec-icon">🔬</div>
+    <div class="sec-info">
+      <div class="sec-sub">Mata Pelajaran</div>
+      <div class="sec-name">IPA · ILMU PENGETAHUAN ALAM</div>
+    </div>
+    <span class="sec-badge">Soal No. 26–40</span>
+  </div>
+
+  <!-- 1. Makhluk Hidup -->
+  <div class="topik-card ipa">
+    <div class="topik-head ipa" onclick="buka(this)">
+      <div class="t-num ipa">1</div>
+      <div class="t-title">Ciri-Ciri Makhluk Hidup vs Benda Mati</div>
+      <span class="t-soal">Soal No. 26</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Makhluk hidup: bergerak <em>sendiri</em>, tumbuh, berkembang biak, membutuhkan makanan, bernapas, peka terhadap rangsang.</li>
+        <li>Tumbuhan juga makhluk hidup meskipun tidak berpindah tempat — mereka tumbuh, bernapas, dan menanggapi rangsang (contoh: bunga matahari menghadap cahaya).</li>
+        <li>Benda mati: hanya bisa bergerak jika ada kekuatan dari luar (contoh: sepeda bergerak karena dikayuh manusia).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. Pengelompokan Hewan -->
+  <div class="topik-card ipa">
+    <div class="topik-head ipa" onclick="buka(this)">
+      <div class="t-num ipa">2</div>
+      <div class="t-title">Pengelompokan Hewan</div>
+      <span class="t-soal">Soal No. 27</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Cara berkembang biak:</strong> bertelur (ovipar) = ayam, ikan, katak | melahirkan (vivipar) = kucing, sapi, anjing.</li>
+        <li><strong>Penutup tubuh:</strong> bulu/rambut = mamalia (kucing, sapi) | sisik = ikan | bulu halus = burung.</li>
+        <li><strong>Jenis makanan:</strong> herbivora (tumbuhan) = sapi, kambing | karnivora (daging) = kucing, harimau | omnivora (keduanya) = ayam, manusia.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. Adaptasi -->
+  <div class="topik-card ipa">
+    <div class="topik-head ipa" onclick="buka(this)">
+      <div class="t-num ipa">3</div>
+      <div class="t-title">Adaptasi Makhluk Hidup</div>
+      <span class="t-soal">Soal No. 28 & 29</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Daerah dingin/kutub:</strong> bulu tebal + lapisan lemak (menghangatkan) | telapak lebar (berjalan di salju) | warna putih (kamuflase di salju). Contoh: beruang kutub, anjing laut.</li>
+        <li><strong>Daerah gurun (panas + kering):</strong> kulit tebal (kurangi penguapan) | menyimpan cadangan air | aktif malam hari | kaki panjang (jauh dari tanah panas). Contoh: unta, kadal gurun.</li>
+        <li><strong>Daerah laut/air:</strong> sirip/tubuh streamline | insang/paru-paru | kulit licin.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4. Rantai Makanan -->
+  <div class="topik-card ipa">
+    <div class="topik-head ipa" onclick="buka(this)">
+      <div class="t-num ipa">4</div>
+      <div class="t-title">Rantai & Jaring-Jaring Makanan</div>
+      <span class="t-soal">Soal No. 30 & 31</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Jika hewan <strong>pemangsa</strong> punah → mangsanya akan <strong>bertambah banyak</strong>.</li>
+        <li>Jika hewan <strong>mangsa</strong> punah → pemangsanya akan <strong>berkurang</strong> (kekurangan makanan).</li>
+        <li>Dampak menjalar ke seluruh rantai makanan (efek domino).</li>
+        <li>Tindakan manusia yang paling merusak: <strong>perburuan liar predator puncak</strong> (menghilangkan pengatur populasi).</li>
+      </ul>
+      <div class="contoh-box ipa">
+        <div class="contoh-label">Contoh Soal No. 30</div>
+        Katak punah → belalang tidak ada pemangsa → <strong>belalang meningkat</strong> → padi dimakan lebih banyak → <strong>padi berkurang</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Perubahan Wujud -->
+  <div class="topik-card ipa">
+    <div class="topik-head ipa" onclick="buka(this)">
+      <div class="t-num ipa">5</div>
+      <div class="t-title">Perubahan Wujud Zat</div>
+      <span class="t-soal">Soal No. 32</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Mencair</strong> = padat → cair (es → air, dipanaskan)</li>
+        <li><strong>Membeku</strong> = cair → padat (air → es, didinginkan)</li>
+        <li><strong>Menguap</strong> = cair → gas (air mendidih → uap)</li>
+        <li><strong>Mengembun</strong> = gas → cair (uap menyentuh permukaan dingin → titik air)</li>
+        <li><strong>Menyublim</strong> = padat → gas langsung (kapur barus)</li>
+        <li><strong>Mengkristal</strong> = gas → padat langsung</li>
+      </ul>
+      <div class="contoh-box ipa">
+        <div class="contoh-label">Contoh Soal No. 32</div>
+        Air dipanaskan → mendidih → uap = <strong>menguap</strong>.<br>
+        Uap menyentuh tutup panci dingin → titik air = <strong>mengembun</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Sifat Benda & Material -->
+  <div class="topik-card ipa">
+    <div class="topik-head ipa" onclick="buka(this)">
+      <div class="t-num ipa">6</div>
+      <div class="t-title">Sifat Material & Gaya</div>
+      <span class="t-soal">Soal No. 33 & 34</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <div class="label-poin">Sifat Material</div>
+      <ul class="poin-list">
+        <li>Pilih material sesuai kebutuhan: tahan air, tahan panas, kuat, ringan, dll.</li>
+        <li>Kaca: tahan panas & kedap air, tapi mudah pecah.</li>
+        <li>Plastik: ringan & tahan air, tapi meleleh di suhu tinggi.</li>
+      </ul>
+      <div class="label-poin">Gaya & Gerak</div>
+      <ul class="poin-list">
+        <li><strong>Gaya tendang</strong> = membuat benda bergerak.</li>
+        <li><strong>Gaya gesek</strong> = menghambat/memperlambat gerak benda hingga berhenti.</li>
+        <li>Keduanya bekerja berlawanan arah → bola melambat dan berhenti.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. Energi -->
+  <div class="topik-card ipa">
+    <div class="topik-head ipa" onclick="buka(this)">
+      <div class="t-num ipa">7</div>
+      <div class="t-title">Energi, Perubahan Energi & Cahaya</div>
+      <span class="t-soal">Soal No. 35, 36 & 37</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Lampu hemat energi = daya (watt) kecil dengan cahaya sama terang.</li>
+        <li>Energi ramah lingkungan: <strong>matahari (panel surya)</strong>, angin, air → bukan baterai sekali pakai atau bensin.</li>
+        <li>Perubahan energi: cahaya matahari → listrik (panel surya) → gerak (motor).</li>
+      </ul>
+      <div class="label-poin">Sifat Cahaya</div>
+      <ul class="poin-list">
+        <li><strong>Merambat lurus</strong> = bayangan terbentuk.</li>
+        <li><strong>Memantul</strong> = cermin, permukaan mengkilap.</li>
+        <li><strong>Membiaskan (membelok)</strong> = saat melewati dua medium berbeda, misal sedotan dalam air tampak bengkok.</li>
+        <li><strong>Menembus benda bening</strong> = kaca bening.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 8. Siklus Air & Tanah -->
+  <div class="topik-card ipa">
+    <div class="topik-head ipa" onclick="buka(this)">
+      <div class="t-num ipa">8</div>
+      <div class="t-title">Cuaca, Tanah & Kesehatan Gizi</div>
+      <span class="t-soal">Soal No. 38, 39 & 40</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Curah hujan <strong>menurun</strong> → memasuki musim kemarau → sumber air pertanian berkurang.</li>
+        <li>Kegiatan manusia paling merusak tanah & air: <strong>penebangan hutan liar</strong> (erosi) dan <strong>pertambangan tanpa reklamasi</strong> (mencemari air tanah).</li>
+        <li>Menu sehat = mengandung <strong>karbohidrat + protein + sayur/buah (vitamin & mineral) + air putih</strong> secara seimbang.</li>
+        <li>Hindari menu yang didominasi makanan olahan, gula berlebih, atau lemak jenuh.</li>
+      </ul>
+    </div>
+  </div>
+</div><!-- end ipa -->
+
+<hr class="div">
+
+<!-- ===================== PU/SAINS ===================== -->
+<div id="pu">
+  <div class="sec-title pu">
+    <div class="sec-icon">🧠</div>
+    <div class="sec-info">
+      <div class="sec-sub">Mata Pelajaran</div>
+      <div class="sec-name">PENALARAN UMUM / SAINS</div>
+    </div>
+    <span class="sec-badge">Soal No. 41–50</span>
+  </div>
+
+  <!-- 1. Pancasila -->
+  <div class="topik-card pu">
+    <div class="topik-head pu" onclick="buka(this)">
+      <div class="t-num pu">1</div>
+      <div class="t-title">Pancasila & Nilai Musyawarah</div>
+      <span class="t-soal">Soal No. 41</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Nilai Pancasila sila ke-4 = <strong>musyawarah mufakat</strong>: selesaikan masalah bersama dengan cara berdiskusi yang adil.</li>
+        <li>Konflik antar warga → diselesaikan dengan <strong>musyawarah</strong>, bukan adu kekuatan atau memilih sepihak.</li>
+        <li>Sila ke-2 = kemanusiaan yang adil dan beradab (menghargai orang lain).</li>
+        <li>Sila ke-3 = persatuan Indonesia (kepentingan bersama di atas kepentingan pribadi).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. Pahlawan -->
+  <div class="topik-card pu">
+    <div class="topik-head pu" onclick="buka(this)">
+      <div class="t-num pu">2</div>
+      <div class="t-title">Nilai Perjuangan Pahlawan Nasional</div>
+      <span class="t-soal">Soal No. 42</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Cut Nyak Dien</strong> → perjuangan di Aceh, pantang menyerah.</li>
+        <li><strong>Pangeran Diponegoro</strong> → perjuangan di Jawa, membela hak rakyat.</li>
+        <li><strong>Martha Christina Tiahahu</strong> → perjuangan di Maluku, berani sejak muda.</li>
+        <li>Persamaan nilai: <strong>cinta tanah air, keberanian, semangat mengusir penjajah</strong> demi Indonesia.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. Geografi -->
+  <div class="topik-card pu">
+    <div class="topik-head pu" onclick="buka(this)">
+      <div class="t-num pu">3</div>
+      <div class="t-title">Geografi & Letak Pulau di Indonesia</div>
+      <span class="t-soal">Soal No. 43</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Arah mata angin: Utara ↑ · Selatan ↓ · Barat ← · Timur →</li>
+        <li>Urutan pulau dari barat ke timur: Sumatra → Jawa → Kalimantan → <strong>Sulawesi</strong> → Maluku → Papua.</li>
+        <li>Kalimantan di sebelah <strong>barat</strong> Sulawesi. Papua di sebelah <strong>timur</strong> Sulawesi. → Sulawesi di antara keduanya.</li>
+      </ul>
+      <div class="ingat-box">Sulawesi = timurnya Kalimantan = baratnya Papua.</div>
+    </div>
+  </div>
+
+  <!-- 4. Budaya -->
+  <div class="topik-card pu">
+    <div class="topik-head pu" onclick="buka(this)">
+      <div class="t-num pu">4</div>
+      <div class="t-title">Keragaman Budaya Indonesia</div>
+      <span class="t-soal">Soal No. 44</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Rumah Gadang</strong> → Sumatra Barat (Minangkabau)</li>
+        <li><strong>Tari Kecak</strong> → Bali</li>
+        <li><strong>Angklung</strong> → Jawa Barat (Sunda)</li>
+        <li><strong>Tongkonan</strong> → Sulawesi Selatan (Toraja)</li>
+        <li><strong>Rumah Honai</strong> → Papua · <strong>Tari Saman</strong> → Aceh · <strong>Batik</strong> → Jawa</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5. Lingkungan -->
+  <div class="topik-card pu">
+    <div class="topik-head pu" onclick="buka(this)">
+      <div class="t-num pu">5</div>
+      <div class="t-title">Pelestarian Lingkungan & Teknologi Bijak</div>
+      <span class="t-soal">Soal No. 45 & 46</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li>Kebiasaan baik untuk lingkungan: <strong>gunakan botol isi ulang, pilah sampah, hemat air & listrik, daur ulang</strong>.</li>
+        <li>Kebiasaan buruk: membakar plastik (polusi udara), membuang sampah ke sungai, membiarkan keran menyala.</li>
+        <li>Teknologi bijak: manfaatkan gadget untuk hal positif (belajar), <strong>batasi</strong> penggunaan hiburan, jangan sampai mengganggu kesehatan dan waktu belajar.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6. Hak & Kewajiban -->
+  <div class="topik-card pu">
+    <div class="topik-head pu" onclick="buka(this)">
+      <div class="t-num pu">6</div>
+      <div class="t-title">Hak, Kewajiban & Flora Fauna Nusantara</div>
+      <span class="t-soal">Soal No. 47 & 48</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Hak</strong> = sesuatu yang boleh kita dapatkan (hak atas lingkungan sehat, hak pendidikan, dll).</li>
+        <li><strong>Kewajiban</strong> = sesuatu yang harus kita lakukan (menjaga kebersihan, membayar pajak, dll).</li>
+        <li>Membuang sampah ke sungai = melanggar kewajiban menjaga lingkungan & merugikan hak orang lain.</li>
+        <li>Upaya perlindungan satwa: <strong>larang perburuan liar + jaga habitat alami</strong> → paling efektif daripada pindah ke kebun binatang.</li>
+        <li><strong>Orangutan</strong> = satwa endemik Kalimantan & Sumatra, terancam akibat penebangan hutan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. Fenomena Alam & Inovasi -->
+  <div class="topik-card pu">
+    <div class="topik-head pu" onclick="buka(this)">
+      <div class="t-num pu">7</div>
+      <div class="t-title">Fenomena Alam & Inovasi Daur Ulang</div>
+      <span class="t-soal">Soal No. 49 & 50</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="topik-body">
+      <ul class="poin-list">
+        <li><strong>Pelangi</strong> terbentuk karena cahaya matahari <em>dibiaskan dan diuraikan</em> oleh titik-titik air hujan menjadi berbagai warna (merah, jingga, kuning, hijau, biru, nila, ungu).</li>
+        <li><strong>Langit biru</strong> siang = cahaya matahari dihamburkan atmosfer, warna biru lebih banyak tersebar.</li>
+        <li><strong>Langit merah/jingga saat senja</strong> = cahaya menempuh jarak lebih jauh, warna merah yang menembus lebih jauh.</li>
+        <li>Inovasi daur ulang terbaik: solusi yang <strong>mengurangi sampah</strong> sekaligus <strong>bermanfaat</strong> (contoh: botol plastik jadi pot tanaman → penghijauan + kurangi sampah).</li>
+      </ul>
+      <div class="ingat-box">Membakar atau mengubur plastik bukan solusi — justru mencemari lingkungan!</div>
+    </div>
+  </div>
+
+</div><!-- end pu -->
+
+</div><!-- end wrap -->
+
+<footer>
+  Materi Persiapan Seleksi Olimpiade MIPAS · SDN 06 Martapura · T.A. 2025/2026<br>
+  <span style="font-size:11px">Pelajari dengan sungguh-sungguh, istirahat cukup, dan semangat besok! 🌟</span>
+</footer>
+
+<script>
+function buka(head) {
+  head.classList.toggle('open');
+  const body = head.nextElementSibling;
+  body.classList.toggle('show');
+}
+</script>
+</body>
+</html>

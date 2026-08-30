@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luas Segitiga - Matematika Kelas 5</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    
+    .triangle-animated {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.5)); }
+      50% { filter: drop-shadow(0 0 25px rgba(255, 193, 7, 0.8)); }
+    }
+    
+    .glow-effect {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .slide-in {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+    
+    @keyframes bounce-in {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .bounce-in {
+      animation: bounce-in 0.5s ease-out;
+    }
+    
+    .tab-active {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #1e3a5f;
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+    }
+    
+    .formula-box {
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(251, 191, 36, 0.5);
+    }
+    
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      animation: confetti-fall 3s linear forwards;
+    }
+    
+    @keyframes confetti-fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100%) rotate(720deg); opacity: 0; }
+    }
+    
+    .progress-fill {
+      transition: width 0.5s ease;
+    }
+    
+    .star-earned {
+      animation: star-pop 0.5s ease-out;
+    }
+    
+    @keyframes star-pop {
+      0% { transform: scale(0) rotate(-180deg); }
+      50% { transform: scale(1.3) rotate(0deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #1e3a5f 100%);"><!-- Header -->
+   <header class="p-4 md:p-6 lg:p-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+     <div class="flex items-center gap-3 md:gap-4">
+      <div class="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg glow-effect">
+       <svg viewbox="0 0 100 100" class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12"><polygon points="50,15 85,80 15,80" fill="white" stroke="#1e3a5f" stroke-width="3" />
+       </svg>
+      </div>
+      <div>
+       <h1 id="main-title" class="text-xl md:text-3xl lg:text-4xl font-black text-white drop-shadow-lg">Luas Segitiga</h1>
+       <p id="subtitle" class="text-yellow-300 text-sm md:text-base lg:text-lg font-semibold">Matematika Kelas 5 SD</p>
+      </div>
+     </div>
+     <div class="flex items-center gap-2 md:gap-4">
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl px-3 py-2 md:px-4 md:py-2">
+       <div class="flex items-center gap-2"><i data-lucide="star" class="w-5 h-5 md:w-6 md:h-6 text-yellow-400 fill-yellow-400"></i> <span id="score-display" class="text-white font-bold text-lg md:text-xl">0</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </header><!-- Navigation Tabs -->
+   <nav class="px-4 md:px-6 lg:px-8 mb-6">
+    <div class="max-w-7xl mx-auto">
+     <div class="flex flex-wrap gap-2 md:gap-3 justify-center"><button onclick="showSection('materi')" id="tab-materi" class="tab-btn tab-active px-4 py-2 md:px-6 md:py-3 rounded-xl font-bold text-sm md:text-base lg:text-lg transition-all duration-300 flex items-center gap-2"> <i data-lucide="book-open" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Materi</span> </button> <button onclick="showSection('interaktif')" id="tab-interaktif" class="tab-btn bg-white/20 text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-bold text-sm md:text-base lg:text-lg transition-all duration-300 flex items-center gap-2 hover:bg-white/30"> <i data-lucide="mouse-pointer-click" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Interaktif</span> </button> <button onclick="showSection('latihan')" id="tab-latihan" class="tab-btn bg-white/20 text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-bold text-sm md:text-base lg:text-lg transition-all duration-300 flex items-center gap-2 hover:bg-white/30"> <i data-lucide="pencil" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Latihan</span> </button> <button onclick="showSection('kuis')" id="tab-kuis" class="tab-btn bg-white/20 text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-bold text-sm md:text-base lg:text-lg transition-all duration-300 flex items-center gap-2 hover:bg-white/30"> <i data-lucide="trophy" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Kuis</span> </button>
+     </div>
+    </div>
+   </nav><!-- Main Content -->
+   <main class="px-4 md:px-6 lg:px-8 pb-8">
+    <div class="max-w-7xl mx-auto"><!-- Section: Materi -->
+     <section id="section-materi" class="slide-in">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6"><!-- Card: Pengertian -->
+       <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 card-hover transition-all duration-300">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-10 h-10 md:w-12 md:h-12 bg-yellow-400 rounded-xl flex items-center justify-center"><i data-lucide="lightbulb" class="w-5 h-5 md:w-6 md:h-6 text-slate-800"></i>
+         </div>
+         <h2 class="text-xl md:text-2xl font-bold text-white">Apa itu Segitiga?</h2>
+        </div>
+        <p class="text-white/90 text-base md:text-lg leading-relaxed mb-4">Segitiga adalah bangun datar yang memiliki <span class="text-yellow-300 font-bold">3 sisi</span> dan <span class="text-yellow-300 font-bold">3 sudut</span>. Luas segitiga adalah ukuran besar permukaan yang dibatasi oleh ketiga sisinya.</p>
+        <div class="flex justify-center">
+         <svg viewbox="0 0 200 160" class="w-48 md:w-64 triangle-animated"><polygon points="100,20 180,140 20,140" fill="rgba(251,191,36,0.3)" stroke="#fbbf24" stroke-width="4" /> <text x="100" y="90" text-anchor="middle" fill="white" font-size="14" font-weight="bold">
+           Segitiga
+          </text> <circle cx="100" cy="20" r="6" fill="#fbbf24" /> <circle cx="180" cy="140" r="6" fill="#fbbf24" /> <circle cx="20" cy="140" r="6" fill="#fbbf24" />
+         </svg>
+        </div>
+       </div><!-- Card: Rumus -->
+       <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 card-hover transition-all duration-300">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-10 h-10 md:w-12 md:h-12 bg-green-400 rounded-xl flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5 md:w-6 md:h-6 text-slate-800"></i>
+         </div>
+         <h2 class="text-xl md:text-2xl font-bold text-white">Rumus Luas Segitiga</h2>
+        </div>
+        <div class="formula-box rounded-2xl p-6 text-center mb-4">
+         <p class="text-yellow-300 text-2xl md:text-4xl font-black mb-2">L = ½ × a × t</p>
+         <p class="text-white/80 text-sm md:text-base">atau</p>
+         <p class="text-yellow-300 text-xl md:text-2xl font-bold mt-2">L = (a × t) ÷ 2</p>
+        </div>
+        <div class="space-y-2 text-white/90">
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center text-slate-800 font-bold">L</span> <span>= Luas segitiga (satuan²)</span></p>
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-blue-400 rounded-lg flex items-center justify-center text-slate-800 font-bold">a</span> <span>= Alas segitiga</span></p>
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-pink-400 rounded-lg flex items-center justify-center text-slate-800 font-bold">t</span> <span>= Tinggi segitiga</span></p>
+        </div>
+       </div><!-- Card: Ilustrasi -->
+       <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 lg:col-span-2 card-hover transition-all duration-300">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-10 h-10 md:w-12 md:h-12 bg-purple-400 rounded-xl flex items-center justify-center"><i data-lucide="image" class="w-5 h-5 md:w-6 md:h-6 text-slate-800"></i>
+         </div>
+         <h2 class="text-xl md:text-2xl font-bold text-white">Bagian-bagian Segitiga</h2>
+        </div>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+         <svg viewbox="0 0 300 220" class="w-full max-w-md"><!-- Grid background --> <defs>
+           <pattern id="grid" width="20" height="20" patternunits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
+           </pattern>
+          </defs> <rect width="300" height="220" fill="url(#grid)" /> <!-- Triangle --> <polygon points="150,30 270,180 30,180" fill="rgba(251,191,36,0.2)" stroke="#fbbf24" stroke-width="4" /> <!-- Base line (alas) --> <line x1="30" y1="180" x2="270" y2="180" stroke="#60a5fa" stroke-width="6" stroke-linecap="round" /> <text x="150" y="210" text-anchor="middle" fill="#60a5fa" font-size="16" font-weight="bold">
+           Alas (a)
+          </text> <!-- Height line (tinggi) --> <line x1="150" y1="30" x2="150" y2="180" stroke="#f472b6" stroke-width="4" stroke-dasharray="8,4" /> <text x="170" y="110" fill="#f472b6" font-size="16" font-weight="bold">
+           Tinggi (t)
+          </text> <!-- Right angle marker --> <path d="M 150,165 L 165,165 L 165,180" fill="none" stroke="white" stroke-width="2" /> <!-- Vertices --> <circle cx="150" cy="30" r="8" fill="#fbbf24" /> <circle cx="270" cy="180" r="8" fill="#fbbf24" /> <circle cx="30" cy="180" r="8" fill="#fbbf24" />
+         </svg>
+         <div class="space-y-4 text-white/90">
+          <div class="bg-blue-500/20 rounded-xl p-4">
+           <p class="font-bold text-blue-300 mb-1">📐 Alas (a)</p>
+           <p class="text-sm md:text-base">Sisi bawah segitiga yang menjadi dasar perhitungan</p>
+          </div>
+          <div class="bg-pink-500/20 rounded-xl p-4">
+           <p class="font-bold text-pink-300 mb-1">📏 Tinggi (t)</p>
+           <p class="text-sm md:text-base">Garis tegak lurus dari alas ke titik puncak</p>
+          </div>
+          <div class="bg-yellow-500/20 rounded-xl p-4">
+           <p class="font-bold text-yellow-300 mb-1">💡 Ingat!</p>
+           <p class="text-sm md:text-base">Tinggi selalu tegak lurus (90°) terhadap alas</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Section: Interaktif -->
+     <section id="section-interaktif" class="hidden">
+      <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 slide-in">
+       <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 md:w-12 md:h-12 bg-cyan-400 rounded-xl flex items-center justify-center"><i data-lucide="sliders" class="w-5 h-5 md:w-6 md:h-6 text-slate-800"></i>
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-white">Simulasi Interaktif</h2>
+       </div>
+       <p class="text-white/80 mb-6 text-center">Geser slider untuk mengubah ukuran alas dan tinggi, lalu lihat perubahan luas segitiga!</p>
+       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"><!-- Interactive Triangle -->
+        <div class="flex justify-center">
+         <svg id="interactive-triangle" viewbox="0 0 350 300" class="w-full max-w-md"><defs>
+           <pattern id="grid2" width="25" height="25" patternunits="userSpaceOnUse">
+            <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" />
+           </pattern>
+           <lineargradient id="triangleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.4" />
+           </lineargradient>
+          </defs> <rect width="350" height="300" fill="url(#grid2)" rx="20" /> <!-- Triangle will be drawn dynamically --> <polygon id="tri-shape" points="175,50 300,250 50,250" fill="url(#triangleGradient)" stroke="#fbbf24" stroke-width="4" /> <!-- Base dimension --> <line id="base-line" x1="50" y1="260" x2="300" y2="260" stroke="#60a5fa" stroke-width="4" /> <text id="base-text" x="175" y="285" text-anchor="middle" fill="#60a5fa" font-size="16" font-weight="bold">
+           a = 10 cm
+          </text> <!-- Height dimension --> <line id="height-line" x1="175" y1="50" x2="175" y2="250" stroke="#f472b6" stroke-width="3" stroke-dasharray="8,4" /> <text id="height-text" x="200" y="150" fill="#f472b6" font-size="16" font-weight="bold">
+           t = 8 cm
+          </text> <!-- Area display --> <rect x="100" y="120" width="150" height="50" rx="10" fill="rgba(0,0,0,0.5)" /> <text id="area-text" x="175" y="152" text-anchor="middle" fill="#fbbf24" font-size="20" font-weight="bold">
+           L = 40 cm²
+          </text>
+         </svg>
+        </div><!-- Controls -->
+        <div class="space-y-6">
+         <div class="bg-white/10 rounded-2xl p-5"><label class="flex items-center gap-3 mb-3"> <span class="w-10 h-10 bg-blue-400 rounded-xl flex items-center justify-center text-slate-800 font-bold text-lg">a</span> <span class="text-white font-semibold text-lg">Alas</span> <span id="alas-value" class="ml-auto text-yellow-300 font-bold text-xl">10 cm</span> </label> <input type="range" id="alas-slider" min="4" max="16" value="10" class="w-full h-3 bg-white/20 rounded-full appearance-none cursor-pointer accent-blue-400">
+         </div>
+         <div class="bg-white/10 rounded-2xl p-5"><label class="flex items-center gap-3 mb-3"> <span class="w-10 h-10 bg-pink-400 rounded-xl flex items-center justify-center text-slate-800 font-bold text-lg">t</span> <span class="text-white font-semibold text-lg">Tinggi</span> <span id="tinggi-value" class="ml-auto text-yellow-300 font-bold text-xl">8 cm</span> </label> <input type="range" id="tinggi-slider" min="3" max="12" value="8" class="w-full h-3 bg-white/20 rounded-full appearance-none cursor-pointer accent-pink-400">
+         </div>
+         <div class="formula-box rounded-2xl p-5 text-center">
+          <p class="text-white/80 mb-2">Perhitungan:</p>
+          <p id="calculation" class="text-white text-lg md:text-xl font-semibold">L = ½ × 10 × 8 = 40 cm²</p>
+         </div><button onclick="resetInteractive()" class="w-full btn-primary text-slate-800 font-bold py-3 rounded-xl flex items-center justify-center gap-2"> <i data-lucide="refresh-cw" class="w-5 h-5"></i> Reset </button>
+        </div>
+       </div>
+      </div>
+     </section><!-- Section: Latihan -->
+     <section id="section-latihan" class="hidden">
+      <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 slide-in">
+       <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 md:w-12 md:h-12 bg-orange-400 rounded-xl flex items-center justify-center"><i data-lucide="pencil" class="w-5 h-5 md:w-6 md:h-6 text-slate-800"></i>
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-white">Latihan Menghitung</h2>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-6"><!-- Problem 1 -->
+        <div class="bg-white/5 rounded-2xl p-5 border-2 border-white/10">
+         <div class="flex items-center gap-2 mb-4"><span class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-slate-800 font-bold">1</span> <span class="text-white font-semibold">Soal Pertama</span>
+         </div>
+         <div class="flex justify-center mb-4">
+          <svg viewbox="0 0 180 140" class="w-40"><polygon points="90,15 165,120 15,120" fill="rgba(96,165,250,0.3)" stroke="#60a5fa" stroke-width="3" /> <text x="90" y="135" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="bold">
+            12 cm
+           </text> <text x="45" y="75" fill="#f472b6" font-size="12" font-weight="bold">
+            8 cm
+           </text> <line x1="90" y1="15" x2="90" y2="120" stroke="#f472b6" stroke-width="2" stroke-dasharray="5,3" />
+          </svg>
+         </div>
+         <p class="text-white/80 text-center mb-3">Alas = 12 cm, Tinggi = 8 cm</p>
+         <div class="flex items-center gap-2"><span class="text-white">Luas =</span> <input type="number" id="answer1" class="w-24 bg-white/10 border-2 border-white/30 rounded-lg px-3 py-2 text-white text-center focus:border-yellow-400 focus:outline-none" placeholder="?"> <span class="text-white">cm²</span>
+         </div><button onclick="checkAnswer(1, 48)" class="w-full mt-3 bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-xl transition-all"> Cek Jawaban </button>
+         <div id="feedback1" class="mt-2 text-center font-semibold hidden"></div>
+        </div><!-- Problem 2 -->
+        <div class="bg-white/5 rounded-2xl p-5 border-2 border-white/10">
+         <div class="flex items-center gap-2 mb-4"><span class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-slate-800 font-bold">2</span> <span class="text-white font-semibold">Soal Kedua</span>
+         </div>
+         <div class="flex justify-center mb-4">
+          <svg viewbox="0 0 180 140" class="w-40"><polygon points="90,15 160,120 20,120" fill="rgba(167,139,250,0.3)" stroke="#a78bfa" stroke-width="3" /> <text x="90" y="135" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="bold">
+            15 cm
+           </text> <text x="45" y="75" fill="#f472b6" font-size="12" font-weight="bold">
+            10 cm
+           </text> <line x1="90" y1="15" x2="90" y2="120" stroke="#f472b6" stroke-width="2" stroke-dasharray="5,3" />
+          </svg>
+         </div>
+         <p class="text-white/80 text-center mb-3">Alas = 15 cm, Tinggi = 10 cm</p>
+         <div class="flex items-center gap-2"><span class="text-white">Luas =</span> <input type="number" id="answer2" class="w-24 bg-white/10 border-2 border-white/30 rounded-lg px-3 py-2 text-white text-center focus:border-yellow-400 focus:outline-none" placeholder="?"> <span class="text-white">cm²</span>
+         </div><button onclick="checkAnswer(2, 75)" class="w-full mt-3 bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-xl transition-all"> Cek Jawaban </button>
+         <div id="feedback2" class="mt-2 text-center font-semibold hidden"></div>
+        </div><!-- Problem 3 -->
+        <div class="bg-white/5 rounded-2xl p-5 border-2 border-white/10">
+         <div class="flex items-center gap-2 mb-4"><span class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-slate-800 font-bold">3</span> <span class="text-white font-semibold">Soal Ketiga</span>
+         </div>
+         <div class="flex justify-center mb-4">
+          <svg viewbox="0 0 180 140" class="w-40"><polygon points="90,20 150,115 30,115" fill="rgba(52,211,153,0.3)" stroke="#34d399" stroke-width="3" /> <text x="90" y="130" text-anchor="middle" fill="#34d399" font-size="12" font-weight="bold">
+            20 cm
+           </text> <text x="45" y="75" fill="#f472b6" font-size="12" font-weight="bold">
+            14 cm
+           </text> <line x1="90" y1="20" x2="90" y2="115" stroke="#f472b6" stroke-width="2" stroke-dasharray="5,3" />
+          </svg>
+         </div>
+         <p class="text-white/80 text-center mb-3">Alas = 20 cm, Tinggi = 14 cm</p>
+         <div class="flex items-center gap-2"><span class="text-white">Luas =</span> <input type="number" id="answer3" class="w-24 bg-white/10 border-2 border-white/30 rounded-lg px-3 py-2 text-white text-center focus:border-yellow-400 focus:outline-none" placeholder="?"> <span class="text-white">cm²</span>
+         </div><button onclick="checkAnswer(3, 140)" class="w-full mt-3 bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-xl transition-all"> Cek Jawaban </button>
+         <div id="feedback3" class="mt-2 text-center font-semibold hidden"></div>
+        </div><!-- Problem 4 -->
+        <div class="bg-white/5 rounded-2xl p-5 border-2 border-white/10">
+         <div class="flex items-center gap-2 mb-4"><span class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-slate-800 font-bold">4</span> <span class="text-white font-semibold">Soal Keempat</span>
+         </div>
+         <div class="flex justify-center mb-4">
+          <svg viewbox="0 0 180 140" class="w-40"><polygon points="90,20 155,115 25,115" fill="rgba(251,146,60,0.3)" stroke="#fb923c" stroke-width="3" /> <text x="90" y="130" text-anchor="middle" fill="#fb923c" font-size="12" font-weight="bold">
+            18 cm
+           </text> <text x="45" y="75" fill="#f472b6" font-size="12" font-weight="bold">
+            9 cm
+           </text> <line x1="90" y1="20" x2="90" y2="115" stroke="#f472b6" stroke-width="2" stroke-dasharray="5,3" />
+          </svg>
+         </div>
+         <p class="text-white/80 text-center mb-3">Alas = 18 cm, Tinggi = 9 cm</p>
+         <div class="flex items-center gap-2"><span class="text-white">Luas =</span> <input type="number" id="answer4" class="w-24 bg-white/10 border-2 border-white/30 rounded-lg px-3 py-2 text-white text-center focus:border-yellow-400 focus:outline-none" placeholder="?"> <span class="text-white">cm²</span>
+         </div><button onclick="checkAnswer(4, 81)" class="w-full mt-3 bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-xl transition-all"> Cek Jawaban </button>
+         <div id="feedback4" class="mt-2 text-center font-semibold hidden"></div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Section: Kuis -->
+     <section id="section-kuis" class="hidden">
+      <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 slide-in"><!-- Quiz Start Screen -->
+       <div id="quiz-start" class="text-center">
+        <div class="w-24 h-24 md:w-32 md:h-32 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center glow-effect"><i data-lucide="trophy" class="w-12 h-12 md:w-16 md:h-16 text-white"></i>
+        </div>
+        <h2 class="text-2xl md:text-4xl font-black text-white mb-4">Kuis Luas Segitiga</h2>
+        <p class="text-white/80 text-lg mb-6">Uji pemahamanmu dengan 5 soal menarik!</p>
+        <div class="flex justify-center gap-4 mb-8">
+         <div class="bg-white/10 rounded-xl px-4 py-2">
+          <p class="text-yellow-300 font-bold text-2xl">5</p>
+          <p class="text-white/60 text-sm">Soal</p>
+         </div>
+         <div class="bg-white/10 rounded-xl px-4 py-2">
+          <p class="text-green-300 font-bold text-2xl">⭐</p>
+          <p class="text-white/60 text-sm">Bintang</p>
+         </div>
+        </div><button onclick="startQuiz()" class="btn-primary text-slate-800 font-bold text-xl px-10 py-4 rounded-2xl"> Mulai Kuis! 🚀 </button>
+       </div><!-- Quiz Questions -->
+       <div id="quiz-questions" class="hidden"><!-- Progress Bar -->
+        <div class="mb-6">
+         <div class="flex justify-between text-white mb-2"><span>Soal <span id="current-q">1</span> dari 5</span> <span id="quiz-score">Skor: 0</span>
+         </div>
+         <div class="h-3 bg-white/20 rounded-full overflow-hidden">
+          <div id="progress-bar" class="h-full bg-gradient-to-r from-yellow-400 to-orange-500 progress-fill" style="width: 20%"></div>
+         </div>
+        </div><!-- Question Card -->
+        <div id="question-card" class="bg-white/5 rounded-2xl p-6 mb-6">
+         <p id="question-text" class="text-white text-lg md:text-xl font-semibold mb-4"></p>
+         <div class="flex justify-center mb-4">
+          <svg id="quiz-triangle" viewbox="0 0 200 160" class="w-48 md:w-64"></svg>
+         </div>
+        </div><!-- Answer Options -->
+        <div id="answer-options" class="grid grid-cols-2 gap-4"></div><!-- Next Button --> <button id="next-btn" onclick="nextQuestion()" class="hidden w-full mt-6 btn-primary text-slate-800 font-bold py-4 rounded-xl text-lg"> Soal Berikutnya → </button>
+       </div><!-- Quiz Result -->
+       <div id="quiz-result" class="hidden text-center">
+        <div id="result-icon" class="w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center">
+        </div>
+        <h2 id="result-title" class="text-3xl md:text-4xl font-black text-white mb-4"></h2>
+        <p id="result-desc" class="text-white/80 text-lg mb-6"></p>
+        <div class="flex justify-center gap-2 mb-8" id="stars-container">
+        </div>
+        <div class="bg-white/10 rounded-2xl p-6 mb-6">
+         <p class="text-white/60 mb-2">Skor Akhir</p>
+         <p id="final-score" class="text-5xl font-black text-yellow-400"></p>
+        </div><button onclick="restartQuiz()" class="btn-primary text-slate-800 font-bold text-xl px-10 py-4 rounded-2xl"> Main Lagi! 🔄 </button>
+       </div>
+      </div>
+     </section>
+    </div>
+   </main>
+  </div>
+  <script>
+    // Config for element SDK
+    const defaultConfig = {
+      main_title: 'Luas Segitiga',
+      subtitle: 'Matematika Kelas 5 SD',
+      background_color: '#1e3a5f',
+      surface_color: 'rgba(255,255,255,0.1)',
+      text_color: '#ffffff',
+      primary_action_color: '#fbbf24',
+      secondary_action_color: '#60a5fa',
+      font_family: 'Nunito',
+      font_size: 16
+    };
+
+    let config = { ...defaultConfig };
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          applyConfig();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            {
+              get: () => cfg.background_color || defaultConfig.background_color,
+              set: (v) => { cfg.background_color = v; window.elementSdk.setConfig({ background_color: v }); }
+            },
+            {
+              get: () => cfg.primary_action_color || defaultConfig.primary_action_color,
+              set: (v) => { cfg.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); }
+            },
+            {
+              get: () => cfg.text_color || defaultConfig.text_color,
+              set: (v) => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => cfg.font_family || defaultConfig.font_family,
+            set: (v) => { cfg.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => cfg.font_size || defaultConfig.font_size,
+            set: (v) => { cfg.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['main_title', cfg.main_title || defaultConfig.main_title],
+          ['subtitle', cfg.subtitle || defaultConfig.subtitle]
+        ])
+      });
+    }
+
+    function applyConfig() {
+      const app = document.getElementById('app');
+      const mainTitle = document.getElementById('main-title');
+      const subtitle = document.getElementById('subtitle');
+      
+      app.style.background = `linear-gradient(135deg, ${config.background_color} 0%, ${adjustColor(config.background_color, 30)} 50%, ${config.background_color} 100%)`;
+      mainTitle.textContent = config.main_title || defaultConfig.main_title;
+      mainTitle.style.fontFamily = `${config.font_family}, sans-serif`;
+      subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+      subtitle.style.fontFamily = `${config.font_family}, sans-serif`;
+      
+      // Apply font size scaling
+      const baseSize = config.font_size || defaultConfig.font_size;
+      document.querySelectorAll('h1').forEach(el => el.style.fontSize = `${baseSize * 2}px`);
+      document.querySelectorAll('h2').forEach(el => el.style.fontSize = `${baseSize * 1.5}px`);
+      document.querySelectorAll('p, span, button').forEach(el => {
+        el.style.fontFamily = `${config.font_family}, sans-serif`;
+      });
+    }
+
+    function adjustColor(hex, percent) {
+      const num = parseInt(hex.replace('#', ''), 16);
+      const amt = Math.round(2.55 * percent);
+      const R = Math.min(255, (num >> 16) + amt);
+      const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
+      const B = Math.min(255, (num & 0x0000FF) + amt);
+      return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+    }
+
+    // Global score
+    let totalScore = 0;
+
+    // Section navigation
+    function showSection(name) {
+      ['materi', 'interaktif', 'latihan', 'kuis'].forEach(s => {
+        document.getElementById(`section-${s}`).classList.add('hidden');
+        document.getElementById(`tab-${s}`).classList.remove('tab-active');
+        document.getElementById(`tab-${s}`).classList.add('bg-white/20', 'text-white');
+      });
+      
+      const section = document.getElementById(`section-${name}`);
+      section.classList.remove('hidden');
+      section.classList.add('slide-in');
+      
+      const tab = document.getElementById(`tab-${name}`);
+      tab.classList.add('tab-active');
+      tab.classList.remove('bg-white/20', 'text-white');
+      
+      lucide.createIcons();
+    }
+
+    // Interactive triangle
+    const alasSlider = document.getElementById('alas-slider');
+    const tinggiSlider = document.getElementById('tinggi-slider');
+    
+    function updateInteractiveTriangle() {
+      const a = parseInt(alasSlider.value);
+      const t = parseInt(tinggiSlider.value);
+      const luas = (a * t) / 2;
+      
+      document.getElementById('alas-value').textContent = `${a} cm`;
+      document.getElementById('tinggi-value').textContent = `${t} cm`;
+      
+      // Calculate triangle points based on slider values
+      const centerX = 175;
+      const baseY = 250;
+      const halfBase = (a / 16) * 125;
+      const height = (t / 12) * 200;
+      
+      const points = `${centerX},${baseY - height} ${centerX + halfBase},${baseY} ${centerX - halfBase},${baseY}`;
+      document.getElementById('tri-shape').setAttribute('points', points);
+      
+      document.getElementById('base-line').setAttribute('x1', centerX - halfBase);
+      document.getElementById('base-line').setAttribute('x2', centerX + halfBase);
+      document.getElementById('base-text').textContent = `a = ${a} cm`;
+      
+      document.getElementById('height-line').setAttribute('y1', baseY - height);
+      document.getElementById('height-text').setAttribute('y', baseY - height/2);
+      document.getElementById('height-text').textContent = `t = ${t} cm`;
+      
+      document.getElementById('area-text').textContent = `L = ${luas} cm²`;
+      document.getElementById('calculation').textContent = `L = ½ × ${a} × ${t} = ${luas} cm²`;
+    }
+
+    alasSlider.addEventListener('input', updateInteractiveTriangle);
+    tinggiSlider.addEventListener('input', updateInteractiveTriangle);
+
+    function resetInteractive() {
+      alasSlider.value = 10;
+      tinggiSlider.value = 8;
+      updateInteractiveTriangle();
+    }
+
+    // Check practice answers
+    function checkAnswer(num, correct) {
+      const input = document.getElementById(`answer${num}`);
+      const feedback = document.getElementById(`feedback${num}`);
+      const answer = parseFloat(input.value);
+      
+      feedback.classList.remove('hidden');
+      
+      if (answer === correct) {
+        feedback.className = 'mt-2 text-center font-semibold text-green-400 bounce-in';
+        feedback.textContent = '✅ Benar! Hebat!';
+        addScore(10);
+        createConfetti();
+      } else if (isNaN(answer)) {
+        feedback.className = 'mt-2 text-center font-semibold text-yellow-400';
+        feedback.textContent = '⚠️ Masukkan jawaban dulu!';
+      } else {
+        feedback.className = 'mt-2 text-center font-semibold text-red-400';
+        feedback.textContent = `❌ Kurang tepat. Jawaban: ${correct} cm²`;
+      }
+    }
+
+    function addScore(points) {
+      totalScore += points;
+      document.getElementById('score-display').textContent = totalScore;
+    }
+
+    // Confetti effect
+    function createConfetti() {
+      const colors = ['#fbbf24', '#60a5fa', '#f472b6', '#34d399', '#a78bfa'];
+      for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    // Quiz functionality
+    const quizQuestions = [
+      { alas: 8, tinggi: 6, options: [24, 48, 14, 28], answer: 24 },
+      { alas: 10, tinggi: 5, options: [50, 15, 25, 30], answer: 25 },
+      { alas: 14, tinggi: 8, options: [112, 22, 44, 56], answer: 56 },
+      { alas: 16, tinggi: 10, options: [26, 160, 80, 60], answer: 80 },
+      { alas: 12, tinggi: 12, options: [144, 24, 72, 48], answer: 72 }
+    ];
+
+    let currentQuestion = 0;
+    let quizScore = 0;
+    let answered = false;
+
+    function startQuiz() {
+      currentQuestion = 0;
+      quizScore = 0;
+      answered = false;
+      document.getElementById('quiz-start').classList.add('hidden');
+      document.getElementById('quiz-questions').classList.remove('hidden');
+      document.getElementById('quiz-result').classList.add('hidden');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = quizQuestions[currentQuestion];
+      document.getElementById('current-q').textContent = currentQuestion + 1;
+      document.getElementById('quiz-score').textContent = `Skor: ${quizScore}`;
+      document.getElementById('progress-bar').style.width = `${((currentQuestion + 1) / 5) * 100}%`;
+      
+      document.getElementById('question-text').textContent = `Hitunglah luas segitiga dengan alas ${q.alas} cm dan tinggi ${q.tinggi} cm!`;
+      
+      // Draw triangle
+      const triangleSvg = document.getElementById('quiz-triangle');
+      triangleSvg.innerHTML = `
+        <polygon points="100,20 180,140 20,140" fill="rgba(251,191,36,0.3)" stroke="#fbbf24" stroke-width="3"/>
+        <text x="100" y="155" text-anchor="middle" fill="#60a5fa" font-size="14" font-weight="bold">${q.alas} cm</text>
+        <text x="55" y="85" fill="#f472b6" font-size="14" font-weight="bold">${q.tinggi} cm</text>
+        <line x1="100" y1="20" x2="100" y2="140" stroke="#f472b6" stroke-width="2" stroke-dasharray="5,3"/>
+      `;
+      
+      // Create answer options
+      const optionsContainer = document.getElementById('answer-options');
+      optionsContainer.innerHTML = '';
+      
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'bg-white/10 hover:bg-white/20 text-white font-bold text-xl py-4 rounded-xl transition-all border-2 border-white/20';
+        btn.textContent = `${opt} cm²`;
+        btn.onclick = () => selectAnswer(opt, q.answer, btn);
+        optionsContainer.appendChild(btn);
+      });
+      
+      document.getElementById('next-btn').classList.add('hidden');
+      answered = false;
+    }
+
+    function selectAnswer(selected, correct, btn) {
+      if (answered) return;
+      answered = true;
+      
+      const buttons = document.querySelectorAll('#answer-options button');
+      buttons.forEach(b => {
+        const val = parseInt(b.textContent);
+        if (val === correct) {
+          b.classList.add('bg-green-500', 'border-green-400');
+          b.classList.remove('bg-white/10', 'border-white/20');
+        } else if (b === btn && selected !== correct) {
+          b.classList.add('bg-red-500', 'border-red-400');
+          b.classList.remove('bg-white/10', 'border-white/20');
+        }
+      });
+      
+      if (selected === correct) {
+        quizScore += 20;
+        addScore(20);
+        createConfetti();
+      }
+      
+      document.getElementById('quiz-score').textContent = `Skor: ${quizScore}`;
+      
+      if (currentQuestion < 4) {
+        document.getElementById('next-btn').classList.remove('hidden');
+        document.getElementById('next-btn').textContent = 'Soal Berikutnya →';
+      } else {
+        document.getElementById('next-btn').classList.remove('hidden');
+        document.getElementById('next-btn').textContent = 'Lihat Hasil 🎉';
+      }
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < 5) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('quiz-questions').classList.add('hidden');
+      document.getElementById('quiz-result').classList.remove('hidden');
+      
+      const starsEarned = Math.ceil(quizScore / 20);
+      let icon, title, desc;
+      
+      if (quizScore === 100) {
+        icon = '🏆';
+        title = 'SEMPURNA!';
+        desc = 'Kamu luar biasa! Penguasaan materi sangat baik!';
+      } else if (quizScore >= 60) {
+        icon = '⭐';
+        title = 'HEBAT!';
+        desc = 'Bagus sekali! Terus berlatih ya!';
+      } else {
+        icon = '💪';
+        title = 'SEMANGAT!';
+        desc = 'Jangan menyerah! Coba pelajari lagi materinya.';
+      }
+      
+      document.getElementById('result-icon').innerHTML = `<span class="text-6xl">${icon}</span>`;
+      document.getElementById('result-icon').className = `w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center ${quizScore === 100 ? 'bg-gradient-to-br from-yellow-400 to-orange-500 glow-effect' : quizScore >= 60 ? 'bg-gradient-to-br from-green-400 to-teal-500' : 'bg-gradient-to-br from-blue-400 to-purple-500'}`;
+      
+      document.getElementById('result-title').textContent = title;
+      document.getElementById('result-desc').textContent = desc;
+      document.getElementById('final-score').textContent = quizScore;
+      
+      // Stars
+      const starsContainer = document.getElementById('stars-container');
+      starsContainer.innerHTML = '';
+      for (let i = 0; i < 5; i++) {
+        const star = document.createElement('span');
+        star.className = `text-4xl ${i < starsEarned ? 'star-earned' : 'opacity-30'}`;
+        star.style.animationDelay = `${i * 0.1}s`;
+        star.textContent = '⭐';
+        starsContainer.appendChild(star);
+      }
+      
+      if (quizScore >= 60) createConfetti();
+    }
+
+    function restartQuiz() {
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-start').classList.remove('hidden');
+    }
+
+    // Initialize
+    lucide.createIcons();
+    updateInteractiveTriangle();
+    applyConfig();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e1670c0f5e74ad1',t:'MTc3NDM2MzMyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

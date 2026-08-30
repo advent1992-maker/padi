@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root { --primary: #1565c0; --accent: #ff9800; --success: #2e7d32; --danger: #f44336; }
+        body { font-family: 'Arial Rounded MT Bold', sans-serif; background-color: #f0f4f8; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .slide-container { width: 100%; max-width: 900px; min-height: 600px; background: white; border-radius: 25px; border: 6px solid var(--primary); position: relative; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-top: 10px; overflow: hidden; }
+        .slide { display: none; padding: 5%; animation: fadeIn 0.5s; flex-grow: 1; overflow-y: auto; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h2 { text-align: center; color: var(--primary); font-size: calc(22px + 1.2vw); margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .highlight-box { background: #e3f2fd; border: 3px solid var(--primary); padding: 15px; border-radius: 15px; margin-bottom: 20px; font-size: calc(16px + 0.4vw); }
+        p, li { font-size: calc(15px + 0.3vw); color: #444; line-height: 1.6; }
+        ul { margin-bottom: 20px; }
+        .img-placeholder { width: 100%; height: auto; min-height: 200px; background: #f9f9f9; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 15px 0; border: 3px dashed #bbb; position: relative; }
+        .img-placeholder img { max-width: 95%; height: auto; border-radius: 10px; }
+
+        /* Game Button Style */
+        .interactive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .game-btn {
+            background: #fff; border: none; border-bottom: 8px solid #0d47a1;
+            padding: 20px; border-radius: 15px; cursor: pointer;
+            font-weight: bold; color: var(--primary); font-size: calc(16px + 0.3vw);
+            box-shadow: 0 5px 0 #eee; transition: 0.1s;
+        }
+        .game-btn:active { transform: translateY(4px); border-bottom-width: 0; box-shadow: none; background: var(--primary); color: white; }
+
+        /* Modal Style */
+        .modal { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; border-radius: 20px; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 80%; text-align: center; border: 6px solid var(--primary); }
+
+        /* Footer Style */
+        .nav-footer { display: flex; justify-content: space-between; padding: 15px 25px; background: #eceff1; border-top: 3px solid #cfd8dc; align-items: center; }
+        .nav-btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-weight: bold; font-size: calc(14px + 0.3vw); cursor: pointer; }
+        .nav-btn:disabled { background: #ccc; }
+
+        /* Game Area Style */
+        #quiz-area { text-align: center; }
+        .score-board { font-size: 24px; color: var(--success); font-weight: bold; margin-bottom: 10px; }
+        .btn-maritim { background: #e1f5fe; border-color: #0288d1; color: #0288d1; }
+        .btn-agraris { background: #f1f8e9; border-color: #388e3c; color: #388e3c; }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Info</h2>
+            <p id="modalText" style="font-size: 20px; color: #333;"></p>
+            <button class="nav-btn" onclick="closeModal()">OKE JELAJAH LAGI 🚀</button>
+        </div>
+    </div>
+
+    <div class="slide active" id="s1">
+        <h2>🌏 Apa Itu Letak Geografis?</h2>
+        <div class="highlight-box">
+            <b>Letak Geografis</b> adalah lokasi suatu tempat berdasarkan keadaannya di atas permukaan Bumi.
+        </div>
+        <div class="img-placeholder"><img src="peta_geografis.png" alt="Peta Indonesia"></div>
+        <p>Bayangkan bumi yang bulat digambarkan di atas kertas rata. Itulah peta! Orang yang membuat peta disebut <b>Kartografer</b>.</p>
+    </div>
+
+    <div class="slide" id="s2">
+        <h2>⚔️ Posisi di Antara 2 Benua</h2>
+        <p>Indonesia berada di lokasi strategis di antara:</p>
+        <ul>
+            <li><b>Benua Asia:</b> Terletak di sebelah Tenggara Asia.</li>
+            <li><b>Benua Australia:</b> Terletak di sebelah selatan Indonesia.</li>
+        </ul>
+        <div class="img-placeholder"><img src="dua_benua.png" alt="Benua Asia dan Australia"></div>
+    </div>
+
+    <div class="slide" id="s3">
+        <h2>🌊 Posisi di Antara 2 Samudra</h2>
+        <p>Negara kita juga dihimpit oleh dua samudra luas:</p>
+        <div class="highlight-box"><b>Samudra Hindia</b> dan <b>Samudra Pasifik</b>.</div>
+        <p>Hal ini menjadikan Indonesia jalur perdagangan yang sangat ramai.</p>
+    </div>
+
+    <div class="slide" id="s4">
+        <h2>🚩 Game: Tebak Tetangga!</h2>
+        <p style="text-align:center;">Sentuh arah mata angin untuk cek batas wilayah:</p>
+        <div class="interactive-grid">
+            <button class="game-btn" onclick="openM('UTARA', 'Benua Asia (Malaysia, Singapura, Filipina) & Samudra Pasifik')">⬆️ UTARA</button>
+            <button class="game-btn" onclick="openM('SELATAN', 'Benua Australia, Timor Leste, & Samudra Hindia')">⬇️ SELATAN</button>
+            <button class="game-btn" onclick="openM('BARAT', 'Samudra Hindia')">⬅️ BARAT</button>
+            <button class="game-btn" onclick="openM('TIMUR', 'Papua Nugini & Samudra Pasifik')">➡️ TIMUR</button>
+        </div>
+    </div>
+
+    <div class="slide" id="s5">
+        <h2>🏝️ Negara Kepulauan</h2>
+        <p>Indonesia adalah negara kepulauan (Archipelagic State) karena memiliki pulau yang sangat banyak.</p>
+        <div class="highlight-box" style="text-align:center; font-size: 26px; font-weight: bold;">
+            17.508 Pulau
+        </div>
+        <p>Wilayah lautan kita jauh lebih luas dibanding daratannya.</p>
+    </div>
+
+    <div class="slide" id="s6">
+        <h2>📍 Penjaga Batas (Titik Terluar)</h2>
+        <p style="text-align:center;">Klik pulau yang menjadi ujung Indonesia:</p>
+        <div class="interactive-grid">
+            <button class="game-btn" onclick="openM('Barat', 'Pulau Weh di Aceh')">Pulau Weh</button>
+            <button class="game-btn" onclick="openM('Timur', 'Pulau Papua di Merauke')">Merauke</button>
+            <button class="game-btn" onclick="openM('Utara', 'Pulau Miangas, Sulawesi Utara')">Pulau Miangas</button>
+            <button class="game-btn" onclick="openM('Selatan', 'Pulau Rote, NTT')">Pulau Rote</button>
+        </div>
+    </div>
+
+    <div class="slide" id="s7">
+        <h2>⚓ Budaya Maritim</h2>
+        <p>Negara maritim adalah negara yang sebagian besar wilayahnya berupa perairan atau memiliki kawasan laut yang luas.</p>
+        <div class="img-placeholder"><img src="budaya_maritim.png" alt="Kapal Tradisional"></div>
+        <p>Dengan kondisi geografis yang memiliki banyak wilayah perairan, kapal laut dan perahu merupakan kebutuhan penting agar masyarakat bisa tetap terhubung antarpulau.</p>
+    </div>
+
+    <div class="slide" id="s8">
+        <h2>🚢 Ciri-Ciri Negara Maritim</h2>
+        <div class="highlight-box">Berikut adalah ciri-ciri utama negara maritim:</div>
+        <ul>
+            <li>Memiliki wilayah laut.</li>
+            <li>Memanfaatkan laut untuk kesejahteraan rakyat.</li>
+            <li>Memiliki transportasi laut.</li>
+            <li>Memiliki perdagangan laut.</li>
+            <li>Memiliki armada militer laut untuk menjaga kedaulatan wilayahnya.</li>
+        </ul>
+    </div>
+
+    <div class="slide" id="s9">
+        <h2>🌾 Budaya Agraris</h2>
+        <p>Negara agraris adalah negara yang sebagian besar rakyatnya bermata pencaharian dengan bercocok tanam.</p>
+        <div class="img-placeholder"><img src="budaya_agraris.png" alt="Alat Tani"></div>
+        <p>Dengan wilayah daratan yang luas, penduduk di negara agraris dapat mengolah tanah untuk lahan pertanian dan perkebunan guna memenuhi kebutuhan hidup mereka.</p>
+    </div>
+
+    <div class="slide" id="s10">
+        <h2>🚜 Ciri-Ciri Negara Agraris</h2>
+        <div class="highlight-box">Berikut adalah ciri-ciri negara agraris:</div>
+        <ul>
+            <li>Memiliki wilayah daratan yang luas sehingga bisa dimanfaatkan sebagai lahan pertanian.</li>
+            <li>Memiliki sawah, ladang, dan kebun yang luas.</li>
+            <li>Masyarakatnya memenuhi kebutuhan hidup dan bergiat ekonomi dari hasil pertanian.</li>
+            <li>Umumnya berkaitan dengan bidang peternakan karena pakan ternak dapat dibuat dari hasil pertanian.</li>
+        </ul>
+    </div>
+
+    <div class="slide" id="s11">
+        <h2>🌊 Manfaat Laut Indonesia</h2>
+        <p>Laut Indonesia yang luas memiliki banyak sekali manfaat, di antaranya:</p>
+        <ul>
+            <li>Sumber ikan dan makanan laut lainnya.</li>
+            <li>Tempat wisata laut atau wisata bahari.</li>
+            <li>Energi alternatif, seperti pembangkit listrik tenaga angin.</li>
+            <li>Penghubung antarpulau.</li>
+            <li>Sumber daya lepas pantai, seperti minyak dan gas bumi.</li>
+            <li>Sumber garam.</li>
+            <li>Sumber ilmu dan penelitian kelautan.</li>
+        </ul>
+    </div>
+
+    <div class="slide" id="s12">
+        <h2>🐟 Pasar Ikan</h2>
+        <p>Pasar ikan terbentuk dari kebutuhan masyarakat pantai untuk menjual hasil tangkapan mereka.</p>
+        <div class="img-placeholder"><img src="pasar_ikan.png" alt="Pasar Ikan"></div>
+        <p>Dengan adanya pasar ikan, masyarakat lain juga dapat dengan mudah memenuhi kebutuhan hasil laut.</p>
+    </div>
+
+    <div class="slide" id="s13">
+        <h2>✂️ Teknologi Pertanian</h2>
+        <p>Alat pemotong dan penumbuk padi dibuat untuk mempermudah petani dalam panen dan pengolahan hasil bumi.</p>
+        <div class="img-placeholder"><img src="alat_panen.png" alt="Alat Panen"></div>
+        <p>Saat ini, peralatan tradisional banyak digantikan mesin modern agar kegiatan pertanian semakin cepat selesai.</p>
+    </div>
+
+    <div class="slide" id="s14">
+        <h2>🙏 Tradisi Rasa Syukur</h2>
+        <p>Festival laut atau festival padi diselenggarakan sebagai bentuk rasa syukur kepada Sang Maha Pencipta.</p>
+        <ul>
+            <li><b>Pesta Laut:</b> Rutin dilakukan nelayan Pantai Pangandaran, Jawa Barat setiap bulan Muharam.</li>
+            <li><b>Lep'mali Auh Kabang:</b> Pesta panen padi masyarakat Dayak Kayan di Bulungan, Kalimantan Utara.</li>
+        </ul>
+    </div>
+
+    <div class="slide" id="s15">
+        <h2>🎮 Game: Maritim atau Agraris?</h2>
+        <div id="quiz-area">
+            <div class="score-board">SKOR: <span id="game-score">0</span></div>
+            <div class="highlight-box" id="game-question">"Pasar Ikan adalah contoh budaya..."</div>
+            <div class="interactive-grid">
+                <button class="game-btn btn-maritim" onclick="playGame('MARITIM')">MARITIM 🌊</button>
+                <button class="game-btn btn-agraris" onclick="playGame('AGRARIS')">AGRARIS 🌾</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-footer">
+        <button id="prevBtn" class="nav-btn" onclick="changeS(-1)" disabled>KEMBALI</button>
+        <span id="pageTxt" style="font-weight:bold; font-size: 20px;">1 / 15</span>
+        <button id="nextBtn" class="nav-btn" onclick="changeS(1)">LANJUT</button>
+    </div>
+</div>
+
+<script>
+    let current = 1;
+    const total = 15;
+    let score = 0;
+
+    const questions = [
+        { q: '"Pasar Ikan" adalah contoh budaya...', a: 'MARITIM' },
+        { q: '"Alat pemotong padi" digunakan pada budaya...', a: 'AGRARIS' },
+        { q: '"Pesta Laut Pangandaran" adalah tradisi...', a: 'MARITIM' },
+        { q: '"Lep\'mali Auh Kabang" adalah pesta panen...', a: 'AGRARIS' },
+        { q: '"Perahu tradisional" adalah alat transportasi...', a: 'MARITIM' },
+        { q: '"Masyarakat bermata pencaharian bercocok tanam" disebut negara...', a: 'AGRARIS' },
+        { q: '"Memanfaatkan laut untuk kesejahteraan rakyat" adalah ciri negara...', a: 'MARITIM' }
+    ];
+    let qIndex = 0;
+
+    function changeS(n) {
+        document.getElementById('s' + current).classList.remove('active');
+        current += n;
+        document.getElementById('s' + current).classList.add('active');
+        document.getElementById('prevBtn').disabled = (current === 1);
+        document.getElementById('nextBtn').innerText = (current === total) ? "SELESAI" : "LANJUT";
+        document.getElementById('pageTxt').innerText = current + " / " + total;
+    }
+
+    function openM(title, text) {
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalText').innerText = text;
+        document.getElementById('infoModal').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
+
+    function playGame(choice) {
+        if(choice === questions[qIndex].a) {
+            score += 20;
+            document.getElementById('game-score').innerText = score;
+            openM('HEBAT! ⭐', 'Jawabanmu benar! Ayo lanjut ke tantangan berikutnya.');
+        } else {
+            openM('WADUH! 😅', 'Kurang tepat, ayo ingat lagi materinya.');
+        }
+
+        qIndex++;
+        if(qIndex < questions.length) {
+            document.getElementById('game-question').innerText = questions[qIndex].q;
+        } else {
+            document.getElementById('quiz-area').innerHTML = "<h2>🏆 MISI SELESAI!</h2><p style='font-size:30px'>Skor Akhir: " + score + "</p><button class='nav-btn' onclick='location.reload()'>MAIN LAGI 🔄</button>";
+        }
+    }
+</script>
+</body>
+</html>

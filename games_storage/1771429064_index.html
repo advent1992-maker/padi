@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TTS Sejarah Indonesia</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    .title-font { font-family: 'Fredoka', sans-serif; }
+
+    .cell {
+      width: 32px;
+      height: 32px;
+      border: 2px solid #1e3a5f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .cell.active {
+      background: #fef3c7 !important;
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 2px #fbbf24;
+    }
+
+    .cell.correct {
+      background: #86efac !important;
+      color: #166534;
+    }
+
+    .cell.blocked {
+      background: #1e3a5f;
+      border-color: #1e3a5f;
+    }
+
+    .cell-number {
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      font-size: 8px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .question-item {
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+    }
+
+    .question-item:hover {
+      background: #e0f2fe;
+    }
+
+    .question-item.selected {
+      background: #fef3c7;
+      border-left-color: #f59e0b;
+    }
+
+    .question-item.completed {
+      background: #dcfce7;
+      border-left-color: #22c55e;
+    }
+
+    @keyframes celebrate {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .celebrate {
+      animation: celebrate 0.5s ease-in-out;
+    }
+
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100px) rotate(720deg); opacity: 0; }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      animation: confetti 1s ease-out forwards;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gradient-to-br from-sky-100 via-blue-50 to-indigo-100">
+  <div id="app" class="h-full overflow-auto p-4">
+   <div class="max-w-6xl mx-auto"><!-- Header -->
+    <div class="text-center mb-6">
+     <h1 id="game-title" class="title-font text-3xl md:text-4xl font-bold text-blue-900 mb-2">🏛️ TTS Sejarah Indonesia 🏛️</h1>
+     <p class="text-blue-700">Uji pengetahuanmu tentang kerajaan-kerajaan di Nusantara!</p>
+     <div class="mt-3 flex justify-center gap-4 flex-wrap">
+      <div class="bg-white px-4 py-2 rounded-full shadow-md"><span class="text-blue-600 font-semibold">Skor: </span> <span id="score" class="text-green-600 font-bold">0</span> <span class="text-blue-600">/8</span>
+      </div><button onclick="resetGame()" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-full shadow-md font-semibold transition-all"> 🔄 Mulai Ulang </button>
+     </div>
+    </div><!-- Game Container -->
+    <div class="flex flex-col lg:flex-row gap-6"><!-- Crossword Grid -->
+     <div class="flex-shrink-0 bg-white rounded-2xl shadow-xl p-4 overflow-x-auto">
+      <div id="crossword-grid" class="inline-block"></div>
+     </div><!-- Questions Panel -->
+     <div class="flex-1 bg-white rounded-2xl shadow-xl p-4 min-w-0">
+      <div class="grid md:grid-cols-2 gap-4"><!-- Horizontal -->
+       <div>
+        <h3 class="title-font text-lg font-bold text-blue-800 mb-3 flex items-center gap-2"><span class="bg-blue-100 px-2 py-1 rounded">➡️ MENDATAR</span></h3>
+        <div id="horizontal-questions" class="space-y-2 text-sm"></div>
+       </div><!-- Vertical -->
+       <div>
+        <h3 class="title-font text-lg font-bold text-blue-800 mb-3 flex items-center gap-2"><span class="bg-green-100 px-2 py-1 rounded">⬇️ MENURUN</span></h3>
+        <div id="vertical-questions" class="space-y-2 text-sm"></div>
+       </div>
+      </div><!-- Input Area -->
+      <div class="mt-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border-2 border-amber-200">
+       <p id="current-question" class="text-blue-800 font-semibold mb-3 min-h-[40px]">👆 Klik soal atau kotak untuk mulai menjawab</p>
+       <div class="flex gap-2 flex-wrap"><input type="text" id="answer-input" class="flex-1 min-w-[200px] px-4 py-2 border-2 border-blue-300 rounded-xl focus:border-amber-500 focus:outline-none font-semibold uppercase" placeholder="Ketik jawaban..." onkeypress="handleKeyPress(event)" autocomplete="off"> <button onclick="checkAnswer()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl font-bold shadow-md transition-all"> ✓ Cek </button>
+       </div>
+       <p id="feedback" class="mt-2 font-semibold min-h-[24px]"></p>
+      </div>
+     </div>
+    </div><!-- Win Modal -->
+    <div id="win-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+     <div class="bg-white rounded-3xl p-8 text-center max-w-md relative overflow-hidden">
+      <div id="confetti-container"></div>
+      <h2 class="title-font text-3xl font-bold text-green-600 mb-4">🎉 SELAMAT! 🎉</h2>
+      <p class="text-blue-800 text-lg mb-4">Kamu berhasil menyelesaikan semua soal TTS Sejarah Indonesia!</p>
+      <p class="text-amber-600 font-bold text-xl mb-6">Skor Sempurna: 8/8 ⭐</p><button onclick="resetGame(); document.getElementById('win-modal').classList.add('hidden')" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all"> Main Lagi 🔄 </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Puzzle data
+    const puzzleData = {
+      words: [
+        { answer: "MATARAMBUDHA", clue: "Kerajaan Buddha yang meninggalkan Candi Borobudur, Pawon, dan Mendut.", row: 0, col: 0, direction: "horizontal", number: 1 },
+        { answer: "KUTAI", clue: "Kerajaan Hindu tertua di Indonesia (tahun 400 M) yang terletak di Kalimantan Timur.", row: 2, col: 8, direction: "vertical", number: 2 },
+        { answer: "PURNAWARMAN", clue: "Raja dari Kerajaan Tarumanegara yang namanya tercantum dalam Prasasti Ciaruteun.", row: 4, col: 0, direction: "horizontal", number: 3 },
+        { answer: "NEGARAKERTAGAMA", clue: "Kitab peninggalan Majapahit karya Mpu Prapanca yang memuat istilah Pancasila.", row: 6, col: 0, direction: "horizontal", number: 4 },
+        { answer: "DEMAK", clue: "Kerajaan Islam di Jawa yang didirikan oleh Raden Patah dan memiliki peninggalan Masjid Agung.", row: 0, col: 12, direction: "vertical", number: 5 },
+        { answer: "AYAMJANTAN", clue: "Sebutan bagi Sultan Hasanuddin dari Kerajaan Gowa karena keberaniannya melawan penjajah.", row: 8, col: 3, direction: "horizontal", number: 6 },
+        { answer: "JAYABAYA", clue: "Raja terkenal dari Kerajaan Kediri yang dikenal dengan ramalan-ramalannya.", row: 10, col: 1, direction: "horizontal", number: 7 },
+        { answer: "SRIWIJAYA", clue: "Kerajaan Buddha di Sumatra yang memiliki peninggalan Prasasti Kedukan Bukit.", row: 2, col: 5, direction: "vertical", number: 8 }
+      ]
+    };
+
+    // Game state
+    let grid = [];
+    let gridWidth = 16;
+    let gridHeight = 12;
+    let currentWord = null;
+    let completedWords = new Set();
+    let score = 0;
+
+    // Default config
+    const defaultConfig = {
+      game_title: "🏛️ TTS Sejarah Indonesia 🏛️",
+      primary_color: "#1e40af",
+      secondary_color: "#fbbf24",
+      background_color: "#e0f2fe",
+      text_color: "#1e3a5f",
+      accent_color: "#22c55e"
+    };
+
+    // Initialize grid
+    function initGrid() {
+      grid = [];
+      for (let r = 0; r < gridHeight; r++) {
+        grid[r] = [];
+        for (let c = 0; c < gridWidth; c++) {
+          grid[r][c] = { letter: null, wordIds: [], number: null, userLetter: '' };
+        }
+      }
+
+      // Place words
+      puzzleData.words.forEach((word, idx) => {
+        for (let i = 0; i < word.answer.length; i++) {
+          let r = word.row;
+          let c = word.col;
+          if (word.direction === "horizontal") c += i;
+          else r += i;
+
+          if (r < gridHeight && c < gridWidth) {
+            grid[r][c].letter = word.answer[i];
+            grid[r][c].wordIds.push(idx);
+            if (i === 0) grid[r][c].number = word.number;
+          }
+        }
+      });
+    }
+
+    // Render grid
+    function renderGrid() {
+      const container = document.getElementById('crossword-grid');
+      container.innerHTML = '';
+
+      const table = document.createElement('div');
+      table.style.display = 'grid';
+      table.style.gridTemplateColumns = `repeat(${gridWidth}, 32px)`;
+      table.style.gap = '2px';
+
+      for (let r = 0; r < gridHeight; r++) {
+        for (let c = 0; c < gridWidth; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          cell.dataset.row = r;
+          cell.dataset.col = c;
+
+          if (grid[r][c].letter === null) {
+            cell.classList.add('blocked');
+          } else {
+            cell.style.background = '#f8fafc';
+            cell.textContent = grid[r][c].userLetter;
+            cell.onclick = () => selectCell(r, c);
+
+            if (grid[r][c].number) {
+              const num = document.createElement('span');
+              num.className = 'cell-number';
+              num.textContent = grid[r][c].number;
+              cell.appendChild(num);
+            }
+
+            // Check if correct
+            if (grid[r][c].userLetter === grid[r][c].letter) {
+              const allWordsDone = grid[r][c].wordIds.every(id => completedWords.has(id));
+              if (allWordsDone) cell.classList.add('correct');
+            }
+          }
+
+          table.appendChild(cell);
+        }
+      }
+
+      container.appendChild(table);
+      highlightCurrentWord();
+    }
+
+    // Render questions
+    function renderQuestions() {
+      const hContainer = document.getElementById('horizontal-questions');
+      const vContainer = document.getElementById('vertical-questions');
+      hContainer.innerHTML = '';
+      vContainer.innerHTML = '';
+
+      puzzleData.words.forEach((word, idx) => {
+        const div = document.createElement('div');
+        div.className = 'question-item';
+        div.id = `question-${idx}`;
+        if (completedWords.has(idx)) div.classList.add('completed');
+        div.innerHTML = `<strong>${word.number}.</strong> ${word.clue}`;
+        div.onclick = () => selectWord(idx);
+
+        if (word.direction === 'horizontal') hContainer.appendChild(div);
+        else vContainer.appendChild(div);
+      });
+    }
+
+    // Select word
+    function selectWord(idx) {
+      currentWord = idx;
+      document.querySelectorAll('.question-item').forEach(el => el.classList.remove('selected'));
+      document.getElementById(`question-${idx}`).classList.add('selected');
+
+      const word = puzzleData.words[idx];
+      document.getElementById('current-question').innerHTML =
+        `<strong>${word.number}. ${word.direction === 'horizontal' ? '➡️' : '⬇️'}</strong> ${word.clue}`;
+
+      document.getElementById('answer-input').value = '';
+      document.getElementById('answer-input').focus();
+      document.getElementById('feedback').textContent = '';
+
+      highlightCurrentWord();
+    }
+
+    // Select cell
+    function selectCell(r, c) {
+      const wordIds = grid[r][c].wordIds;
+      if (wordIds.length > 0) {
+        const nextIdx = currentWord !== null && wordIds.includes(currentWord)
+          ? wordIds[(wordIds.indexOf(currentWord) + 1) % wordIds.length]
+          : wordIds[0];
+        selectWord(nextIdx);
+      }
+    }
+
+    // Highlight current word
+    function highlightCurrentWord() {
+      document.querySelectorAll('.cell').forEach(cell => cell.classList.remove('active'));
+
+      if (currentWord === null) return;
+
+      const word = puzzleData.words[currentWord];
+      for (let i = 0; i < word.answer.length; i++) {
+        let r = word.row;
+        let c = word.col;
+        if (word.direction === 'horizontal') c += i;
+        else r += i;
+
+        const cell = document.querySelector(`.cell[data-row="${r}"][data-col="${c}"]`);
+        if (cell && !cell.classList.contains('blocked')) {
+          cell.classList.add('active');
+        }
+      }
+    }
+
+    // Check answer
+    function checkAnswer() {
+      if (currentWord === null) {
+        document.getElementById('feedback').innerHTML = '<span class="text-amber-600">⚠️ Pilih soal terlebih dahulu!</span>';
+        return;
+      }
+
+      const input = document.getElementById('answer-input').value.toUpperCase().replace(/\s/g, '');
+      const word = puzzleData.words[currentWord];
+      const feedback = document.getElementById('feedback');
+
+      if (input === word.answer) {
+        completedWords.add(currentWord);
+        score = completedWords.size;
+        document.getElementById('score').textContent = score;
+
+        // Fill in letters
+        for (let i = 0; i < word.answer.length; i++) {
+          let r = word.row;
+          let c = word.col;
+          if (word.direction === 'horizontal') c += i;
+          else r += i;
+          grid[r][c].userLetter = word.answer[i];
+        }
+
+        feedback.innerHTML = '<span class="text-green-600">✅ BENAR! Hebat! 🎉</span>';
+        renderGrid();
+        renderQuestions();
+
+        // Check win
+        if (completedWords.size === puzzleData.words.length) {
+          setTimeout(showWinModal, 500);
+        } else {
+          // Auto select next
+          const next = puzzleData.words.findIndex((w, i) => !completedWords.has(i));
+          if (next !== -1) setTimeout(() => selectWord(next), 1000);
+        }
+      } else {
+        feedback.innerHTML = '<span class="text-red-500">❌ Belum tepat, coba lagi!</span>';
+        document.getElementById('answer-input').classList.add('shake');
+        setTimeout(() => document.getElementById('answer-input').classList.remove('shake'), 500);
+      }
+    }
+
+    // Handle key press
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') checkAnswer();
+    }
+
+    // Show win modal
+    function showWinModal() {
+      const modal = document.getElementById('win-modal');
+      modal.classList.remove('hidden');
+
+      // Create confetti
+      const container = document.getElementById('confetti-container');
+      container.innerHTML = '';
+      const colors = ['#f59e0b', '#22c55e', '#3b82f6', '#ec4899', '#8b5cf6'];
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        container.appendChild(confetti);
+      }
+    }
+
+    // Reset game
+    function resetGame() {
+      completedWords.clear();
+      score = 0;
+      currentWord = null;
+      document.getElementById('score').textContent = '0';
+      document.getElementById('current-question').innerHTML = '👆 Klik soal atau kotak untuk mulai menjawab';
+      document.getElementById('answer-input').value = '';
+      document.getElementById('feedback').textContent = '';
+      initGrid();
+      renderGrid();
+      renderQuestions();
+    }
+
+    // Element SDK
+    async function onConfigChange(config) {
+      const title = config.game_title || defaultConfig.game_title;
+      document.getElementById('game-title').textContent = title;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["game_title", config.game_title || defaultConfig.game_title]
+      ]);
+    }
+
+    // Initialize
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    initGrid();
+    renderGrid();
+    renderQuestions();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cfe9403d0cfb5a2',t:'MTc3MTQyODc1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

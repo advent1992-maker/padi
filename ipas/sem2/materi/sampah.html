@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kerusakan Lingkungan - Sampah</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;family=Comic+Neue:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Fredoka', sans-serif; }
+    .bounce { animation: bounce 2s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-8px) rotate(3deg)} }
+    .float { animation: float 3s ease-in-out infinite; }
+    @keyframes slideIn { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .slide-in { animation: slideIn 0.5s ease-out forwards; }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    .progress-bar { transition: width 0.5s ease; }
+    .shake { animation: shake 0.5s; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+    @keyframes pop { 0%{transform:scale(0.8);opacity:0} 100%{transform:scale(1);opacity:1} }
+    .pop { animation: pop 0.3s ease-out; }
+    .nav-btn { transition: all 0.2s; }
+    .nav-btn:hover { transform: scale(1.1); }
+    .nav-btn:active { transform: scale(0.95); }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #1a5276 0%, #148f77 50%, #1a7a5c 100%);">
+   <!-- Navigation -->
+   <nav class="sticky top-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+     <div class="flex items-center gap-2">
+      <span class="text-2xl">🌍</span>
+      <h1 id="nav-title" class="text-white font-bold text-sm md:text-lg">Kerusakan Lingkungan</h1>
+     </div>
+     <div class="flex gap-1 md:gap-2">
+      <button onclick="showSection('home')" class="nav-btn px-2 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-medium text-white bg-white/20 hover:bg-white/30">🏠 Home</button> <button onclick="showSection('materi')" class="nav-btn px-2 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-medium text-white bg-white/20 hover:bg-white/30">📚 Materi</button> <button onclick="showSection('kuis')" class="nav-btn px-2 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-medium text-white bg-white/20 hover:bg-white/30">✏️ Kuis</button>
+     </div>
+    </div>
+   </nav><!-- HOME SECTION -->
+   <section id="section-home" class="min-h-full px-4 py-8 md:py-16">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="float mb-6">
+      <span class="text-6xl md:text-8xl">🗑️</span>
+     </div>
+     <h1 id="main-title" class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">Kerusakan Lingkungan<br><span class="text-yellow-300">Akibat Sampah</span></h1>
+     <div class="bg-white/15 backdrop-blur-sm rounded-2xl p-4 md:p-6 mb-8 max-w-2xl mx-auto border border-white/20">
+      <p class="flex items-center justify-center gap-2 text-white/90 font-medium text-sm md:text-base"><span>🎯</span> <span id="goal-text">Tujuan: Siswa dapat mengidentifikasi jenis-jenis sampah dan dampaknya terhadap kerusakan lingkungan.</span></p>
+     </div>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 card-hover cursor-pointer" onclick="showSection('materi');showMateri(0)">
+       <span class="text-3xl md:text-4xl block mb-2">🥤</span>
+       <p class="text-white text-xs md:text-sm font-medium">Sampah Plastik</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 card-hover cursor-pointer" onclick="showSection('materi');showMateri(1)">
+       <span class="text-3xl md:text-4xl block mb-2">🔬</span>
+       <p class="text-white text-xs md:text-sm font-medium">Mikroplastik</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 card-hover cursor-pointer" onclick="showSection('materi');showMateri(2)">
+       <span class="text-3xl md:text-4xl block mb-2">🍌</span>
+       <p class="text-white text-xs md:text-sm font-medium">Sampah Organik</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 card-hover cursor-pointer" onclick="showSection('materi');showMateri(3)">
+       <span class="text-3xl md:text-4xl block mb-2">🏭</span>
+       <p class="text-white text-xs md:text-sm font-medium">Limbah Berbahaya</p>
+      </div>
+     </div><button onclick="showSection('materi')" class="nav-btn bg-yellow-400 hover:bg-yellow-300 text-gray-800 font-bold px-8 py-3 rounded-full text-lg shadow-lg"> Mulai Belajar! 🚀 </button>
+    </div>
+   </section><!-- MATERI SECTION -->
+   <section id="section-materi" class="hidden min-h-full px-4 py-8">
+    <div class="max-w-5xl mx-auto">
+     <div id="materi-tabs" class="flex flex-wrap justify-center gap-2 mb-6">
+      <button onclick="showMateri(0)" class="materi-tab nav-btn px-4 py-2 rounded-full text-sm font-medium bg-yellow-400 text-gray-800">🥤 Plastik</button> <button onclick="showMateri(1)" class="materi-tab nav-btn px-4 py-2 rounded-full text-sm font-medium bg-white/20 text-white">🔬 Mikroplastik</button> <button onclick="showMateri(2)" class="materi-tab nav-btn px-4 py-2 rounded-full text-sm font-medium bg-white/20 text-white">🍌 Organik</button> <button onclick="showMateri(3)" class="materi-tab nav-btn px-4 py-2 rounded-full text-sm font-medium bg-white/20 text-white">🏭 Limbah</button>
+     </div><!-- Materi Cards -->
+     <div id="materi-content"></div>
+    </div>
+   </section><!-- KUIS SECTION -->
+   <section id="section-kuis" class="hidden min-h-full px-4 py-8">
+    <div class="max-w-3xl mx-auto">
+     <div id="kuis-start" class="text-center">
+      <span class="text-6xl block mb-4 bounce">✏️</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Kuis Interaktif</h2>
+      <p class="text-white/80 mb-6 text-lg">Uji pemahamanmu tentang sampah dan lingkungan!<br>
+        10 soal pilihan ganda menanti.</p><button onclick="startKuis()" class="nav-btn bg-yellow-400 hover:bg-yellow-300 text-gray-800 font-bold px-8 py-3 rounded-full text-lg shadow-lg">Mulai Kuis! 🎯</button>
+     </div>
+     <div id="kuis-area" class="hidden"></div>
+     <div id="kuis-result" class="hidden text-center"></div>
+    </div>
+   </section>
+  </div>
+  <script>
+  // Materi Data
+  const materiData = [
+    {
+      title: '🥤 Sampah Plastik',
+      emoji: '🥤',
+      color: 'from-red-500 to-orange-500',
+      facts: [
+        { icon: '⏰', text: 'Plastik butuh 450-1000 tahun untuk terurai!' },
+        { icon: '🌊', text: '8 juta ton plastik masuk ke laut setiap tahun.' },
+        { icon: '🐢', text: 'Hewan laut sering salah makan plastik sebagai makanan.' },
+        { icon: '🔥', text: 'Membakar plastik menghasilkan gas beracun yang berbahaya.' }
+      ],
+      desc: 'Sampah plastik adalah sampah yang terbuat dari bahan plastik seperti botol minum, kantong belanja, sedotan, dan kemasan makanan. Plastik sangat sulit terurai secara alami dan menjadi penyebab utama pencemaran di darat dan laut.',
+      tips: ['Gunakan tas belanja kain', 'Bawa botol minum sendiri', 'Hindari sedotan plastik', 'Pilih kemasan yang bisa didaur ulang']
+    },
+    {
+      title: '🔬 Mikroplastik',
+      emoji: '🔬',
+      color: 'from-purple-500 to-indigo-500',
+      facts: [
+        { icon: '📏', text: 'Ukurannya kurang dari 5mm, sangat kecil!' },
+        { icon: '🐟', text: 'Ditemukan di dalam tubuh ikan yang kita makan.' },
+        { icon: '💧', text: 'Ada di air minum, bahkan air kemasan!' },
+        { icon: '👕', text: 'Berasal dari pakaian sintetis saat dicuci.' }
+      ],
+      desc: 'Mikroplastik adalah serpihan plastik yang sangat kecil (kurang dari 5mm). Mereka berasal dari pecahan plastik besar yang hancur, atau dari produk seperti sabun scrub dan pakaian sintetis. Mikroplastik sudah mencemari air, tanah, udara, dan bahkan makanan kita!',
+      tips: ['Kurangi penggunaan plastik sekali pakai', 'Gunakan filter mesin cuci', 'Pilih pakaian dari bahan alami', 'Minum air yang sudah disaring']
+    },
+    {
+      title: '🍌 Sampah Organik',
+      emoji: '🍌',
+      color: 'from-green-500 to-teal-500',
+      facts: [
+        { icon: '💨', text: 'Menghasilkan gas metana jika menumpuk.' },
+        { icon: '🪰', text: 'Menarik lalat dan kuman penyakit.' },
+        { icon: '🌱', text: 'Bisa dijadikan kompos untuk tanaman!' },
+        { icon: '📅', text: 'Terurai dalam 2-6 minggu jika diolah benar.' }
+      ],
+      desc: 'Sampah organik adalah sampah yang berasal dari makhluk hidup, seperti sisa makanan, daun kering, kulit buah, dan tulang. Jika tidak dikelola dengan baik, sampah organik menimbulkan bau busuk dan gas rumah kaca. Namun jika diolah, bisa menjadi pupuk kompos!',
+      tips: ['Pisahkan sampah organik dari plastik', 'Buat kompos di rumah', 'Jangan buang sisa makanan sembarangan', 'Manfaatkan daun kering sebagai pupuk']
+    },
+    {
+      title: '🏭 Limbah Berbahaya',
+      emoji: '🏭',
+      color: 'from-gray-600 to-gray-800',
+      facts: [
+        { icon: '☠️', text: 'Mengandung zat kimia beracun!' },
+        { icon: '💧', text: 'Mencemari air tanah dan sungai.' },
+        { icon: '🏥', text: 'Bisa menyebabkan penyakit serius.' },
+        { icon: '⚡', text: 'Contoh: baterai, cat, obat kadaluarsa.' }
+      ],
+      desc: 'Limbah berbahaya (B3) adalah sampah yang mengandung bahan kimia beracun, mudah terbakar, atau berbahaya bagi kesehatan. Contohnya baterai bekas, cat, pestisida, obat kadaluarsa, dan limbah elektronik. Limbah ini harus dibuang di tempat khusus!',
+      tips: ['Jangan buang baterai sembarangan', 'Kumpulkan limbah elektronik di tempat khusus', 'Jangan tuang cat ke saluran air', 'Kembalikan obat kadaluarsa ke apotek']
+    }
+  ];
+
+  // Kuis Data
+  const kuisData = [
+    { q: 'Berapa lama waktu yang dibutuhkan plastik untuk terurai?', opts: ['1-2 tahun', '10-50 tahun', '450-1000 tahun', '1 bulan'], ans: 2 },
+    { q: 'Apa itu mikroplastik?', opts: ['Plastik berukuran besar', 'Serpihan plastik < 5mm', 'Jenis plastik mahal', 'Plastik yang bisa dimakan'], ans: 1 },
+    { q: 'Sampah organik bisa diolah menjadi?', opts: ['Plastik baru', 'Pupuk kompos', 'Bahan bakar roket', 'Kain'], ans: 1 },
+    { q: 'Mana yang termasuk limbah berbahaya (B3)?', opts: ['Kulit pisang', 'Baterai bekas', 'Kertas koran', 'Daun kering'], ans: 1 },
+    { q: 'Berapa ton plastik masuk ke laut setiap tahun?', opts: ['100 ton', '1 juta ton', '8 juta ton', '50 ton'], ans: 2 },
+    { q: 'Dari mana mikroplastik bisa berasal?', opts: ['Pakaian sintetis saat dicuci', 'Air hujan murni', 'Tanah yang subur', 'Pohon yang tumbuh'], ans: 0 },
+    { q: 'Apa dampak membakar sampah plastik?', opts: ['Menghasilkan oksigen', 'Menghasilkan gas beracun', 'Membuat tanah subur', 'Tidak ada dampak'], ans: 1 },
+    { q: 'Gas apa yang dihasilkan sampah organik yang menumpuk?', opts: ['Oksigen', 'Hidrogen', 'Metana', 'Nitrogen'], ans: 2 },
+    { q: 'Cara terbaik mengurangi sampah plastik adalah?', opts: ['Membakarnya', 'Menguburnya', 'Menggunakan barang yang bisa dipakai ulang', 'Membuang ke sungai'], ans: 2 },
+    { q: 'Di mana limbah elektronik harus dibuang?', opts: ['Di sungai', 'Di tempat pengumpulan khusus', 'Di kebun', 'Di tempat sampah biasa'], ans: 1 }
+  ];
+
+  let currentMateri = 0;
+  let currentSoal = 0;
+  let score = 0;
+  let answered = false;
+
+  function showSection(name) {
+    ['home','materi','kuis'].forEach(s => {
+      document.getElementById('section-'+s).classList.toggle('hidden', s !== name);
+    });
+    if(name === 'materi') showMateri(currentMateri);
+  }
+
+  function showMateri(idx) {
+    currentMateri = idx;
+    const tabs = document.querySelectorAll('.materi-tab');
+    tabs.forEach((t,i) => {
+      if(i===idx) { t.className = 'materi-tab nav-btn px-4 py-2 rounded-full text-sm font-medium bg-yellow-400 text-gray-800'; }
+      else { t.className = 'materi-tab nav-btn px-4 py-2 rounded-full text-sm font-medium bg-white/20 text-white'; }
+    });
+    const m = materiData[idx];
+    const container = document.getElementById('materi-content');
+    container.innerHTML = `
+      <div class="slide-in">
+        <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border border-white/20 mb-6">
+          <div class="text-center mb-6">
+            <span class="text-5xl md:text-6xl block mb-3">${m.emoji}</span>
+            <h2 class="text-2xl md:text-3xl font-bold text-white">${m.title}</h2>
+          </div>
+          <p class="text-white/90 text-center text-sm md:text-base leading-relaxed mb-6 max-w-2xl mx-auto">${m.desc}</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+            ${m.facts.map(f => `
+              <div class="bg-white/10 rounded-xl p-4 flex items-start gap-3 border border-white/10 card-hover">
+                <span class="text-2xl flex-shrink-0">${f.icon}</span>
+                <p class="text-white/90 text-sm md:text-base">${f.text}</p>
+              </div>
+            `).join('')}
+          </div>
+          <div class="bg-green-500/20 rounded-2xl p-5 border border-green-400/30">
+            <h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">💡 Tips untuk Kita:</h3>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              ${m.tips.map(t => `<li class="text-white/90 text-sm flex items-center gap-2"><span class="text-green-300">✓</span>${t}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <button onclick="showMateri(${(idx-1+4)%4})" class="nav-btn bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-full text-sm font-medium">← Sebelumnya</button>
+          <button onclick="showMateri(${(idx+1)%4})" class="nav-btn bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-full text-sm font-medium">Selanjutnya →</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function startKuis() {
+    currentSoal = 0; score = 0;
+    document.getElementById('kuis-start').classList.add('hidden');
+    document.getElementById('kuis-result').classList.add('hidden');
+    document.getElementById('kuis-area').classList.remove('hidden');
+    renderSoal();
+  }
+
+  function renderSoal() {
+    answered = false;
+    const s = kuisData[currentSoal];
+    const area = document.getElementById('kuis-area');
+    area.innerHTML = `
+      <div class="slide-in">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-white/80 text-sm font-medium">Soal ${currentSoal+1} dari 10</span>
+          <span class="bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-bold">Skor: ${score}</span>
+        </div>
+        <div class="w-full bg-white/20 rounded-full h-3 mb-6">
+          <div class="bg-yellow-400 h-3 rounded-full progress-bar" style="width:${(currentSoal/10)*100}%"></div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 border border-white/20">
+          <h3 class="text-white text-lg md:text-xl font-bold mb-6 text-center">${s.q}</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="opts-container">
+            ${s.opts.map((o,i) => `
+              <button onclick="checkAnswer(${i})" id="opt-${i}" class="opt-btn text-left bg-white/15 hover:bg-white/25 border-2 border-white/20 hover:border-white/40 text-white rounded-xl p-4 font-medium transition-all text-sm md:text-base">
+                <span class="inline-block w-7 h-7 rounded-full bg-white/20 text-center leading-7 text-sm mr-2 font-bold">${'ABCD'[i]}</span>
+                ${o}
+              </button>
+            `).join('')}
+          </div>
+          <div id="feedback" class="mt-4 text-center hidden"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function checkAnswer(idx) {
+    if(answered) return;
+    answered = true;
+    const correct = kuisData[currentSoal].ans;
+    const btns = document.querySelectorAll('.opt-btn');
+    btns.forEach((b,i) => {
+      b.style.pointerEvents = 'none';
+      if(i === correct) { b.className = 'opt-btn text-left bg-green-500/40 border-2 border-green-400 text-white rounded-xl p-4 font-medium text-sm md:text-base pop'; }
+      else if(i === idx && idx !== correct) { b.className = 'opt-btn text-left bg-red-500/40 border-2 border-red-400 text-white rounded-xl p-4 font-medium text-sm md:text-base shake'; }
+    });
+    const fb = document.getElementById('feedback');
+    fb.classList.remove('hidden');
+    if(idx === correct) {
+      score++;
+      fb.innerHTML = '<p class="text-green-300 font-bold text-lg pop">✅ Benar! Hebat!</p>';
+    } else {
+      fb.innerHTML = `<p class="text-red-300 font-bold text-lg pop">❌ Kurang tepat. Jawaban yang benar: <span class="text-green-300">${kuisData[currentSoal].opts[correct]}</span></p>`;
+    }
+    setTimeout(() => {
+      if(currentSoal < 9) { currentSoal++; renderSoal(); }
+      else { showResult(); }
+    }, 2000);
+  }
+
+  function showResult() {
+    document.getElementById('kuis-area').classList.add('hidden');
+    const res = document.getElementById('kuis-result');
+    res.classList.remove('hidden');
+    let emoji = score >= 8 ? '🏆' : score >= 6 ? '⭐' : score >= 4 ? '👍' : '💪';
+    let msg = score >= 8 ? 'Luar Biasa! Kamu sangat paham!' : score >= 6 ? 'Bagus! Terus belajar ya!' : score >= 4 ? 'Lumayan! Coba pelajari lagi materinya.' : 'Semangat! Baca materinya dan coba lagi!';
+    res.innerHTML = `
+      <div class="slide-in bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+        <span class="text-6xl md:text-7xl block mb-4">${emoji}</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Skor Kamu</h2>
+        <p class="text-5xl md:text-6xl font-bold text-yellow-300 mb-4">${score}/10</p>
+        <p class="text-white/90 text-lg mb-6">${msg}</p>
+        <div class="flex flex-col md:flex-row gap-3 justify-center">
+          <button onclick="startKuis()" class="nav-btn bg-yellow-400 hover:bg-yellow-300 text-gray-800 font-bold px-6 py-3 rounded-full">🔄 Coba Lagi</button>
+          <button onclick="showSection('materi')" class="nav-btn bg-white/20 hover:bg-white/30 text-white font-bold px-6 py-3 rounded-full border border-white/20">📚 Pelajari Materi</button>
+        </div>
+      </div>
+    `;
+  }
+
+  lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f4f796f30824536',t:'MTc3NzY0NTcyNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

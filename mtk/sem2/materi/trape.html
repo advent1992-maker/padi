@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Interaktif - Luas Jajar Genjang &amp; Trapesium</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    
+    .shape-shadow {
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+    
+    .btn-bounce:active {
+      transform: scale(0.95);
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+    }
+    
+    .pulse-glow {
+      animation: pulse-glow 2s infinite;
+    }
+    
+    .slider-thumb::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #6366f1;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+    }
+    
+    .slider-thumb::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #6366f1;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .correct-answer {
+      animation: correctPulse 0.5s ease-out;
+    }
+    
+    @keyframes correctPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .tab-active {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    
+    .progress-bar {
+      transition: width 0.5s ease-out;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 overflow-auto">
+  <div id="app" class="w-full min-h-full flex flex-col"><!-- Header -->
+   <header class="bg-white/80 backdrop-blur-sm shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 md:py-4">
+     <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+       <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg"><i data-lucide="shapes" class="w-6 h-6 md:w-7 md:h-7 text-white"></i>
+       </div>
+       <div>
+        <h1 id="main-title" class="text-lg md:text-2xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Matematika Kelas 5</h1>
+        <p id="subtitle" class="text-xs md:text-sm text-gray-500">Luas Jajar Genjang &amp; Trapesium</p>
+       </div>
+      </div>
+      <div class="flex items-center gap-2">
+       <div id="score-display" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-4 py-2 rounded-full font-bold shadow-lg"><i data-lucide="star" class="w-5 h-5"></i> <span id="score-value">0</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </header><!-- Navigation Tabs -->
+   <nav class="bg-white/60 backdrop-blur-sm border-b border-white/50">
+    <div class="max-w-7xl mx-auto px-4">
+     <div class="flex gap-1 md:gap-2 py-2 overflow-x-auto"><button onclick="showSection('home')" data-tab="home" class="tab-btn tab-active flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-base transition-all btn-bounce whitespace-nowrap"> <i data-lucide="home" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Beranda</span> </button> <button onclick="showSection('jajar')" data-tab="jajar" class="tab-btn flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-base bg-white/50 text-gray-600 hover:bg-white transition-all btn-bounce whitespace-nowrap"> <i data-lucide="square" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Jajar Genjang</span> </button> <button onclick="showSection('trapesium')" data-tab="trapesium" class="tab-btn flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-base bg-white/50 text-gray-600 hover:bg-white transition-all btn-bounce whitespace-nowrap"> <i data-lucide="triangle" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Trapesium</span> </button> <button onclick="showSection('quiz')" data-tab="quiz" class="tab-btn flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-base bg-white/50 text-gray-600 hover:bg-white transition-all btn-bounce whitespace-nowrap"> <i data-lucide="clipboard-check" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Kuis</span> </button>
+     </div>
+    </div>
+   </nav><!-- Main Content -->
+   <main class="flex-1 max-w-7xl mx-auto w-full px-4 py-6 md:py-8"><!-- Home Section -->
+    <section id="section-home" class="fade-in">
+     <div class="text-center mb-8">
+      <h2 class="text-2xl md:text-4xl font-extrabold text-gray-800 mb-3">🎯 Ayo Belajar Luas Bangun Datar!</h2>
+      <p class="text-gray-600 text-sm md:text-lg max-w-2xl mx-auto">Pelajari cara menghitung luas jajar genjang dan trapesium dengan cara yang menyenangkan!</p>
+     </div>
+     <div class="grid md:grid-cols-2 gap-6 md:gap-8 mb-8"><!-- Jajar Genjang Card -->
+      <div onclick="showSection('jajar')" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl card-hover cursor-pointer transition-all duration-300 border-2 border-transparent hover:border-indigo-200">
+       <div class="flex items-start gap-4">
+        <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+         <svg viewbox="0 0 100 60" class="w-10 h-10 md:w-12 md:h-12"><polygon points="20,50 40,10 90,10 70,50" fill="white" stroke="white" stroke-width="2" />
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Jajar Genjang</h3>
+         <p class="text-gray-600 text-sm md:text-base mb-3">Bangun datar dengan sisi berhadapan sejajar dan sama panjang</p>
+         <div class="inline-flex items-center gap-2 text-indigo-600 font-semibold"><span>Pelajari</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+         </div>
+        </div>
+       </div>
+      </div><!-- Trapesium Card -->
+      <div onclick="showSection('trapesium')" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl card-hover cursor-pointer transition-all duration-300 border-2 border-transparent hover:border-purple-200">
+       <div class="flex items-start gap-4">
+        <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+         <svg viewbox="0 0 100 60" class="w-10 h-10 md:w-12 md:h-12"><polygon points="25,50 35,10 75,10 85,50" fill="white" stroke="white" stroke-width="2" />
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Trapesium</h3>
+         <p class="text-gray-600 text-sm md:text-base mb-3">Bangun datar dengan sepasang sisi yang sejajar</p>
+         <div class="inline-flex items-center gap-2 text-purple-600 font-semibold"><span>Pelajari</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Quick Tips -->
+     <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-3xl p-6 md:p-8 border-2 border-amber-200">
+      <div class="flex items-start gap-4">
+       <div class="w-12 h-12 bg-amber-400 rounded-xl flex items-center justify-center flex-shrink-0"><i data-lucide="lightbulb" class="w-6 h-6 text-white"></i>
+       </div>
+       <div>
+        <h3 class="text-lg md:text-xl font-bold text-amber-800 mb-2">💡 Tips Belajar</h3>
+        <ul class="text-amber-700 text-sm md:text-base space-y-2">
+         <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 mt-0.5"></i> <span>Pelajari rumus dengan memahami konsepnya, bukan menghafal</span></li>
+         <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 mt-0.5"></i> <span>Gunakan slider interaktif untuk melihat perubahan luas</span></li>
+         <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 mt-0.5"></i> <span>Kerjakan kuis untuk menguji pemahamanmu!</span></li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </section><!-- Jajar Genjang Section -->
+    <section id="section-jajar" class="hidden fade-in">
+     <div class="grid lg:grid-cols-2 gap-6 md:gap-8"><!-- Interactive Shape -->
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl">
+       <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="move" class="w-6 h-6 text-indigo-500"></i> Interaktif Jajar Genjang</h3>
+       <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-4 md:p-6 mb-6">
+        <svg id="jajar-svg" viewbox="0 0 300 200" class="w-full max-w-md mx-auto shape-shadow"><!-- Grid --> <defs>
+          <pattern id="grid" width="20" height="20" patternunits="userSpaceOnUse">
+           <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e0e7ff" stroke-width="0.5" />
+          </pattern>
+         </defs> <rect width="300" height="200" fill="url(#grid)" /> <!-- Jajar Genjang --> <polygon id="jajar-shape" points="60,150 100,50 240,50 200,150" fill="#6366f1" fill-opacity="0.3" stroke="#6366f1" stroke-width="3" /> <!-- Labels --> <text x="150" y="45" text-anchor="middle" class="text-sm font-bold" fill="#4f46e5">
+          a (alas)
+         </text> <line x1="100" y1="50" x2="240" y2="50" stroke="#4f46e5" stroke-width="2" stroke-dasharray="5,3" /> <text x="255" y="105" text-anchor="start" class="text-sm font-bold" fill="#10b981">
+          t (tinggi)
+         </text> <line x1="240" y1="50" x2="240" y2="150" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3" /> <!-- Height indicator --> <line x1="100" y1="50" x2="100" y2="150" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3" />
+        </svg>
+       </div><!-- Controls -->
+       <div class="space-y-4">
+        <div><label class="flex items-center justify-between mb-2"> <span class="font-semibold text-gray-700">Alas (a)</span> <span id="jajar-alas-value" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-bold">14 cm</span> </label> <input type="range" id="jajar-alas" min="5" max="20" value="14" class="w-full h-2 bg-indigo-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateJajar()">
+        </div>
+        <div><label class="flex items-center justify-between mb-2"> <span class="font-semibold text-gray-700">Tinggi (t)</span> <span id="jajar-tinggi-value" class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold">10 cm</span> </label> <input type="range" id="jajar-tinggi" min="3" max="15" value="10" class="w-full h-2 bg-emerald-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateJajar()">
+        </div>
+       </div>
+      </div><!-- Formula & Calculation -->
+      <div class="space-y-6">
+       <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="book-open" class="w-6 h-6 text-indigo-500"></i> Rumus Luas Jajar Genjang</h3>
+        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl p-6 text-white text-center mb-6">
+         <p class="text-lg mb-2 opacity-90">Rumus:</p>
+         <p class="text-3xl md:text-4xl font-bold">L = a × t</p>
+        </div>
+        <div class="space-y-3 text-gray-700">
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center font-bold text-indigo-600">L</span> <span>= Luas jajar genjang</span></p>
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center font-bold text-indigo-600">a</span> <span>= Alas (panjang sisi bawah)</span></p>
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center font-bold text-emerald-600">t</span> <span>= Tinggi (tegak lurus dari alas)</span></p>
+        </div>
+       </div>
+       <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-6 md:p-8 border-2 border-indigo-200">
+        <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="calculator" class="w-5 h-5 text-indigo-500"></i> Perhitungan:</h4>
+        <div id="jajar-calculation" class="bg-white rounded-xl p-4 text-center">
+         <p class="text-gray-600 mb-2">L = a × t</p>
+         <p class="text-gray-600 mb-2">L = 14 × 10</p>
+         <p class="text-2xl md:text-3xl font-bold text-indigo-600">L = 140 cm²</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Trapesium Section -->
+    <section id="section-trapesium" class="hidden fade-in">
+     <div class="grid lg:grid-cols-2 gap-6 md:gap-8"><!-- Interactive Shape -->
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl">
+       <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="move" class="w-6 h-6 text-purple-500"></i> Interaktif Trapesium</h3>
+       <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 md:p-6 mb-6">
+        <svg id="trapesium-svg" viewbox="0 0 300 200" class="w-full max-w-md mx-auto shape-shadow"><!-- Grid --> <rect width="300" height="200" fill="url(#grid)" /> <!-- Trapesium --> <polygon id="trapesium-shape" points="50,160 90,40 210,40 250,160" fill="#a855f7" fill-opacity="0.3" stroke="#a855f7" stroke-width="3" /> <!-- Labels --> <text x="150" y="30" text-anchor="middle" class="text-sm font-bold" fill="#9333ea">
+          a (sisi atas)
+         </text> <line x1="90" y1="40" x2="210" y2="40" stroke="#9333ea" stroke-width="2" stroke-dasharray="5,3" /> <text x="150" y="180" text-anchor="middle" class="text-sm font-bold" fill="#db2777">
+          b (sisi bawah)
+         </text> <line x1="50" y1="160" x2="250" y2="160" stroke="#db2777" stroke-width="2" stroke-dasharray="5,3" /> <text x="265" y="105" text-anchor="start" class="text-sm font-bold" fill="#10b981">
+          t (tinggi)
+         </text> <line x1="210" y1="40" x2="210" y2="160" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3" />
+        </svg>
+       </div><!-- Controls -->
+       <div class="space-y-4">
+        <div><label class="flex items-center justify-between mb-2"> <span class="font-semibold text-gray-700">Sisi Atas (a)</span> <span id="trap-atas-value" class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold">12 cm</span> </label> <input type="range" id="trap-atas" min="4" max="16" value="12" class="w-full h-2 bg-purple-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateTrapesium()">
+        </div>
+        <div><label class="flex items-center justify-between mb-2"> <span class="font-semibold text-gray-700">Sisi Bawah (b)</span> <span id="trap-bawah-value" class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full font-bold">20 cm</span> </label> <input type="range" id="trap-bawah" min="10" max="24" value="20" class="w-full h-2 bg-pink-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateTrapesium()">
+        </div>
+        <div><label class="flex items-center justify-between mb-2"> <span class="font-semibold text-gray-700">Tinggi (t)</span> <span id="trap-tinggi-value" class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold">12 cm</span> </label> <input type="range" id="trap-tinggi" min="4" max="15" value="12" class="w-full h-2 bg-emerald-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateTrapesium()">
+        </div>
+       </div>
+      </div><!-- Formula & Calculation -->
+      <div class="space-y-6">
+       <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="book-open" class="w-6 h-6 text-purple-500"></i> Rumus Luas Trapesium</h3>
+        <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 text-white text-center mb-6">
+         <p class="text-lg mb-2 opacity-90">Rumus:</p>
+         <p class="text-3xl md:text-4xl font-bold">L = ½ × (a + b) × t</p>
+        </div>
+        <div class="space-y-3 text-gray-700">
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center font-bold text-purple-600">L</span> <span>= Luas trapesium</span></p>
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center font-bold text-purple-600">a</span> <span>= Sisi sejajar atas (lebih pendek)</span></p>
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-pink-100 rounded-lg flex items-center justify-center font-bold text-pink-600">b</span> <span>= Sisi sejajar bawah (lebih panjang)</span></p>
+         <p class="flex items-center gap-2"><span class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center font-bold text-emerald-600">t</span> <span>= Tinggi (tegak lurus antar sisi sejajar)</span></p>
+        </div>
+       </div>
+       <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-6 md:p-8 border-2 border-purple-200">
+        <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="calculator" class="w-5 h-5 text-purple-500"></i> Perhitungan:</h4>
+        <div id="trap-calculation" class="bg-white rounded-xl p-4 text-center">
+         <p class="text-gray-600 mb-2">L = ½ × (a + b) × t</p>
+         <p class="text-gray-600 mb-2">L = ½ × (12 + 20) × 12</p>
+         <p class="text-gray-600 mb-2">L = ½ × 32 × 12</p>
+         <p class="text-2xl md:text-3xl font-bold text-purple-600">L = 192 cm²</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Quiz Section -->
+    <section id="section-quiz" class="hidden fade-in">
+     <div class="max-w-3xl mx-auto"><!-- Quiz Progress -->
+      <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg mb-6">
+       <div class="flex items-center justify-between mb-3"><span class="font-semibold text-gray-700">Progres Kuis</span> <span id="quiz-progress-text" class="text-indigo-600 font-bold">Soal 1 dari 5</span>
+       </div>
+       <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
+        <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 progress-bar" style="width: 20%"></div>
+       </div>
+      </div><!-- Quiz Card -->
+      <div id="quiz-card" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl">
+       <div id="quiz-content"><!-- Quiz content will be loaded here -->
+       </div>
+      </div><!-- Quiz Result -->
+      <div id="quiz-result" class="hidden bg-white rounded-3xl p-6 md:p-8 shadow-xl text-center">
+       <div id="result-icon" class="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center"></div>
+       <h3 id="result-title" class="text-2xl md:text-3xl font-bold mb-4"></h3>
+       <p id="result-message" class="text-gray-600 mb-6"></p>
+       <div id="result-score" class="text-4xl md:text-5xl font-bold mb-6"></div><button onclick="resetQuiz()" class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-all btn-bounce inline-flex items-center gap-2"> <i data-lucide="refresh-cw" class="w-5 h-5"></i> Coba Lagi </button>
+      </div>
+     </div>
+    </section>
+   </main><!-- Mobile Score Badge -->
+   <div id="mobile-score" class="md:hidden fixed bottom-4 right-4 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-4 py-2 rounded-full font-bold shadow-lg flex items-center gap-2 z-40"><i data-lucide="star" class="w-4 h-4"></i> <span id="mobile-score-value">0</span>
+   </div>
+  </div>
+  <script>
+    // Configuration
+    const defaultConfig = {
+      main_title: 'Matematika Kelas 5',
+      subtitle: 'Luas Jajar Genjang & Trapesium',
+      background_color: '#eef2ff',
+      primary_color: '#6366f1',
+      secondary_color: '#a855f7',
+      text_color: '#1f2937',
+      accent_color: '#f59e0b'
+    };
+
+    let config = { ...defaultConfig };
+    let score = 0;
+    let currentQuestion = 0;
+    let quizAnswers = [];
+
+    // Quiz Questions
+    const quizQuestions = [
+      {
+        type: 'jajar',
+        question: 'Sebuah jajar genjang memiliki alas 15 cm dan tinggi 8 cm. Berapa luas jajar genjang tersebut?',
+        options: ['100 cm²', '120 cm²', '115 cm²', '130 cm²'],
+        correct: 1,
+        explanation: 'L = a × t = 15 × 8 = 120 cm²'
+      },
+      {
+        type: 'trapesium',
+        question: 'Sebuah trapesium memiliki sisi sejajar 10 cm dan 16 cm, serta tinggi 9 cm. Berapa luasnya?',
+        options: ['117 cm²', '126 cm²', '144 cm²', '108 cm²'],
+        correct: 0,
+        explanation: 'L = ½ × (10 + 16) × 9 = ½ × 26 × 9 = 117 cm²'
+      },
+      {
+        type: 'jajar',
+        question: 'Luas jajar genjang adalah 84 cm² dan tingginya 7 cm. Berapa panjang alasnya?',
+        options: ['10 cm', '11 cm', '12 cm', '14 cm'],
+        correct: 2,
+        explanation: 'a = L ÷ t = 84 ÷ 7 = 12 cm'
+      },
+      {
+        type: 'trapesium',
+        question: 'Trapesium dengan sisi sejajar 8 cm dan 12 cm memiliki luas 100 cm². Berapa tingginya?',
+        options: ['8 cm', '10 cm', '12 cm', '5 cm'],
+        correct: 1,
+        explanation: 't = (2 × L) ÷ (a + b) = (2 × 100) ÷ 20 = 10 cm'
+      },
+      {
+        type: 'jajar',
+        question: 'Pak Tani memiliki sawah berbentuk jajar genjang dengan alas 25 m dan tinggi 18 m. Berapa luas sawah tersebut?',
+        options: ['400 m²', '430 m²', '450 m²', '500 m²'],
+        correct: 2,
+        explanation: 'L = a × t = 25 × 18 = 450 m²'
+      }
+    ];
+
+    // Initialize SDKs
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          updateUI();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            {
+              get: () => cfg.background_color || defaultConfig.background_color,
+              set: (v) => window.elementSdk.setConfig({ background_color: v })
+            },
+            {
+              get: () => cfg.primary_color || defaultConfig.primary_color,
+              set: (v) => window.elementSdk.setConfig({ primary_color: v })
+            },
+            {
+              get: () => cfg.text_color || defaultConfig.text_color,
+              set: (v) => window.elementSdk.setConfig({ text_color: v })
+            },
+            {
+              get: () => cfg.accent_color || defaultConfig.accent_color,
+              set: (v) => window.elementSdk.setConfig({ accent_color: v })
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['main_title', cfg.main_title || defaultConfig.main_title],
+          ['subtitle', cfg.subtitle || defaultConfig.subtitle]
+        ])
+      });
+    }
+
+    function updateUI() {
+      document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+      document.body.style.background = `linear-gradient(135deg, ${config.background_color || defaultConfig.background_color}, #fdf2f8)`;
+    }
+
+    // Section Navigation
+    function showSection(section) {
+      // Hide all sections
+      document.querySelectorAll('[id^="section-"]').forEach(el => {
+        el.classList.add('hidden');
+      });
+      
+      // Show selected section
+      const targetSection = document.getElementById(`section-${section}`);
+      if (targetSection) {
+        targetSection.classList.remove('hidden');
+        targetSection.classList.add('fade-in');
+      }
+      
+      // Update tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('tab-active');
+        btn.classList.add('bg-white/50', 'text-gray-600');
+      });
+      
+      const activeTab = document.querySelector(`[data-tab="${section}"]`);
+      if (activeTab) {
+        activeTab.classList.add('tab-active');
+        activeTab.classList.remove('bg-white/50', 'text-gray-600');
+      }
+      
+      // Initialize quiz if needed
+      if (section === 'quiz' && currentQuestion === 0) {
+        loadQuestion();
+      }
+      
+      lucide.createIcons();
+    }
+
+    // Jajar Genjang Interactive
+    function updateJajar() {
+      const alas = parseInt(document.getElementById('jajar-alas').value);
+      const tinggi = parseInt(document.getElementById('jajar-tinggi').value);
+      const luas = alas * tinggi;
+      
+      document.getElementById('jajar-alas-value').textContent = `${alas} cm`;
+      document.getElementById('jajar-tinggi-value').textContent = `${tinggi} cm`;
+      
+      // Update shape
+      const scale = 7;
+      const baseX = 60;
+      const topOffset = 40;
+      const shapeWidth = alas * scale;
+      const shapeHeight = tinggi * scale;
+      
+      const points = `${baseX},${160} ${baseX + topOffset},${160 - shapeHeight} ${baseX + topOffset + shapeWidth},${160 - shapeHeight} ${baseX + shapeWidth},${160}`;
+      document.getElementById('jajar-shape').setAttribute('points', points);
+      
+      // Update calculation
+      document.getElementById('jajar-calculation').innerHTML = `
+        <p class="text-gray-600 mb-2">L = a × t</p>
+        <p class="text-gray-600 mb-2">L = ${alas} × ${tinggi}</p>
+        <p class="text-2xl md:text-3xl font-bold text-indigo-600">L = ${luas} cm²</p>
+      `;
+    }
+
+    // Trapesium Interactive
+    function updateTrapesium() {
+      const atas = parseInt(document.getElementById('trap-atas').value);
+      const bawah = parseInt(document.getElementById('trap-bawah').value);
+      const tinggi = parseInt(document.getElementById('trap-tinggi').value);
+      const luas = 0.5 * (atas + bawah) * tinggi;
+      
+      document.getElementById('trap-atas-value').textContent = `${atas} cm`;
+      document.getElementById('trap-bawah-value').textContent = `${bawah} cm`;
+      document.getElementById('trap-tinggi-value').textContent = `${tinggi} cm`;
+      
+      // Update shape
+      const scale = 7;
+      const centerX = 150;
+      const topWidth = atas * scale;
+      const bottomWidth = bawah * scale;
+      const shapeHeight = tinggi * scale;
+      
+      const points = `${centerX - bottomWidth/2},${160} ${centerX - topWidth/2},${160 - shapeHeight} ${centerX + topWidth/2},${160 - shapeHeight} ${centerX + bottomWidth/2},${160}`;
+      document.getElementById('trapesium-shape').setAttribute('points', points);
+      
+      // Update calculation
+      document.getElementById('trap-calculation').innerHTML = `
+        <p class="text-gray-600 mb-2">L = ½ × (a + b) × t</p>
+        <p class="text-gray-600 mb-2">L = ½ × (${atas} + ${bawah}) × ${tinggi}</p>
+        <p class="text-gray-600 mb-2">L = ½ × ${atas + bawah} × ${tinggi}</p>
+        <p class="text-2xl md:text-3xl font-bold text-purple-600">L = ${luas} cm²</p>
+      `;
+    }
+
+    // Quiz Functions
+    function loadQuestion() {
+      const q = quizQuestions[currentQuestion];
+      const color = q.type === 'jajar' ? 'indigo' : 'purple';
+      
+      const quizContent = document.getElementById('quiz-content');
+      quizContent.innerHTML = `
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 bg-gradient-to-br from-${color}-400 to-${color}-600 rounded-xl flex items-center justify-center">
+            <span class="text-white font-bold text-xl">${currentQuestion + 1}</span>
+          </div>
+          <div>
+            <span class="text-sm text-${color}-600 font-semibold uppercase tracking-wide">${q.type === 'jajar' ? 'Jajar Genjang' : 'Trapesium'}</span>
+          </div>
+        </div>
+        
+        <p class="text-lg md:text-xl text-gray-800 font-medium mb-6">${q.question}</p>
+        
+        <div class="grid gap-3" id="options-container">
+          ${q.options.map((opt, i) => `
+            <button onclick="selectAnswer(${i})" class="option-btn w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-${color}-400 hover:bg-${color}-50 transition-all font-medium text-gray-700 flex items-center gap-3">
+              <span class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-gray-500">${String.fromCharCode(65 + i)}</span>
+              <span>${opt}</span>
+            </button>
+          `).join('')}
+        </div>
+        
+        <div id="feedback" class="hidden mt-6 p-4 rounded-xl"></div>
+        
+        <div id="next-btn-container" class="hidden mt-6 text-center">
+          <button onclick="nextQuestion()" class="bg-gradient-to-r from-${color}-500 to-${color === 'indigo' ? 'purple' : 'pink'}-500 text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-all btn-bounce inline-flex items-center gap-2">
+            ${currentQuestion < quizQuestions.length - 1 ? '<span>Soal Berikutnya</span><i data-lucide="arrow-right" class="w-5 h-5"></i>' : '<span>Lihat Hasil</span><i data-lucide="trophy" class="w-5 h-5"></i>'}
+          </button>
+        </div>
+      `;
+      
+      updateProgress();
+      lucide.createIcons();
+    }
+
+    function selectAnswer(index) {
+      const q = quizQuestions[currentQuestion];
+      const isCorrect = index === q.correct;
+      const options = document.querySelectorAll('.option-btn');
+      
+      // Disable all options
+      options.forEach((opt, i) => {
+        opt.disabled = true;
+        opt.classList.remove('hover:border-indigo-400', 'hover:border-purple-400', 'hover:bg-indigo-50', 'hover:bg-purple-50');
+        
+        if (i === q.correct) {
+          opt.classList.add('border-emerald-500', 'bg-emerald-50');
+          opt.querySelector('span:first-child').classList.add('bg-emerald-500', 'text-white');
+        } else if (i === index && !isCorrect) {
+          opt.classList.add('border-red-500', 'bg-red-50');
+          opt.querySelector('span:first-child').classList.add('bg-red-500', 'text-white');
+        }
+      });
+      
+      // Show feedback
+      const feedback = document.getElementById('feedback');
+      feedback.classList.remove('hidden');
+      
+      if (isCorrect) {
+        score += 20;
+        updateScore();
+        feedback.className = 'mt-6 p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200';
+        feedback.innerHTML = `
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <i data-lucide="check" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <p class="font-bold text-emerald-700">Benar! 🎉</p>
+              <p class="text-emerald-600 text-sm mt-1">${q.explanation}</p>
+            </div>
+          </div>
+        `;
+      } else {
+        feedback.className = 'mt-6 p-4 rounded-xl bg-red-50 border-2 border-red-200';
+        feedback.innerHTML = `
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <i data-lucide="x" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <p class="font-bold text-red-700">Belum tepat</p>
+              <p class="text-red-600 text-sm mt-1">Jawaban yang benar: ${q.options[q.correct]}</p>
+              <p class="text-red-600 text-sm">${q.explanation}</p>
+            </div>
+          </div>
+        `;
+      }
+      
+      document.getElementById('next-btn-container').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      
+      if (currentQuestion >= quizQuestions.length) {
+        showResult();
+      } else {
+        loadQuestion();
+      }
+    }
+
+    function updateProgress() {
+      const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+      document.getElementById('quiz-progress-text').textContent = `Soal ${currentQuestion + 1} dari ${quizQuestions.length}`;
+      document.getElementById('quiz-progress-bar').style.width = `${progress}%`;
+    }
+
+    function updateScore() {
+      document.getElementById('score-value').textContent = score;
+      document.getElementById('mobile-score-value').textContent = score;
+    }
+
+    function showResult() {
+      document.getElementById('quiz-card').classList.add('hidden');
+      document.getElementById('quiz-result').classList.remove('hidden');
+      
+      const resultIcon = document.getElementById('result-icon');
+      const resultTitle = document.getElementById('result-title');
+      const resultMessage = document.getElementById('result-message');
+      const resultScore = document.getElementById('result-score');
+      
+      resultScore.innerHTML = `<span class="text-indigo-600">${score}</span><span class="text-gray-400">/100</span>`;
+      
+      if (score >= 80) {
+        resultIcon.className = 'w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center bg-gradient-to-br from-amber-400 to-orange-500';
+        resultIcon.innerHTML = '<i data-lucide="trophy" class="w-12 h-12 text-white"></i>';
+        resultTitle.textContent = '🎉 Luar Biasa!';
+        resultTitle.className = 'text-2xl md:text-3xl font-bold mb-4 text-amber-600';
+        resultMessage.textContent = 'Kamu sudah menguasai materi luas jajar genjang dan trapesium dengan sangat baik!';
+      } else if (score >= 60) {
+        resultIcon.className = 'w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center bg-gradient-to-br from-emerald-400 to-teal-500';
+        resultIcon.innerHTML = '<i data-lucide="thumbs-up" class="w-12 h-12 text-white"></i>';
+        resultTitle.textContent = '👍 Bagus!';
+        resultTitle.className = 'text-2xl md:text-3xl font-bold mb-4 text-emerald-600';
+        resultMessage.textContent = 'Kamu sudah cukup memahami materi. Terus berlatih untuk hasil yang lebih baik!';
+      } else {
+        resultIcon.className = 'w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-400 to-indigo-500';
+        resultIcon.innerHTML = '<i data-lucide="book-open" class="w-12 h-12 text-white"></i>';
+        resultTitle.textContent = '📚 Terus Belajar!';
+        resultTitle.className = 'text-2xl md:text-3xl font-bold mb-4 text-blue-600';
+        resultMessage.textContent = 'Pelajari lagi materi jajar genjang dan trapesium, lalu coba kuis ini lagi ya!';
+      }
+      
+      lucide.createIcons();
+    }
+
+    function resetQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      updateScore();
+      
+      document.getElementById('quiz-card').classList.remove('hidden');
+      document.getElementById('quiz-result').classList.add('hidden');
+      
+      loadQuestion();
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      updateUI();
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e16659985591be6',t:'MTc3NDM2Mjg2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

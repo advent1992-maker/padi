@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fakta dan Opini - Kelas 5</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+    }
+    
+    .btn-bounce:active {
+      transform: scale(0.95);
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+      100% { transform: scale(0.95); opacity: 1; }
+    }
+    
+    .pulse-animation {
+      animation: pulse-ring 2s infinite;
+    }
+    
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+    }
+    
+    .confetti {
+      animation: confetti 1s ease-out forwards;
+    }
+    
+    .progress-bar {
+      transition: width 0.5s ease-out;
+    }
+    
+    .drag-item {
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+    
+    .drag-item:active {
+      cursor: grabbing;
+    }
+    
+    .drop-zone {
+      transition: all 0.3s ease;
+    }
+    
+    .drop-zone.drag-over {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    }
+    
+    .shake {
+      animation: shake 0.5s ease-in-out;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);"><!-- Main Container -->
+   <div class="min-h-full w-full p-3 sm:p-4 md:p-6 lg:p-8"><!-- Header -->
+    <header class="text-center mb-4 sm:mb-6 md:mb-8 fade-in">
+     <div class="inline-flex items-center gap-2 sm:gap-3 bg-white/20 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 mb-3 sm:mb-4"><span class="text-xl sm:text-2xl">📚</span> <span class="text-white font-semibold text-sm sm:text-base">Bahasa Indonesia Kelas 5</span>
+     </div>
+     <h1 id="main-title" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white drop-shadow-lg mb-2">Fakta dan Opini</h1>
+     <p id="subtitle" class="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl">Belajar membedakan fakta dan opini dengan cara yang menyenangkan! 🎯</p>
+    </header><!-- Navigation Tabs -->
+    <nav class="flex justify-center mb-4 sm:mb-6 md:mb-8 fade-in">
+     <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-1.5 sm:p-2 flex gap-1 sm:gap-2 flex-wrap justify-center"><button onclick="showSection('materi')" id="tab-materi" class="tab-btn active px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm md:text-base transition-all btn-bounce"> <span class="hidden sm:inline">📖 </span>Materi </button> <button onclick="showSection('contoh')" id="tab-contoh" class="tab-btn px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm md:text-base transition-all btn-bounce"> <span class="hidden sm:inline">💡 </span>Contoh </button> <button onclick="showSection('latihan')" id="tab-latihan" class="tab-btn px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm md:text-base transition-all btn-bounce"> <span class="hidden sm:inline">✏️ </span>Latihan </button> <button onclick="showSection('kuis')" id="tab-kuis" class="tab-btn px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm md:text-base transition-all btn-bounce"> <span class="hidden sm:inline">🎮 </span>Kuis </button>
+     </div>
+    </nav><!-- Content Sections -->
+    <main class="max-w-6xl mx-auto"><!-- MATERI Section -->
+     <section id="section-materi" class="section-content fade-in">
+      <div class="grid md:grid-cols-2 gap-4 sm:gap-6"><!-- Fakta Card -->
+       <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl card-hover">
+        <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+         <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
+          ✓
+         </div>
+         <div>
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-emerald-600">FAKTA</h2>
+          <p class="text-gray-500 text-xs sm:text-sm">Kenyataan yang dapat dibuktikan</p>
+         </div>
+        </div>
+        <div class="space-y-3 sm:space-y-4">
+         <div class="bg-emerald-50 rounded-xl p-3 sm:p-4 border-l-4 border-emerald-500">
+          <h3 class="font-bold text-emerald-700 mb-1 sm:mb-2 text-sm sm:text-base">📌 Pengertian</h3>
+          <p class="text-gray-700 text-xs sm:text-sm md:text-base">Fakta adalah pernyataan yang berisi <strong>kenyataan</strong> dan dapat <strong>dibuktikan kebenarannya</strong>.</p>
+         </div>
+         <div class="bg-emerald-50 rounded-xl p-3 sm:p-4 border-l-4 border-emerald-500">
+          <h3 class="font-bold text-emerald-700 mb-1 sm:mb-2 text-sm sm:text-base">🔍 Ciri-ciri Fakta</h3>
+          <ul class="text-gray-700 text-xs sm:text-sm md:text-base space-y-1 sm:space-y-2">
+           <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">•</span> <span>Bersifat <strong>objektif</strong> (sesuai kenyataan)</span></li>
+           <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">•</span> <span>Dapat <strong>dibuktikan</strong> dengan data</span></li>
+           <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">•</span> <span>Berisi <strong>angka, tanggal, atau nama</strong></span></li>
+           <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">•</span> <span>Memiliki <strong>sumber</strong> yang jelas</span></li>
+          </ul>
+         </div>
+         <div class="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl p-3 sm:p-4 text-white">
+          <h3 class="font-bold mb-1 sm:mb-2 text-sm sm:text-base">💬 Kata Kunci Fakta</h3>
+          <div class="flex flex-wrap gap-1.5 sm:gap-2"><span class="bg-white/20 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">berdasarkan data</span> <span class="bg-white/20 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">tercatat</span> <span class="bg-white/20 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">terbukti</span> <span class="bg-white/20 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">menurut penelitian</span>
+          </div>
+         </div>
+        </div>
+       </div><!-- Opini Card -->
+       <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl card-hover">
+        <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+         <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
+          💭
+         </div>
+         <div>
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-amber-600">OPINI</h2>
+          <p class="text-gray-500 text-xs sm:text-sm">Pendapat atau pandangan seseorang</p>
+         </div>
+        </div>
+        <div class="space-y-3 sm:space-y-4">
+         <div class="bg-amber-50 rounded-xl p-3 sm:p-4 border-l-4 border-amber-500">
+          <h3 class="font-bold text-amber-700 mb-1 sm:mb-2 text-sm sm:text-base">📌 Pengertian</h3>
+          <p class="text-gray-700 text-xs sm:text-sm md:text-base">Opini adalah pernyataan yang berisi <strong>pendapat</strong> atau <strong>pandangan</strong> seseorang.</p>
+         </div>
+         <div class="bg-amber-50 rounded-xl p-3 sm:p-4 border-l-4 border-amber-500">
+          <h3 class="font-bold text-amber-700 mb-1 sm:mb-2 text-sm sm:text-base">🔍 Ciri-ciri Opini</h3>
+          <ul class="text-gray-700 text-xs sm:text-sm md:text-base space-y-1 sm:space-y-2">
+           <li class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">•</span> <span>Bersifat <strong>subjektif</strong> (menurut seseorang)</span></li>
+           <li class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">•</span> <span><strong>Tidak dapat</strong> dibuktikan kebenarannya</span></li>
+           <li class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">•</span> <span>Berisi <strong>penilaian</strong> atau perasaan</span></li>
+           <li class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">•</span> <span>Tiap orang bisa <strong>berbeda pendapat</strong></span></li>
+          </ul>
+         </div>
+         <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl p-3 sm:p-4 text-white">
+          <h3 class="font-bold mb-1 sm:mb-2 text-sm sm:text-base">💬 Kata Kunci Opini</h3>
+          <div class="flex flex-wrap gap-1.5 sm:gap-2"><span class="bg-white/20 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">menurut saya</span> <span class="bg-white/20 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">sebaiknya</span> <span class="bg-white/20 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">seharusnya</span> <span class="bg-white/20 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">sangat indah</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Tips Box -->
+      <div class="mt-4 sm:mt-6 bg-white/90 backdrop-blur rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl">
+       <div class="flex items-center gap-3 mb-3 sm:mb-4"><span class="text-2xl sm:text-3xl">💡</span>
+        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-purple-700">Tips Membedakan Fakta &amp; Opini</h3>
+       </div>
+       <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+        <div class="flex items-start gap-3 bg-purple-50 rounded-xl p-3 sm:p-4"><span class="text-xl sm:text-2xl">🔢</span>
+         <p class="text-gray-700 text-xs sm:text-sm md:text-base">Jika ada <strong>angka atau data</strong> yang bisa dicek, kemungkinan besar itu <strong>FAKTA</strong></p>
+        </div>
+        <div class="flex items-start gap-3 bg-purple-50 rounded-xl p-3 sm:p-4"><span class="text-xl sm:text-2xl">😊</span>
+         <p class="text-gray-700 text-xs sm:text-sm md:text-base">Jika berisi <strong>perasaan atau penilaian</strong> seperti "indah", "enak", kemungkinan itu <strong>OPINI</strong></p>
+        </div>
+       </div>
+      </div>
+     </section><!-- CONTOH Section -->
+     <section id="section-contoh" class="section-content hidden fade-in">
+      <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl">
+       <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-center mb-4 sm:mb-6 md:mb-8 text-gray-800">📝 Contoh Kalimat Fakta &amp; Opini</h2>
+       <div class="space-y-3 sm:space-y-4"><!-- Example 1 -->
+        <div class="bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 border-emerald-200">
+         <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3"><span class="bg-emerald-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold">FAKTA</span> <span class="text-emerald-600 text-xs sm:text-sm">✓ Dapat dibuktikan</span>
+         </div>
+         <p class="text-gray-800 text-sm sm:text-base md:text-lg font-medium">"Indonesia memiliki <strong>17.504 pulau</strong> yang tercatat di PBB pada tahun 2017."</p>
+         <p class="text-emerald-600 text-xs sm:text-sm mt-2">💡 Alasan: Terdapat angka dan data yang dapat diverifikasi</p>
+        </div><!-- Example 2 -->
+        <div class="bg-gradient-to-r from-amber-50 to-amber-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 border-amber-200">
+         <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3"><span class="bg-amber-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold">OPINI</span> <span class="text-amber-600 text-xs sm:text-sm">💭 Pendapat seseorang</span>
+         </div>
+         <p class="text-gray-800 text-sm sm:text-base md:text-lg font-medium">"<strong>Menurut saya</strong>, pemandangan di Raja Ampat <strong>sangat indah</strong> dan mempesona."</p>
+         <p class="text-amber-600 text-xs sm:text-sm mt-2">💡 Alasan: Menggunakan kata "menurut saya" dan penilaian "sangat indah"</p>
+        </div><!-- Example 3 -->
+        <div class="bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 border-emerald-200">
+         <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3"><span class="bg-emerald-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold">FAKTA</span> <span class="text-emerald-600 text-xs sm:text-sm">✓ Dapat dibuktikan</span>
+         </div>
+         <p class="text-gray-800 text-sm sm:text-base md:text-lg font-medium">"Gunung Semeru meletus pada tanggal <strong>4 Desember 2021</strong>."</p>
+         <p class="text-emerald-600 text-xs sm:text-sm mt-2">💡 Alasan: Menyebutkan tanggal yang dapat dicek kebenarannya</p>
+        </div><!-- Example 4 -->
+        <div class="bg-gradient-to-r from-amber-50 to-amber-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 border-amber-200">
+         <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3"><span class="bg-amber-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold">OPINI</span> <span class="text-amber-600 text-xs sm:text-sm">💭 Pendapat seseorang</span>
+         </div>
+         <p class="text-gray-800 text-sm sm:text-base md:text-lg font-medium">"Rendang <strong>adalah makanan terenak</strong> di dunia."</p>
+         <p class="text-amber-600 text-xs sm:text-sm mt-2">💡 Alasan: "Terenak" adalah penilaian subjektif, tiap orang bisa berbeda pendapat</p>
+        </div><!-- Example 5 -->
+        <div class="bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 border-emerald-200">
+         <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3"><span class="bg-emerald-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold">FAKTA</span> <span class="text-emerald-600 text-xs sm:text-sm">✓ Dapat dibuktikan</span>
+         </div>
+         <p class="text-gray-800 text-sm sm:text-base md:text-lg font-medium">"Soekarno adalah <strong>presiden pertama</strong> Republik Indonesia."</p>
+         <p class="text-emerald-600 text-xs sm:text-sm mt-2">💡 Alasan: Informasi sejarah yang tercatat dan dapat dibuktikan</p>
+        </div><!-- Example 6 -->
+        <div class="bg-gradient-to-r from-amber-50 to-amber-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 border-amber-200">
+         <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3"><span class="bg-amber-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold">OPINI</span> <span class="text-amber-600 text-xs sm:text-sm">💭 Pendapat seseorang</span>
+         </div>
+         <p class="text-gray-800 text-sm sm:text-base md:text-lg font-medium">"Film animasi <strong>lebih menarik</strong> daripada film dokumenter."</p>
+         <p class="text-amber-600 text-xs sm:text-sm mt-2">💡 Alasan: Penilaian "lebih menarik" bersifat subjektif</p>
+        </div>
+       </div>
+      </div>
+     </section><!-- LATIHAN Section (Drag & Drop) -->
+     <section id="section-latihan" class="section-content hidden fade-in">
+      <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl">
+       <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-center mb-2 text-gray-800">🎯 Latihan: Kelompokkan Kalimat!</h2>
+       <p class="text-center text-gray-500 text-sm sm:text-base mb-4 sm:mb-6">Seret kalimat ke kotak yang sesuai (Fakta atau Opini)</p><!-- Progress -->
+       <div class="mb-4 sm:mb-6">
+        <div class="flex justify-between text-xs sm:text-sm text-gray-600 mb-2"><span>Progress</span> <span id="latihan-progress">0/6 selesai</span>
+        </div>
+        <div class="h-2 sm:h-3 bg-gray-200 rounded-full overflow-hidden">
+         <div id="latihan-progress-bar" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 progress-bar" style="width: 0%"></div>
+        </div>
+       </div><!-- Drag Items -->
+       <div id="drag-container" class="flex flex-wrap gap-2 sm:gap-3 justify-center mb-4 sm:mb-6 min-h-[60px] sm:min-h-[80px] p-3 sm:p-4 bg-gray-50 rounded-xl sm:rounded-2xl">
+        <div class="drag-item bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm md:text-base font-medium shadow-lg" data-answer="fakta" draggable="true">
+         Bumi berputar mengelilingi Matahari
+        </div>
+        <div class="drag-item bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm md:text-base font-medium shadow-lg" data-answer="opini" draggable="true">
+         Cuaca hari ini sangat menyenangkan
+        </div>
+        <div class="drag-item bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm md:text-base font-medium shadow-lg" data-answer="fakta" draggable="true">
+         Air mendidih pada suhu 100°C
+        </div>
+        <div class="drag-item bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm md:text-base font-medium shadow-lg" data-answer="opini" draggable="true">
+         Matematika adalah pelajaran tersulit
+        </div>
+        <div class="drag-item bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm md:text-base font-medium shadow-lg" data-answer="fakta" draggable="true">
+         Jakarta adalah ibu kota Indonesia
+        </div>
+        <div class="drag-item bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm md:text-base font-medium shadow-lg" data-answer="opini" draggable="true">
+         Sebaiknya kita berolahraga setiap hari
+        </div>
+       </div><!-- Drop Zones -->
+       <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
+        <div class="drop-zone" data-type="fakta">
+         <div class="bg-gradient-to-br from-emerald-100 to-teal-100 border-3 border-dashed border-emerald-400 rounded-xl sm:rounded-2xl p-4 sm:p-6 min-h-[150px] sm:min-h-[200px]">
+          <div class="text-center mb-3 sm:mb-4"><span class="text-2xl sm:text-3xl">✓</span>
+           <h3 class="text-lg sm:text-xl font-bold text-emerald-700">FAKTA</h3>
+           <p class="text-emerald-600 text-xs sm:text-sm">Seret kalimat fakta ke sini</p>
+          </div>
+          <div id="fakta-items" class="space-y-2"></div>
+         </div>
+        </div>
+        <div class="drop-zone" data-type="opini">
+         <div class="bg-gradient-to-br from-amber-100 to-orange-100 border-3 border-dashed border-amber-400 rounded-xl sm:rounded-2xl p-4 sm:p-6 min-h-[150px] sm:min-h-[200px]">
+          <div class="text-center mb-3 sm:mb-4"><span class="text-2xl sm:text-3xl">💭</span>
+           <h3 class="text-lg sm:text-xl font-bold text-amber-700">OPINI</h3>
+           <p class="text-amber-600 text-xs sm:text-sm">Seret kalimat opini ke sini</p>
+          </div>
+          <div id="opini-items" class="space-y-2"></div>
+         </div>
+        </div>
+       </div><!-- Reset Button -->
+       <div class="text-center mt-4 sm:mt-6"><button onclick="resetLatihan()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-bold text-sm sm:text-base transition-all btn-bounce"> 🔄 Ulangi Latihan </button>
+       </div><!-- Result Message -->
+       <div id="latihan-result" class="hidden mt-4 sm:mt-6 p-4 sm:p-6 bg-gradient-to-r from-green-400 to-emerald-500 rounded-xl sm:rounded-2xl text-center text-white"><span class="text-3xl sm:text-4xl mb-2 block">🎉</span>
+        <h3 class="text-lg sm:text-xl md:text-2xl font-bold">Hebat! Semua Benar!</h3>
+        <p class="text-sm sm:text-base opacity-90">Kamu sudah paham perbedaan fakta dan opini!</p>
+       </div>
+      </div>
+     </section><!-- KUIS Section -->
+     <section id="section-kuis" class="section-content hidden fade-in">
+      <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl"><!-- Quiz Start Screen -->
+       <div id="quiz-start" class="text-center">
+        <div class="text-5xl sm:text-6xl md:text-7xl mb-4 pulse-animation">
+         🎮
+        </div>
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-800 mb-3 sm:mb-4">Kuis Fakta &amp; Opini</h2>
+        <p class="text-gray-500 text-sm sm:text-base md:text-lg mb-4 sm:mb-6">Jawab 10 pertanyaan untuk menguji pemahamanmu!</p>
+        <div class="bg-purple-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 inline-block">
+         <div class="flex items-center gap-4 sm:gap-6 text-left">
+          <div class="text-center">
+           <div class="text-2xl sm:text-3xl font-bold text-purple-600">
+            10
+           </div>
+           <div class="text-xs sm:text-sm text-gray-500">
+            Soal
+           </div>
+          </div>
+          <div class="h-10 sm:h-12 w-px bg-purple-200"></div>
+          <div class="text-center">
+           <div class="text-2xl sm:text-3xl font-bold text-purple-600">
+            ⭐
+           </div>
+           <div class="text-xs sm:text-sm text-gray-500">
+            Skor
+           </div>
+          </div>
+          <div class="h-10 sm:h-12 w-px bg-purple-200"></div>
+          <div class="text-center">
+           <div class="text-2xl sm:text-3xl font-bold text-purple-600">
+            🏆
+           </div>
+           <div class="text-xs sm:text-sm text-gray-500">
+            Hadiah
+           </div>
+          </div>
+         </div>
+        </div><br><button onclick="startQuiz()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg md:text-xl font-bold shadow-lg btn-bounce transition-all"> 🚀 Mulai Kuis </button>
+       </div><!-- Quiz Question Screen -->
+       <div id="quiz-question" class="hidden"><!-- Progress Bar -->
+        <div class="mb-4 sm:mb-6">
+         <div class="flex justify-between text-xs sm:text-sm text-gray-600 mb-2"><span>Soal <span id="current-question">1</span> dari 10</span> <span>Skor: <span id="current-score">0</span></span>
+         </div>
+         <div class="h-2 sm:h-3 bg-gray-200 rounded-full overflow-hidden">
+          <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 progress-bar" style="width: 10%"></div>
+         </div>
+        </div><!-- Question Card -->
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
+         <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4"><span class="bg-purple-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-sm sm:text-base" id="question-number">1</span> <span class="text-purple-600 font-semibold text-sm sm:text-base">Tentukan jenis kalimat berikut:</span>
+         </div>
+         <p id="question-text" class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 leading-relaxed">"Indonesia merdeka pada tanggal 17 Agustus 1945."</p>
+        </div><!-- Answer Buttons -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-4"><button onclick="submitAnswer('fakta')" id="btn-fakta" class="answer-btn bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white p-4 sm:p-6 rounded-xl sm:rounded-2xl text-base sm:text-lg md:text-xl font-bold shadow-lg btn-bounce transition-all"> ✓ FAKTA </button> <button onclick="submitAnswer('opini')" id="btn-opini" class="answer-btn bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white p-4 sm:p-6 rounded-xl sm:rounded-2xl text-base sm:text-lg md:text-xl font-bold shadow-lg btn-bounce transition-all"> 💭 OPINI </button>
+        </div><!-- Feedback -->
+        <div id="feedback" class="hidden mt-4 sm:mt-6 p-4 sm:p-6 rounded-xl sm:rounded-2xl text-center">
+         <div id="feedback-icon" class="text-3xl sm:text-4xl mb-2"></div>
+         <div id="feedback-text" class="text-base sm:text-lg font-bold"></div>
+         <p id="feedback-explanation" class="text-sm sm:text-base mt-2 opacity-90"></p>
+        </div><!-- Next Button --> <button id="next-btn" onclick="nextQuestion()" class="hidden w-full mt-4 sm:mt-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold btn-bounce transition-all"> Lanjut ➜ </button>
+       </div><!-- Quiz Result Screen -->
+       <div id="quiz-result" class="hidden text-center">
+        <div id="result-emoji" class="text-6xl sm:text-7xl md:text-8xl mb-4"></div>
+        <h2 id="result-title" class="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-800 mb-2"></h2>
+        <p id="result-subtitle" class="text-gray-500 text-sm sm:text-base md:text-lg mb-4 sm:mb-6"></p>
+        <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 inline-block">
+         <div class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"><span id="final-score">0</span>/10
+         </div>
+         <p class="text-purple-600 font-semibold text-sm sm:text-base mt-2">Jawaban Benar</p>
+        </div><!-- Stars -->
+        <div id="stars-container" class="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6"><span class="text-3xl sm:text-4xl text-gray-300">⭐</span> <span class="text-3xl sm:text-4xl text-gray-300">⭐</span> <span class="text-3xl sm:text-4xl text-gray-300">⭐</span>
+        </div><button onclick="restartQuiz()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold shadow-lg btn-bounce transition-all"> 🔄 Main Lagi </button>
+       </div>
+      </div>
+     </section>
+    </main><!-- Footer -->
+    <footer class="text-center mt-6 sm:mt-8 pb-4">
+     <p class="text-white/70 text-xs sm:text-sm">© 2024 Media Pembelajaran Interaktif | Bahasa Indonesia Kelas 5</p>
+    </footer>
+   </div>
+  </div>
+  <script>
+    // Default Configuration
+    const defaultConfig = {
+      main_title: 'Fakta dan Opini',
+      subtitle: 'Belajar membedakan fakta dan opini dengan cara yang menyenangkan! 🎯',
+      background_color: '#667eea',
+      surface_color: '#ffffff',
+      text_color: '#1f2937',
+      primary_action_color: '#7c3aed',
+      secondary_action_color: '#10b981'
+    };
+
+    // Quiz Data
+    const quizData = [
+      { question: "Indonesia merdeka pada tanggal 17 Agustus 1945.", answer: "fakta", explanation: "Tanggal kemerdekaan adalah data sejarah yang tercatat." },
+      { question: "Buah mangga rasanya lebih enak daripada buah apel.", answer: "opini", explanation: "Kata 'lebih enak' adalah penilaian subjektif." },
+      { question: "Gajah adalah hewan mamalia terbesar di darat.", answer: "fakta", explanation: "Ini adalah fakta ilmiah yang dapat dibuktikan." },
+      { question: "Menurut saya, bermain game sangat menyenangkan.", answer: "opini", explanation: "Kata 'menurut saya' menunjukkan pendapat pribadi." },
+      { question: "Matahari terbit dari arah timur.", answer: "fakta", explanation: "Ini adalah fenomena alam yang dapat diamati dan dibuktikan." },
+      { question: "Olahraga renang adalah olahraga terbaik untuk kesehatan.", answer: "opini", explanation: "Kata 'terbaik' adalah penilaian subjektif." },
+      { question: "Provinsi Papua adalah provinsi terluas di Indonesia.", answer: "fakta", explanation: "Luas wilayah dapat diukur dan dibuktikan dengan data." },
+      { question: "Sebaiknya siswa belajar minimal 2 jam setiap hari.", answer: "opini", explanation: "Kata 'sebaiknya' menunjukkan saran atau pendapat." },
+      { question: "Gunung Everest memiliki ketinggian 8.848 meter.", answer: "fakta", explanation: "Ketinggian dapat diukur dan diverifikasi." },
+      { question: "Kucing adalah hewan peliharaan yang paling menggemaskan.", answer: "opini", explanation: "Kata 'paling menggemaskan' adalah penilaian subjektif." }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let answered = false;
+    let latihanCompleted = 0;
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const titleEl = document.getElementById('main-title');
+          const subtitleEl = document.getElementById('subtitle');
+          
+          if (titleEl) titleEl.textContent = config.main_title || defaultConfig.main_title;
+          if (subtitleEl) subtitleEl.textContent = config.subtitle || defaultConfig.subtitle;
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => {
+                config.surface_color = value;
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => {
+                config.primary_action_color = value;
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (value) => {
+                config.secondary_action_color = value;
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['main_title', config.main_title || defaultConfig.main_title],
+          ['subtitle', config.subtitle || defaultConfig.subtitle]
+        ])
+      });
+    }
+
+    // Section Navigation
+    function showSection(sectionName) {
+      // Hide all sections
+      document.querySelectorAll('.section-content').forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      // Remove active from all tabs
+      document.querySelectorAll('.tab-btn').forEach(tab => {
+        tab.classList.remove('active', 'bg-white', 'text-purple-700', 'shadow-lg');
+        tab.classList.add('text-white/80', 'hover:bg-white/20');
+      });
+      
+      // Show selected section
+      const targetSection = document.getElementById(`section-${sectionName}`);
+      if (targetSection) {
+        targetSection.classList.remove('hidden');
+        targetSection.classList.add('fade-in');
+      }
+      
+      // Activate selected tab
+      const targetTab = document.getElementById(`tab-${sectionName}`);
+      if (targetTab) {
+        targetTab.classList.add('active', 'bg-white', 'text-purple-700', 'shadow-lg');
+        targetTab.classList.remove('text-white/80', 'hover:bg-white/20');
+      }
+    }
+
+    // Initialize tabs
+    document.querySelectorAll('.tab-btn').forEach(tab => {
+      if (tab.classList.contains('active')) {
+        tab.classList.add('bg-white', 'text-purple-700', 'shadow-lg');
+      } else {
+        tab.classList.add('text-white/80', 'hover:bg-white/20');
+      }
+    });
+
+    // Drag and Drop for Latihan
+    let draggedElement = null;
+
+    function initDragAndDrop() {
+      const dragItems = document.querySelectorAll('.drag-item');
+      const dropZones = document.querySelectorAll('.drop-zone');
+
+      dragItems.forEach(item => {
+        // Mouse events
+        item.addEventListener('dragstart', handleDragStart);
+        item.addEventListener('dragend', handleDragEnd);
+        
+        // Touch events
+        item.addEventListener('touchstart', handleTouchStart, { passive: false });
+        item.addEventListener('touchmove', handleTouchMove, { passive: false });
+        item.addEventListener('touchend', handleTouchEnd);
+      });
+
+      dropZones.forEach(zone => {
+        zone.addEventListener('dragover', handleDragOver);
+        zone.addEventListener('dragleave', handleDragLeave);
+        zone.addEventListener('drop', handleDrop);
+      });
+    }
+
+    function handleDragStart(e) {
+      draggedElement = e.target;
+      e.target.style.opacity = '0.5';
+    }
+
+    function handleDragEnd(e) {
+      e.target.style.opacity = '1';
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('drag-over');
+    }
+
+    function handleDragLeave(e) {
+      e.currentTarget.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over');
+      
+      const dropType = e.currentTarget.dataset.type;
+      const answer = draggedElement.dataset.answer;
+      
+      if (dropType === answer) {
+        // Correct
+        const targetContainer = document.getElementById(`${dropType}-items`);
+        draggedElement.classList.remove('bg-gradient-to-r', 'from-purple-500', 'to-indigo-500');
+        
+        if (dropType === 'fakta') {
+          draggedElement.classList.add('bg-gradient-to-r', 'from-emerald-500', 'to-teal-500');
+        } else {
+          draggedElement.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-500');
+        }
+        
+        draggedElement.draggable = false;
+        draggedElement.classList.remove('drag-item');
+        draggedElement.style.cursor = 'default';
+        targetContainer.appendChild(draggedElement);
+        
+        latihanCompleted++;
+        updateLatihanProgress();
+      } else {
+        // Wrong - shake animation
+        draggedElement.classList.add('shake');
+        setTimeout(() => {
+          draggedElement.classList.remove('shake');
+        }, 500);
+      }
+    }
+
+    // Touch handling for mobile
+    let touchStartX, touchStartY;
+    let touchClone = null;
+
+    function handleTouchStart(e) {
+      draggedElement = e.target;
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      
+      // Create visual clone for dragging
+      touchClone = draggedElement.cloneNode(true);
+      touchClone.style.position = 'fixed';
+      touchClone.style.pointerEvents = 'none';
+      touchClone.style.zIndex = '1000';
+      touchClone.style.opacity = '0.8';
+      touchClone.style.transform = 'scale(1.05)';
+      document.body.appendChild(touchClone);
+      
+      draggedElement.style.opacity = '0.3';
+    }
+
+    function handleTouchMove(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      
+      if (touchClone) {
+        touchClone.style.left = (touch.clientX - touchClone.offsetWidth / 2) + 'px';
+        touchClone.style.top = (touch.clientY - touchClone.offsetHeight / 2) + 'px';
+      }
+      
+      // Highlight drop zones
+      const dropZones = document.querySelectorAll('.drop-zone');
+      dropZones.forEach(zone => {
+        const rect = zone.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+          zone.classList.add('drag-over');
+        } else {
+          zone.classList.remove('drag-over');
+        }
+      });
+    }
+
+    function handleTouchEnd(e) {
+      if (touchClone) {
+        const touch = e.changedTouches[0];
+        const dropZones = document.querySelectorAll('.drop-zone');
+        
+        let dropped = false;
+        dropZones.forEach(zone => {
+          zone.classList.remove('drag-over');
+          const rect = zone.getBoundingClientRect();
+          
+          if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+              touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+            
+            const dropType = zone.dataset.type;
+            const answer = draggedElement.dataset.answer;
+            
+            if (dropType === answer) {
+              const targetContainer = document.getElementById(`${dropType}-items`);
+              draggedElement.classList.remove('bg-gradient-to-r', 'from-purple-500', 'to-indigo-500');
+              
+              if (dropType === 'fakta') {
+                draggedElement.classList.add('bg-gradient-to-r', 'from-emerald-500', 'to-teal-500');
+              } else {
+                draggedElement.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-500');
+              }
+              
+              draggedElement.draggable = false;
+              draggedElement.classList.remove('drag-item');
+              draggedElement.style.cursor = 'default';
+              draggedElement.removeEventListener('touchstart', handleTouchStart);
+              draggedElement.removeEventListener('touchmove', handleTouchMove);
+              draggedElement.removeEventListener('touchend', handleTouchEnd);
+              targetContainer.appendChild(draggedElement);
+              
+              latihanCompleted++;
+              updateLatihanProgress();
+              dropped = true;
+            } else {
+              draggedElement.classList.add('shake');
+              setTimeout(() => {
+                draggedElement.classList.remove('shake');
+              }, 500);
+            }
+          }
+        });
+        
+        touchClone.remove();
+        touchClone = null;
+        draggedElement.style.opacity = '1';
+      }
+    }
+
+    function updateLatihanProgress() {
+      const progress = (latihanCompleted / 6) * 100;
+      document.getElementById('latihan-progress').textContent = `${latihanCompleted}/6 selesai`;
+      document.getElementById('latihan-progress-bar').style.width = `${progress}%`;
+      
+      if (latihanCompleted === 6) {
+        document.getElementById('latihan-result').classList.remove('hidden');
+      }
+    }
+
+    function resetLatihan() {
+      latihanCompleted = 0;
+      document.getElementById('latihan-progress').textContent = '0/6 selesai';
+      document.getElementById('latihan-progress-bar').style.width = '0%';
+      document.getElementById('latihan-result').classList.add('hidden');
+      
+      // Reset drag items
+      const dragContainer = document.getElementById('drag-container');
+      const faktaItems = document.getElementById('fakta-items');
+      const opiniItems = document.getElementById('opini-items');
+      
+      // Move items back
+      [...faktaItems.children, ...opiniItems.children].forEach(item => {
+        item.classList.remove('bg-gradient-to-r', 'from-emerald-500', 'to-teal-500', 'from-amber-500', 'to-orange-500');
+        item.classList.add('bg-gradient-to-r', 'from-purple-500', 'to-indigo-500', 'drag-item');
+        item.draggable = true;
+        item.style.cursor = 'grab';
+        dragContainer.appendChild(item);
+      });
+      
+      // Reinitialize drag and drop
+      initDragAndDrop();
+    }
+
+    // Quiz Functions
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      document.getElementById('quiz-start').classList.add('hidden');
+      document.getElementById('quiz-question').classList.remove('hidden');
+      document.getElementById('quiz-result').classList.add('hidden');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      answered = false;
+      const question = quizData[currentQuestionIndex];
+      
+      document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+      document.getElementById('question-number').textContent = currentQuestionIndex + 1;
+      document.getElementById('question-text').textContent = `"${question.question}"`;
+      document.getElementById('current-score').textContent = score;
+      document.getElementById('quiz-progress-bar').style.width = `${((currentQuestionIndex + 1) / 10) * 100}%`;
+      
+      // Reset buttons
+      document.getElementById('btn-fakta').disabled = false;
+      document.getElementById('btn-opini').disabled = false;
+      document.getElementById('btn-fakta').classList.remove('opacity-50', 'ring-4', 'ring-green-400', 'ring-red-400');
+      document.getElementById('btn-opini').classList.remove('opacity-50', 'ring-4', 'ring-green-400', 'ring-red-400');
+      
+      document.getElementById('feedback').classList.add('hidden');
+      document.getElementById('next-btn').classList.add('hidden');
+    }
+
+    function submitAnswer(answer) {
+      if (answered) return;
+      answered = true;
+      
+      const question = quizData[currentQuestionIndex];
+      const isCorrect = answer === question.answer;
+      
+      // Disable buttons
+      document.getElementById('btn-fakta').disabled = true;
+      document.getElementById('btn-opini').disabled = true;
+      
+      // Highlight correct/wrong
+      const correctBtn = question.answer === 'fakta' ? 'btn-fakta' : 'btn-opini';
+      const selectedBtn = answer === 'fakta' ? 'btn-fakta' : 'btn-opini';
+      
+      document.getElementById(correctBtn).classList.add('ring-4', 'ring-green-400');
+      
+      if (!isCorrect) {
+        document.getElementById(selectedBtn).classList.add('ring-4', 'ring-red-400', 'opacity-50');
+      }
+      
+      // Show feedback
+      const feedback = document.getElementById('feedback');
+      const feedbackIcon = document.getElementById('feedback-icon');
+      const feedbackText = document.getElementById('feedback-text');
+      const feedbackExplanation = document.getElementById('feedback-explanation');
+      
+      if (isCorrect) {
+        score++;
+        document.getElementById('current-score').textContent = score;
+        feedback.className = 'mt-4 sm:mt-6 p-4 sm:p-6 rounded-xl sm:rounded-2xl text-center bg-gradient-to-r from-green-400 to-emerald-500 text-white';
+        feedbackIcon.textContent = '🎉';
+        feedbackText.textContent = 'Benar! Hebat!';
+      } else {
+        feedback.className = 'mt-4 sm:mt-6 p-4 sm:p-6 rounded-xl sm:rounded-2xl text-center bg-gradient-to-r from-red-400 to-pink-500 text-white';
+        feedbackIcon.textContent = '😅';
+        feedbackText.textContent = 'Kurang tepat!';
+      }
+      
+      feedbackExplanation.textContent = question.explanation;
+      feedback.classList.remove('hidden');
+      
+      // Show next button
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.classList.remove('hidden');
+      nextBtn.textContent = currentQuestionIndex < 9 ? 'Lanjut ➜' : 'Lihat Hasil 🏆';
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      
+      if (currentQuestionIndex < 10) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('quiz-question').classList.add('hidden');
+      document.getElementById('quiz-result').classList.remove('hidden');
+      
+      document.getElementById('final-score').textContent = score;
+      
+      const resultEmoji = document.getElementById('result-emoji');
+      const resultTitle = document.getElementById('result-title');
+      const resultSubtitle = document.getElementById('result-subtitle');
+      const starsContainer = document.getElementById('stars-container');
+      
+      let stars = 0;
+      
+      if (score >= 9) {
+        resultEmoji.textContent = '🏆';
+        resultTitle.textContent = 'Luar Biasa!';
+        resultSubtitle.textContent = 'Kamu adalah ahli fakta dan opini!';
+        stars = 3;
+      } else if (score >= 7) {
+        resultEmoji.textContent = '🌟';
+        resultTitle.textContent = 'Hebat!';
+        resultSubtitle.textContent = 'Kamu sudah sangat memahami materi!';
+        stars = 2;
+      } else if (score >= 5) {
+        resultEmoji.textContent = '👍';
+        resultTitle.textContent = 'Bagus!';
+        resultSubtitle.textContent = 'Terus berlatih ya!';
+        stars = 1;
+      } else {
+        resultEmoji.textContent = '💪';
+        resultTitle.textContent = 'Semangat!';
+        resultSubtitle.textContent = 'Coba pelajari lagi materinya ya!';
+        stars = 0;
+      }
+      
+      // Animate stars
+      const starSpans = starsContainer.querySelectorAll('span');
+      starSpans.forEach((star, index) => {
+        setTimeout(() => {
+          if (index < stars) {
+            star.classList.remove('text-gray-300');
+            star.classList.add('text-yellow-400');
+            star.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+              star.style.transform = 'scale(1)';
+            }, 200);
+          }
+        }, index * 300);
+      });
+    }
+
+    function restartQuiz() {
+      // Reset stars
+      const starsContainer = document.getElementById('stars-container');
+      const starSpans = starsContainer.querySelectorAll('span');
+      starSpans.forEach(star => {
+        star.classList.add('text-gray-300');
+        star.classList.remove('text-yellow-400');
+      });
+      
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-start').classList.remove('hidden');
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      initDragAndDrop();
+      lucide.createIcons();
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e162e6de549e78f',t:'MTc3NDM2MDYwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Interaktif 3R</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Fredoka', sans-serif; }
+    html, body { height: 100%; margin: 0; }
+    .app-wrapper { height: 100%; width: 100%; overflow-y: auto; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    @keyframes pop { 0%{transform:scale(0.8);opacity:0} 100%{transform:scale(1);opacity:1} }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+    .float { animation: float 3s ease-in-out infinite; }
+    .pop { animation: pop 0.4s ease-out forwards; }
+    .shake { animation: shake 0.4s ease-in-out; }
+    .card-3r { transition: all 0.3s; cursor: pointer; }
+    .card-3r:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+    .btn-nav { transition: all 0.2s; }
+    .btn-nav:hover { transform: scale(1.05); }
+    .btn-nav:active { transform: scale(0.95); }
+    .progress-bar { transition: width 0.5s ease; }
+    .quiz-option { transition: all 0.2s; cursor: pointer; }
+    .quiz-option:hover:not(.disabled) { transform: scale(1.02); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="app-wrapper bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600" id="app">
+   <!-- HOME SCREEN -->
+   <section id="screen-home" class="flex flex-col items-center justify-center min-h-full p-6 text-center">
+    <div class="float mb-4">
+     <div class="text-7xl md:text-9xl">
+      ♻️
+     </div>
+    </div>
+    <h1 id="title-el" class="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-3">Prinsip 3R</h1>
+    <p class="text-lg md:text-2xl text-white/90 mb-2">dalam Pengelolaan Sampah</p>
+    <div class="bg-white/20 backdrop-blur rounded-2xl px-6 py-3 mb-8 max-w-xl">
+     <p id="goal-el" class="text-white text-sm md:text-base"><strong>🎯 Tujuan:</strong> Siswa mampu memahami dan menerapkan prinsip Reduce, Reuse, dan Recycle untuk menjaga lingkungan.</p>
+    </div><button onclick="showScreen('screen-materi')" class="btn-nav bg-yellow-400 hover:bg-yellow-300 text-gray-800 font-bold px-10 py-4 rounded-full text-xl shadow-lg"> 🚀 Mulai Belajar! </button>
+   </section><!-- MATERI SCREEN -->
+   <section id="screen-materi" class="hidden min-h-full p-4 md:p-8">
+    <div class="max-w-5xl mx-auto">
+     <button onclick="showScreen('screen-home')" class="btn-nav text-white mb-4 flex items-center gap-2 text-lg"><i data-lucide="arrow-left" class="w-5 h-5"></i> Kembali</button>
+     <h2 class="text-3xl md:text-5xl font-bold text-white text-center mb-8">Apa itu 3R? 🤔</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- REDUCE -->
+      <div class="card-3r bg-white rounded-3xl p-6 text-center shadow-xl" onclick="showDetail('reduce')">
+       <div class="text-6xl mb-3">
+        🚫
+       </div>
+       <h3 class="text-2xl font-bold text-red-500 mb-2">REDUCE</h3>
+       <p class="text-gray-600 text-sm">Mengurangi penggunaan barang yang menghasilkan sampah</p>
+       <p class="text-xs text-gray-400 mt-3">Tap untuk detail →</p>
+      </div><!-- REUSE -->
+      <div class="card-3r bg-white rounded-3xl p-6 text-center shadow-xl" onclick="showDetail('reuse')">
+       <div class="text-6xl mb-3">
+        🔄
+       </div>
+       <h3 class="text-2xl font-bold text-blue-500 mb-2">REUSE</h3>
+       <p class="text-gray-600 text-sm">Menggunakan kembali barang yang masih bisa dipakai</p>
+       <p class="text-xs text-gray-400 mt-3">Tap untuk detail →</p>
+      </div><!-- RECYCLE -->
+      <div class="card-3r bg-white rounded-3xl p-6 text-center shadow-xl" onclick="showDetail('recycle')">
+       <div class="text-6xl mb-3">
+        ♻️
+       </div>
+       <h3 class="text-2xl font-bold text-green-500 mb-2">RECYCLE</h3>
+       <p class="text-gray-600 text-sm">Mendaur ulang sampah menjadi barang baru yang berguna</p>
+       <p class="text-xs text-gray-400 mt-3">Tap untuk detail →</p>
+      </div>
+     </div>
+     <div class="text-center">
+      <button onclick="showScreen('screen-quiz')" class="btn-nav bg-purple-500 hover:bg-purple-400 text-white font-bold px-8 py-4 rounded-full text-xl shadow-lg">📝 Kuis Interaktif!</button>
+     </div>
+    </div>
+   </section><!-- DETAIL MODAL -->
+   <div id="detail-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onclick="closeDetail(event)">
+    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-lg w-full pop" id="detail-content"></div>
+   </div><!-- QUIZ SCREEN -->
+   <section id="screen-quiz" class="hidden min-h-full p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+     <button onclick="showScreen('screen-materi')" class="btn-nav text-white mb-4 flex items-center gap-2"><i data-lucide="arrow-left" class="w-5 h-5"></i> Kembali</button>
+     <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl">
+      <div class="flex justify-between items-center mb-4">
+       <span id="quiz-counter" class="text-sm font-bold text-gray-500">Soal 1/10</span> <span id="quiz-score" class="text-sm font-bold text-emerald-600">Skor: 0</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-3 mb-6">
+       <div id="quiz-progress" class="progress-bar bg-gradient-to-r from-emerald-400 to-cyan-500 h-3 rounded-full" style="width:10%"></div>
+      </div>
+      <p id="quiz-question" class="text-lg md:text-xl font-bold text-gray-800 mb-6"></p>
+      <div id="quiz-options" class="grid gap-3"></div>
+      <div id="quiz-feedback" class="hidden mt-4 p-4 rounded-2xl text-center font-bold"></div><button id="quiz-next" class="hidden btn-nav mt-4 w-full bg-teal-500 hover:bg-teal-400 text-white font-bold py-3 rounded-full text-lg" onclick="nextQuestion()">Soal Berikutnya →</button>
+     </div>
+    </div>
+   </section><!-- RESULT SCREEN -->
+   <section id="screen-result" class="hidden flex flex-col items-center justify-center min-h-full p-6 text-center">
+    <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl max-w-md w-full pop">
+     <div class="text-7xl mb-4" id="result-emoji">
+      🏆
+     </div>
+     <h2 class="text-3xl font-bold text-gray-800 mb-2">Hasil Kuis</h2>
+     <p id="result-score" class="text-5xl font-bold text-emerald-500 mb-2"></p>
+     <p id="result-msg" class="text-gray-600 mb-6"></p>
+     <div class="flex flex-col gap-3">
+      <button onclick="resetQuiz();showScreen('screen-quiz')" class="btn-nav bg-purple-500 hover:bg-purple-400 text-white font-bold py-3 rounded-full">🔁 Ulangi Kuis</button> <button onclick="showScreen('screen-home')" class="btn-nav bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 rounded-full">🏠 Kembali ke Awal</button>
+     </div>
+    </div>
+   </section>
+  </div>
+  <script>
+const defaultConfig = {
+  main_title: 'Prinsip 3R',
+  learning_goal: 'Siswa mampu memahami dan menerapkan prinsip Reduce, Reuse, dan Recycle untuk menjaga lingkungan.',
+  background_color: '#10b981',
+  surface_color: '#ffffff',
+  text_color: '#1f2937',
+  primary_action: '#a855f7',
+  secondary_action: '#facc15',
+  font_family: 'Fredoka',
+  font_size: 16
+};
+
+function applyConfig(config) {
+  const t = document.getElementById('title-el');
+  const g = document.getElementById('goal-el');
+  if(t) t.textContent = config.main_title || defaultConfig.main_title;
+  if(g) g.innerHTML = `<strong>🎯 Tujuan:</strong> ${config.learning_goal || defaultConfig.learning_goal}`;
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: async (config) => { applyConfig(config); },
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get:()=>config.background_color||defaultConfig.background_color, set:(v)=>{config.background_color=v;window.elementSdk.setConfig({background_color:v})} },
+      { get:()=>config.surface_color||defaultConfig.surface_color, set:(v)=>{config.surface_color=v;window.elementSdk.setConfig({surface_color:v})} },
+      { get:()=>config.text_color||defaultConfig.text_color, set:(v)=>{config.text_color=v;window.elementSdk.setConfig({text_color:v})} },
+      { get:()=>config.primary_action||defaultConfig.primary_action, set:(v)=>{config.primary_action=v;window.elementSdk.setConfig({primary_action:v})} },
+      { get:()=>config.secondary_action||defaultConfig.secondary_action, set:(v)=>{config.secondary_action=v;window.elementSdk.setConfig({secondary_action:v})} }
+    ],
+    borderables: [],
+    fontEditable: { get:()=>config.font_family||defaultConfig.font_family, set:(v)=>{config.font_family=v;window.elementSdk.setConfig({font_family:v})} },
+    fontSizeable: { get:()=>config.font_size||defaultConfig.font_size, set:(v)=>{config.font_size=v;window.elementSdk.setConfig({font_size:v})} }
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ['main_title', config.main_title || defaultConfig.main_title],
+    ['learning_goal', config.learning_goal || defaultConfig.learning_goal]
+  ])
+});
+
+// NAVIGATION
+function showScreen(id) {
+  document.querySelectorAll('#app > section').forEach(s => s.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  if(id === 'screen-quiz' && currentQ === 0) loadQuestion();
+}
+
+// DETAIL
+const details = {
+  reduce: { emoji:'🚫', title:'REDUCE (Mengurangi)', color:'text-red-500', examples:['Membawa botol minum sendiri','Membawa tas belanja dari rumah','Mematikan lampu saat tidak dipakai','Tidak mencetak kertas yang tidak perlu'] },
+  reuse: { emoji:'🔄', title:'REUSE (Menggunakan Kembali)', color:'text-blue-500', examples:['Menggunakan botol bekas sebagai pot tanaman','Memberikan baju lama ke yang membutuhkan','Menggunakan kertas bekas untuk coret-coretan','Memakai kotak bekas untuk menyimpan barang'] },
+  recycle: { emoji:'♻️', title:'RECYCLE (Mendaur Ulang)', color:'text-green-500', examples:['Membuat kerajinan dari botol plastik bekas','Mengolah kertas bekas menjadi kertas daur ulang','Membuat kompos dari sampah organik','Mengumpulkan kaleng untuk didaur ulang pabrik'] }
+};
+
+function showDetail(key) {
+  const d = details[key];
+  document.getElementById('detail-content').innerHTML = `
+    <div class="text-center"><div class="text-6xl mb-3">${d.emoji}</div>
+    <h3 class="text-2xl font-bold ${d.color} mb-4">${d.title}</h3></div>
+    <p class="font-bold text-gray-700 mb-2">Contoh:</p>
+    <ul class="space-y-2">${d.examples.map(e=>`<li class="flex items-start gap-2"><span>✅</span><span class="text-gray-600">${e}</span></li>`).join('')}</ul>
+    <button onclick="document.getElementById('detail-modal').classList.add('hidden')" class="mt-5 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2 rounded-full">Tutup</button>`;
+  document.getElementById('detail-modal').classList.remove('hidden');
+}
+function closeDetail(e) { if(e.target.id==='detail-modal') e.target.classList.add('hidden'); }
+
+// QUIZ
+const questions = [
+  {q:'Apa kepanjangan dari 3R?', o:['Reduce, Reuse, Recycle','Read, Run, Rest','Red, Rare, Rich','Rise, Roll, Rock'], a:0},
+  {q:'Membawa botol minum sendiri termasuk prinsip...', o:['Recycle','Reduce','Reuse','Repair'], a:1},
+  {q:'Menggunakan botol bekas untuk pot tanaman adalah contoh...', o:['Reduce','Recycle','Reuse','Refuse'], a:2},
+  {q:'Membuat kompos dari sampah daun termasuk prinsip...', o:['Reduce','Reuse','Recycle','Refuse'], a:2},
+  {q:'Manakah yang BUKAN termasuk prinsip 3R?', o:['Reduce','Reuse','Recycle','Reject'], a:3},
+  {q:'Membawa tas belanja sendiri ke toko termasuk prinsip...', o:['Reuse','Recycle','Reduce','Repair'], a:2},
+  {q:'Mengumpulkan kertas bekas untuk dibuat kertas baru adalah contoh...', o:['Reduce','Recycle','Reuse','Refuse'], a:1},
+  {q:'Mematikan lampu saat tidak diperlukan termasuk...', o:['Reuse','Recycle','Reduce','Repair'], a:2},
+  {q:'Memberikan baju bekas ke orang lain termasuk prinsip...', o:['Reduce','Reuse','Recycle','Repair'], a:1},
+  {q:'Tujuan utama prinsip 3R adalah...', o:['Menambah sampah','Mengurangi sampah & menjaga lingkungan','Membuat sampah lebih indah','Mengumpulkan sampah'], a:1}
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function loadQuestion() {
+  answered = false;
+  const q = questions[currentQ];
+  document.getElementById('quiz-counter').textContent = `Soal ${currentQ+1}/10`;
+  document.getElementById('quiz-score').textContent = `Skor: ${score}`;
+  document.getElementById('quiz-progress').style.width = `${(currentQ+1)*10}%`;
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-feedback').classList.add('hidden');
+  document.getElementById('quiz-next').classList.add('hidden');
+  const opts = document.getElementById('quiz-options');
+  opts.innerHTML = q.o.map((o,i)=>`<button class="quiz-option text-left p-4 rounded-2xl border-2 border-gray-200 font-medium text-gray-700 hover:border-teal-400" onclick="answer(${i})">${o}</button>`).join('');
+}
+
+function answer(i) {
+  if(answered) return;
+  answered = true;
+  const correct = questions[currentQ].a === i;
+  if(correct) score++;
+  document.getElementById('quiz-score').textContent = `Skor: ${score}`;
+  const btns = document.querySelectorAll('.quiz-option');
+  btns.forEach((b,idx)=>{
+    b.classList.add('disabled');
+    if(idx===questions[currentQ].a) { b.classList.remove('border-gray-200');b.classList.add('border-green-500','bg-green-50'); }
+    else if(idx===i&&!correct) { b.classList.remove('border-gray-200');b.classList.add('border-red-500','bg-red-50','shake'); }
+  });
+  const fb = document.getElementById('quiz-feedback');
+  fb.classList.remove('hidden');
+  fb.className = `mt-4 p-4 rounded-2xl text-center font-bold ${correct?'bg-green-100 text-green-700':'bg-red-100 text-red-700'}`;
+  fb.textContent = correct ? '🎉 Benar! Hebat!' : '😅 Kurang tepat, perhatikan lagi ya!';
+  document.getElementById('quiz-next').classList.remove('hidden');
+  document.getElementById('quiz-next').textContent = currentQ===9 ? '🏆 Lihat Hasil' : 'Soal Berikutnya →';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=10) { showResult(); return; }
+  loadQuestion();
+}
+
+function showResult() {
+  showScreen('screen-result');
+  document.getElementById('result-score').textContent = `${score}/10`;
+  const emoji = score>=8?'🏆':score>=5?'👍':'💪';
+  const msg = score>=8?'Luar biasa! Kamu sangat paham tentang 3R!':score>=5?'Bagus! Terus belajar ya!':'Ayo belajar lagi supaya lebih paham!';
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-msg').textContent = msg;
+}
+
+function resetQuiz() { currentQ=0; score=0; answered=false; }
+
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f4f8a51638f5844',t:'MTc3NzY0NjQxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

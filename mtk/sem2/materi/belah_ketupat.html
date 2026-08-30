@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matematika Kelas 5 - Luas Belah Ketupat &amp; Layang-layang</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    .shape-shadow { filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+    .btn-bounce:active { transform: scale(0.95); }
+    .tab-active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .card-gradient { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+    .success-bg { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    .error-bg { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
+    .float-animation { animation: float 3s ease-in-out infinite; }
+    .pulse-ring { animation: pulse-ring 1.5s ease-out infinite; }
+    .slider-thumb::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; background: #667eea; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+    .slider-thumb::-moz-range-thumb { width: 24px; height: 24px; background: #667eea; border-radius: 50%; cursor: pointer; border: none; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 overflow-auto">
+  <div id="app" class="w-full min-h-full flex flex-col"><!-- Header -->
+   <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white p-4 lg:p-6 shadow-lg">
+    <div class="max-w-7xl mx-auto">
+     <h1 id="mainTitle" class="text-xl sm:text-2xl lg:text-4xl font-extrabold text-center drop-shadow-md">📐 Luas Belah Ketupat &amp; Layang-layang</h1>
+     <p id="subtitle" class="text-center text-sm sm:text-base lg:text-xl mt-1 lg:mt-2 opacity-90">Matematika Kelas 5 SD - Belajar Sambil Bermain! 🎮</p>
+    </div>
+   </header><!-- Tab Navigation -->
+   <nav class="bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-2 lg:px-4">
+     <div class="flex overflow-x-auto gap-1 lg:gap-2 py-2 lg:py-3 scrollbar-hide"><button onclick="switchTab('materi')" id="tab-materi" class="tab-btn tab-active flex-shrink-0 px-3 lg:px-6 py-2 lg:py-3 rounded-full font-bold text-xs lg:text-base transition-all btn-bounce flex items-center gap-1 lg:gap-2"> <i data-lucide="book-open" class="w-4 h-4 lg:w-5 lg:h-5"></i> <span>Materi</span> </button> <button onclick="switchTab('eksplorasi')" id="tab-eksplorasi" class="tab-btn flex-shrink-0 px-3 lg:px-6 py-2 lg:py-3 rounded-full font-bold text-xs lg:text-base bg-gray-100 hover:bg-gray-200 transition-all btn-bounce flex items-center gap-1 lg:gap-2"> <i data-lucide="move" class="w-4 h-4 lg:w-5 lg:h-5"></i> <span>Eksplorasi</span> </button> <button onclick="switchTab('latihan')" id="tab-latihan" class="tab-btn flex-shrink-0 px-3 lg:px-6 py-2 lg:py-3 rounded-full font-bold text-xs lg:text-base bg-gray-100 hover:bg-gray-200 transition-all btn-bounce flex items-center gap-1 lg:gap-2"> <i data-lucide="pencil" class="w-4 h-4 lg:w-5 lg:h-5"></i> <span>Latihan</span> </button> <button onclick="switchTab('kuis')" id="tab-kuis" class="tab-btn flex-shrink-0 px-3 lg:px-6 py-2 lg:py-3 rounded-full font-bold text-xs lg:text-base bg-gray-100 hover:bg-gray-200 transition-all btn-bounce flex items-center gap-1 lg:gap-2"> <i data-lucide="trophy" class="w-4 h-4 lg:w-5 lg:h-5"></i> <span>Kuis</span> </button>
+     </div>
+    </div>
+   </nav><!-- Main Content -->
+   <main class="flex-1 p-3 lg:p-6 max-w-7xl mx-auto w-full"><!-- Materi Tab -->
+    <section id="content-materi" class="tab-content">
+     <div class="grid lg:grid-cols-2 gap-4 lg:gap-6"><!-- Belah Ketupat Card -->
+      <div class="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-4 lg:p-8 transform hover:scale-[1.02] transition-transform">
+       <div class="flex items-center gap-3 mb-4 lg:mb-6">
+        <div class="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center"><span class="text-2xl lg:text-3xl">💎</span>
+        </div>
+        <h2 class="text-xl lg:text-2xl font-extrabold text-gray-800">Belah Ketupat</h2>
+       </div>
+       <div class="flex justify-center mb-4 lg:mb-6">
+        <svg viewbox="0 0 200 200" class="w-40 h-40 lg:w-56 lg:h-56 shape-shadow float-animation"><polygon points="100,20 180,100 100,180 20,100" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="3" /> <line x1="100" y1="20" x2="100" y2="180" stroke="#1e40af" stroke-width="2" stroke-dasharray="5,5" /> <line x1="20" y1="100" x2="180" y2="100" stroke="#1e40af" stroke-width="2" stroke-dasharray="5,5" /> <text x="100" y="105" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="bold">
+          d₁
+         </text> <text x="145" y="65" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="bold">
+          d₂
+         </text> <defs>
+          <lineargradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+           <stop offset="0%" style="stop-color:#60a5fa" />
+           <stop offset="100%" style="stop-color:#3b82f6" />
+          </lineargradient>
+         </defs>
+        </svg>
+       </div>
+       <div class="bg-blue-50 rounded-xl lg:rounded-2xl p-4 lg:p-6 mb-4">
+        <h3 class="font-bold text-blue-800 mb-2 text-sm lg:text-base">📖 Ciri-ciri Belah Ketupat:</h3>
+        <ul class="text-xs lg:text-sm text-blue-700 space-y-1">
+         <li>✓ Memiliki 4 sisi sama panjang</li>
+         <li>✓ Memiliki 2 diagonal yang saling tegak lurus</li>
+         <li>✓ Diagonal membagi dua sama panjang</li>
+        </ul>
+       </div>
+       <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl lg:rounded-2xl p-4 lg:p-6 text-white text-center">
+        <p class="text-xs lg:text-sm mb-2 opacity-90">Rumus Luas:</p>
+        <p class="text-2xl lg:text-3xl font-extrabold">L = ½ × d₁ × d₂</p>
+        <p class="text-xs lg:text-sm mt-2 opacity-90">d₁ = diagonal 1, d₂ = diagonal 2</p>
+       </div>
+      </div><!-- Layang-layang Card -->
+      <div class="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-4 lg:p-8 transform hover:scale-[1.02] transition-transform">
+       <div class="flex items-center gap-3 mb-4 lg:mb-6">
+        <div class="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl flex items-center justify-center"><span class="text-2xl lg:text-3xl">🪁</span>
+        </div>
+        <h2 class="text-xl lg:text-2xl font-extrabold text-gray-800">Layang-layang</h2>
+       </div>
+       <div class="flex justify-center mb-4 lg:mb-6">
+        <svg viewbox="0 0 200 200" class="w-40 h-40 lg:w-56 lg:h-56 shape-shadow float-animation" style="animation-delay: 0.5s;"><polygon points="100,15 170,80 100,185 30,80" fill="url(#orangeGrad)" stroke="#f97316" stroke-width="3" /> <line x1="100" y1="15" x2="100" y2="185" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,5" /> <line x1="30" y1="80" x2="170" y2="80" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,5" /> <text x="100" y="135" text-anchor="middle" font-size="12" fill="#c2410c" font-weight="bold">
+          d₁
+         </text> <text x="140" y="55" text-anchor="middle" font-size="12" fill="#c2410c" font-weight="bold">
+          d₂
+         </text> <defs>
+          <lineargradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+           <stop offset="0%" style="stop-color:#fb923c" />
+           <stop offset="100%" style="stop-color:#f97316" />
+          </lineargradient>
+         </defs>
+        </svg>
+       </div>
+       <div class="bg-orange-50 rounded-xl lg:rounded-2xl p-4 lg:p-6 mb-4">
+        <h3 class="font-bold text-orange-800 mb-2 text-sm lg:text-base">📖 Ciri-ciri Layang-layang:</h3>
+        <ul class="text-xs lg:text-sm text-orange-700 space-y-1">
+         <li>✓ Memiliki 2 pasang sisi sama panjang</li>
+         <li>✓ Memiliki 2 diagonal yang saling tegak lurus</li>
+         <li>✓ Salah satu diagonal membagi yang lain sama panjang</li>
+        </ul>
+       </div>
+       <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl lg:rounded-2xl p-4 lg:p-6 text-white text-center">
+        <p class="text-xs lg:text-sm mb-2 opacity-90">Rumus Luas:</p>
+        <p class="text-2xl lg:text-3xl font-extrabold">L = ½ × d₁ × d₂</p>
+        <p class="text-xs lg:text-sm mt-2 opacity-90">d₁ = diagonal 1, d₂ = diagonal 2</p>
+       </div>
+      </div>
+     </div><!-- Info Box -->
+     <div class="mt-4 lg:mt-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl lg:rounded-3xl p-4 lg:p-6 text-white">
+      <div class="flex items-start gap-3">
+       <div class="w-10 h-10 lg:w-12 lg:h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0"><i data-lucide="lightbulb" class="w-5 h-5 lg:w-6 lg:h-6"></i>
+       </div>
+       <div>
+        <h3 class="font-bold text-base lg:text-lg mb-1">💡 Tahukah Kamu?</h3>
+        <p class="text-xs lg:text-sm opacity-90">Rumus luas belah ketupat dan layang-layang sama! Keduanya menggunakan setengah dari hasil kali kedua diagonalnya. Mudah diingat, kan? 😊</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Eksplorasi Tab -->
+    <section id="content-eksplorasi" class="tab-content hidden">
+     <div class="grid lg:grid-cols-2 gap-4 lg:gap-6"><!-- Belah Ketupat Interaktif -->
+      <div class="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-4 lg:p-8">
+       <h2 class="text-lg lg:text-2xl font-extrabold text-gray-800 mb-4 flex items-center gap-2">💎 Eksplorasi Belah Ketupat</h2>
+       <div class="flex justify-center mb-6">
+        <svg id="rhombusSvg" viewbox="0 0 250 250" class="w-48 h-48 lg:w-64 lg:h-64"><polygon id="rhombusShape" points="125,25 225,125 125,225 25,125" fill="url(#blueGrad2)" stroke="#3b82f6" stroke-width="3" /> <line id="rhombusD1" x1="125" y1="25" x2="125" y2="225" stroke="#1e40af" stroke-width="2" stroke-dasharray="5,5" /> <line id="rhombusD2" x1="25" y1="125" x2="225" y2="125" stroke="#1e40af" stroke-width="2" stroke-dasharray="5,5" /> <text id="rhombusD1Label" x="140" y="125" font-size="14" fill="#1e40af" font-weight="bold"></text> <text id="rhombusD2Label" x="125" y="80" text-anchor="middle" font-size="14" fill="#1e40af" font-weight="bold"></text> <defs>
+          <lineargradient id="blueGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+           <stop offset="0%" style="stop-color:#93c5fd" />
+           <stop offset="100%" style="stop-color:#3b82f6" />
+          </lineargradient>
+         </defs>
+        </svg>
+       </div>
+       <div class="space-y-4">
+        <div><label class="flex justify-between text-sm font-bold text-gray-700 mb-2"> <span>Diagonal 1 (d₁)</span> <span id="rhombusD1Value" class="text-blue-600">10 cm</span> </label> <input type="range" id="rhombusD1Slider" min="4" max="16" value="10" class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateRhombus()">
+        </div>
+        <div><label class="flex justify-between text-sm font-bold text-gray-700 mb-2"> <span>Diagonal 2 (d₂)</span> <span id="rhombusD2Value" class="text-blue-600">10 cm</span> </label> <input type="range" id="rhombusD2Slider" min="4" max="16" value="10" class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateRhombus()">
+        </div>
+       </div>
+       <div class="mt-6 bg-blue-50 rounded-xl p-4">
+        <p class="text-sm text-gray-600 mb-2">Perhitungan:</p>
+        <p id="rhombusCalc" class="text-base lg:text-lg font-bold text-blue-800">L = ½ × 10 × 10 = 50 cm²</p>
+       </div>
+       <div class="mt-4 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 text-center">
+        <p class="text-white text-sm">Luas Belah Ketupat</p>
+        <p id="rhombusResult" class="text-2xl lg:text-3xl font-extrabold text-white">50 cm²</p>
+       </div>
+      </div><!-- Layang-layang Interaktif -->
+      <div class="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-4 lg:p-8">
+       <h2 class="text-lg lg:text-2xl font-extrabold text-gray-800 mb-4 flex items-center gap-2">🪁 Eksplorasi Layang-layang</h2>
+       <div class="flex justify-center mb-6">
+        <svg id="kiteSvg" viewbox="0 0 250 250" class="w-48 h-48 lg:w-64 lg:h-64"><polygon id="kiteShape" points="125,15 205,80 125,235 45,80" fill="url(#orangeGrad2)" stroke="#f97316" stroke-width="3" /> <line id="kiteD1" x1="125" y1="15" x2="125" y2="235" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,5" /> <line id="kiteD2" x1="45" y1="80" x2="205" y2="80" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,5" /> <text id="kiteD1Label" x="140" y="130" font-size="14" fill="#c2410c" font-weight="bold"></text> <text id="kiteD2Label" x="125" y="55" text-anchor="middle" font-size="14" fill="#c2410c" font-weight="bold"></text> <defs>
+          <lineargradient id="orangeGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+           <stop offset="0%" style="stop-color:#fdba74" />
+           <stop offset="100%" style="stop-color:#f97316" />
+          </lineargradient>
+         </defs>
+        </svg>
+       </div>
+       <div class="space-y-4">
+        <div><label class="flex justify-between text-sm font-bold text-gray-700 mb-2"> <span>Diagonal 1 (d₁)</span> <span id="kiteD1Value" class="text-orange-600">12 cm</span> </label> <input type="range" id="kiteD1Slider" min="6" max="18" value="12" class="w-full h-2 bg-orange-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateKite()">
+        </div>
+        <div><label class="flex justify-between text-sm font-bold text-gray-700 mb-2"> <span>Diagonal 2 (d₂)</span> <span id="kiteD2Value" class="text-orange-600">8 cm</span> </label> <input type="range" id="kiteD2Slider" min="4" max="14" value="8" class="w-full h-2 bg-orange-100 rounded-lg appearance-none cursor-pointer slider-thumb" oninput="updateKite()">
+        </div>
+       </div>
+       <div class="mt-6 bg-orange-50 rounded-xl p-4">
+        <p class="text-sm text-gray-600 mb-2">Perhitungan:</p>
+        <p id="kiteCalc" class="text-base lg:text-lg font-bold text-orange-800">L = ½ × 12 × 8 = 48 cm²</p>
+       </div>
+       <div class="mt-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-4 text-center">
+        <p class="text-white text-sm">Luas Layang-layang</p>
+        <p id="kiteResult" class="text-2xl lg:text-3xl font-extrabold text-white">48 cm²</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Latihan Tab -->
+    <section id="content-latihan" class="tab-content hidden">
+     <div class="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-4 lg:p-8">
+      <h2 class="text-lg lg:text-2xl font-extrabold text-gray-800 mb-6 flex items-center gap-2">✏️ Latihan Menghitung</h2>
+      <div id="practiceContainer" class="space-y-6"><!-- Practice problems will be generated here -->
+      </div>
+      <div class="mt-6 flex justify-center"><button onclick="generatePractice()" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-6 py-3 rounded-xl transition-all btn-bounce flex items-center gap-2"> <i data-lucide="refresh-cw" class="w-5 h-5"></i> Soal Baru </button>
+      </div>
+     </div>
+    </section><!-- Kuis Tab -->
+    <section id="content-kuis" class="tab-content hidden">
+     <div class="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-4 lg:p-8"><!-- Quiz Header -->
+      <div id="quizHeader" class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+       <h2 class="text-lg lg:text-2xl font-extrabold text-gray-800 flex items-center gap-2">🏆 Kuis Interaktif</h2>
+       <div class="flex items-center gap-4">
+        <div class="bg-purple-100 px-4 py-2 rounded-xl"><span class="text-sm text-purple-600">Soal:</span> <span id="quizProgress" class="font-bold text-purple-800">1/5</span>
+        </div>
+        <div class="bg-green-100 px-4 py-2 rounded-xl"><span class="text-sm text-green-600">Skor:</span> <span id="quizScore" class="font-bold text-green-800">0</span>
+        </div>
+       </div>
+      </div><!-- Quiz Content -->
+      <div id="quizContent"><!-- Quiz questions will be generated here -->
+      </div><!-- Quiz Result -->
+      <div id="quizResult" class="hidden text-center py-8">
+       <div class="text-6xl mb-4">
+        🎉
+       </div>
+       <h3 class="text-2xl lg:text-3xl font-extrabold text-gray-800 mb-2">Kuis Selesai!</h3>
+       <p id="finalScore" class="text-lg text-gray-600 mb-6">Skor kamu: 0/5</p>
+       <div id="scoreMessage" class="text-xl font-bold mb-6"></div><button onclick="startQuiz()" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-8 py-4 rounded-xl transition-all btn-bounce"> Main Lagi 🔄 </button>
+      </div><!-- Start Quiz Button -->
+      <div id="quizStart" class="text-center py-8">
+       <div class="text-6xl mb-4">
+        🎯
+       </div>
+       <h3 class="text-xl lg:text-2xl font-bold text-gray-800 mb-4">Siap Menguji Kemampuanmu?</h3>
+       <p class="text-gray-600 mb-6">Jawab 5 soal tentang luas belah ketupat dan layang-layang!</p><button onclick="startQuiz()" class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold px-8 py-4 rounded-xl transition-all btn-bounce text-lg"> Mulai Kuis! 🚀 </button>
+      </div>
+     </div>
+    </section>
+   </main><!-- Footer -->
+   <footer class="bg-white/50 backdrop-blur-sm py-4 text-center text-gray-600 text-xs lg:text-sm">
+    <p>📚 Media Pembelajaran Matematika Kelas 5 SD</p>
+   </footer>
+  </div><!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg text-white font-bold transition-all duration-300 opacity-0 pointer-events-none z-50"><span id="toastMessage"></span>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      main_title: '📐 Luas Belah Ketupat & Layang-layang',
+      subtitle: 'Matematika Kelas 5 SD - Belajar Sambil Bermain! 🎮',
+      background_color: '#eef2ff',
+      surface_color: '#ffffff',
+      text_color: '#1f2937',
+      primary_action: '#7c3aed',
+      secondary_action: '#667eea'
+    };
+
+    let config = { ...defaultConfig };
+
+    // Element SDK initialization
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          applyConfig();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            { get: () => cfg.background_color || defaultConfig.background_color, set: (v) => { cfg.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+            { get: () => cfg.surface_color || defaultConfig.surface_color, set: (v) => { cfg.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+            { get: () => cfg.text_color || defaultConfig.text_color, set: (v) => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+            { get: () => cfg.primary_action || defaultConfig.primary_action, set: (v) => { cfg.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+            { get: () => cfg.secondary_action || defaultConfig.secondary_action, set: (v) => { cfg.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['main_title', cfg.main_title || defaultConfig.main_title],
+          ['subtitle', cfg.subtitle || defaultConfig.subtitle]
+        ])
+      });
+    }
+
+    function applyConfig() {
+      document.getElementById('mainTitle').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+    }
+
+    // Tab switching
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('tab-active');
+        el.classList.add('bg-gray-100', 'hover:bg-gray-200');
+      });
+      
+      document.getElementById(`content-${tabName}`).classList.remove('hidden');
+      const activeTab = document.getElementById(`tab-${tabName}`);
+      activeTab.classList.add('tab-active');
+      activeTab.classList.remove('bg-gray-100', 'hover:bg-gray-200');
+      
+      if (tabName === 'latihan') generatePractice();
+      if (tabName === 'eksplorasi') {
+        updateRhombus();
+        updateKite();
+      }
+      
+      lucide.createIcons();
+    }
+
+    // Rhombus exploration
+    function updateRhombus() {
+      const d1 = parseInt(document.getElementById('rhombusD1Slider').value);
+      const d2 = parseInt(document.getElementById('rhombusD2Slider').value);
+      const area = 0.5 * d1 * d2;
+      
+      document.getElementById('rhombusD1Value').textContent = `${d1} cm`;
+      document.getElementById('rhombusD2Value').textContent = `${d2} cm`;
+      document.getElementById('rhombusD1Label').textContent = `d₁=${d1}`;
+      document.getElementById('rhombusD2Label').textContent = `d₂=${d2}`;
+      document.getElementById('rhombusCalc').textContent = `L = ½ × ${d1} × ${d2} = ${area} cm²`;
+      document.getElementById('rhombusResult').textContent = `${area} cm²`;
+      
+      // Update SVG shape
+      const scale = 10;
+      const cx = 125, cy = 125;
+      const halfD1 = (d1 * scale) / 2;
+      const halfD2 = (d2 * scale) / 2;
+      
+      document.getElementById('rhombusShape').setAttribute('points', 
+        `${cx},${cy - halfD1} ${cx + halfD2},${cy} ${cx},${cy + halfD1} ${cx - halfD2},${cy}`);
+      document.getElementById('rhombusD1').setAttribute('y1', cy - halfD1);
+      document.getElementById('rhombusD1').setAttribute('y2', cy + halfD1);
+      document.getElementById('rhombusD2').setAttribute('x1', cx - halfD2);
+      document.getElementById('rhombusD2').setAttribute('x2', cx + halfD2);
+    }
+
+    // Kite exploration
+    function updateKite() {
+      const d1 = parseInt(document.getElementById('kiteD1Slider').value);
+      const d2 = parseInt(document.getElementById('kiteD2Slider').value);
+      const area = 0.5 * d1 * d2;
+      
+      document.getElementById('kiteD1Value').textContent = `${d1} cm`;
+      document.getElementById('kiteD2Value').textContent = `${d2} cm`;
+      document.getElementById('kiteD1Label').textContent = `d₁=${d1}`;
+      document.getElementById('kiteD2Label').textContent = `d₂=${d2}`;
+      document.getElementById('kiteCalc').textContent = `L = ½ × ${d1} × ${d2} = ${area} cm²`;
+      document.getElementById('kiteResult').textContent = `${area} cm²`;
+      
+      // Update SVG shape (kite has asymmetric diagonal)
+      const scale = 10;
+      const cx = 125;
+      const halfD2 = (d2 * scale) / 2;
+      const topPart = (d1 * scale) * 0.3;
+      const bottomPart = (d1 * scale) * 0.7;
+      const crossY = 125 - topPart + (d1 * scale * 0.3);
+      
+      document.getElementById('kiteShape').setAttribute('points', 
+        `${cx},${125 - topPart} ${cx + halfD2},${crossY} ${cx},${125 + bottomPart} ${cx - halfD2},${crossY}`);
+      document.getElementById('kiteD1').setAttribute('y1', 125 - topPart);
+      document.getElementById('kiteD1').setAttribute('y2', 125 + bottomPart);
+      document.getElementById('kiteD2').setAttribute('x1', cx - halfD2);
+      document.getElementById('kiteD2').setAttribute('x2', cx + halfD2);
+      document.getElementById('kiteD2').setAttribute('y1', crossY);
+      document.getElementById('kiteD2').setAttribute('y2', crossY);
+    }
+
+    // Practice problems
+    function generatePractice() {
+      const container = document.getElementById('practiceContainer');
+      const problems = [];
+      
+      for (let i = 0; i < 3; i++) {
+        const isRhombus = Math.random() > 0.5;
+        const d1 = Math.floor(Math.random() * 12) + 4;
+        const d2 = Math.floor(Math.random() * 12) + 4;
+        const answer = 0.5 * d1 * d2;
+        
+        problems.push({
+          type: isRhombus ? 'belah ketupat' : 'layang-layang',
+          emoji: isRhombus ? '💎' : '🪁',
+          color: isRhombus ? 'blue' : 'orange',
+          d1, d2, answer
+        });
+      }
+      
+      container.innerHTML = problems.map((p, i) => `
+        <div class="bg-${p.color}-50 rounded-xl p-4 lg:p-6">
+          <div class="flex items-start gap-3">
+            <span class="text-3xl">${p.emoji}</span>
+            <div class="flex-1">
+              <p class="font-bold text-gray-800 mb-2">Soal ${i + 1}</p>
+              <p class="text-gray-700 text-sm lg:text-base mb-4">
+                Sebuah ${p.type} memiliki diagonal 1 = <strong>${p.d1} cm</strong> dan diagonal 2 = <strong>${p.d2} cm</strong>. 
+                Berapa luas ${p.type} tersebut?
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                <div class="flex items-center gap-2">
+                  <label for="practice-${i}" class="text-sm font-medium text-gray-600">Jawaban:</label>
+                  <input type="number" id="practice-${i}" 
+                    class="w-24 px-3 py-2 border-2 border-${p.color}-200 rounded-lg focus:border-${p.color}-500 focus:outline-none text-center font-bold" 
+                    placeholder="...">
+                  <span class="text-gray-600">cm²</span>
+                </div>
+                <button onclick="checkPractice(${i}, ${p.answer})" 
+                  class="bg-${p.color}-500 hover:bg-${p.color}-600 text-white px-4 py-2 rounded-lg font-bold transition-all btn-bounce text-sm">
+                  Periksa ✓
+                </button>
+              </div>
+              <div id="feedback-${i}" class="mt-3 hidden"></div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      
+      lucide.createIcons();
+    }
+
+    function checkPractice(index, correctAnswer) {
+      const input = document.getElementById(`practice-${index}`);
+      const feedback = document.getElementById(`feedback-${index}`);
+      const userAnswer = parseFloat(input.value);
+      
+      feedback.classList.remove('hidden');
+      
+      if (userAnswer === correctAnswer) {
+        feedback.innerHTML = `
+          <div class="success-bg text-white px-4 py-2 rounded-lg inline-flex items-center gap-2">
+            <span>✅ Benar! Hebat!</span>
+          </div>
+        `;
+        showToast('🎉 Jawaban Benar!', 'success');
+      } else {
+        feedback.innerHTML = `
+          <div class="error-bg text-white px-4 py-2 rounded-lg inline-flex items-center gap-2">
+            <span>❌ Kurang tepat. Jawaban yang benar adalah <strong>${correctAnswer} cm²</strong></span>
+          </div>
+        `;
+        showToast('😅 Coba lagi ya!', 'error');
+      }
+    }
+
+    // Quiz functionality
+    let quizQuestions = [];
+    let currentQuestion = 0;
+    let score = 0;
+
+    function generateQuizQuestions() {
+      quizQuestions = [];
+      for (let i = 0; i < 5; i++) {
+        const isRhombus = Math.random() > 0.5;
+        const d1 = Math.floor(Math.random() * 10) + 4;
+        const d2 = Math.floor(Math.random() * 10) + 4;
+        const answer = 0.5 * d1 * d2;
+        
+        // Generate wrong answers
+        const options = [answer];
+        while (options.length < 4) {
+          const wrong = answer + (Math.floor(Math.random() * 20) - 10);
+          if (wrong > 0 && !options.includes(wrong)) {
+            options.push(wrong);
+          }
+        }
+        options.sort(() => Math.random() - 0.5);
+        
+        quizQuestions.push({
+          type: isRhombus ? 'belah ketupat' : 'layang-layang',
+          emoji: isRhombus ? '💎' : '🪁',
+          d1, d2, answer, options
+        });
+      }
+    }
+
+    function startQuiz() {
+      generateQuizQuestions();
+      currentQuestion = 0;
+      score = 0;
+      
+      document.getElementById('quizStart').classList.add('hidden');
+      document.getElementById('quizResult').classList.add('hidden');
+      document.getElementById('quizContent').classList.remove('hidden');
+      document.getElementById('quizHeader').classList.remove('hidden');
+      
+      updateQuizScore();
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = quizQuestions[currentQuestion];
+      document.getElementById('quizProgress').textContent = `${currentQuestion + 1}/5`;
+      
+      const content = document.getElementById('quizContent');
+      content.innerHTML = `
+        <div class="text-center mb-6">
+          <span class="text-5xl lg:text-6xl">${q.emoji}</span>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 lg:p-6 mb-6">
+          <p class="text-base lg:text-lg text-gray-800 text-center">
+            Sebuah <strong>${q.type}</strong> memiliki:<br>
+            <span class="text-xl lg:text-2xl font-bold text-purple-600">d₁ = ${q.d1} cm</span> dan 
+            <span class="text-xl lg:text-2xl font-bold text-purple-600">d₂ = ${q.d2} cm</span><br>
+            Berapa luasnya?
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-3 lg:gap-4">
+          ${q.options.map((opt, i) => `
+            <button onclick="selectAnswer(${opt}, ${q.answer})" 
+              class="quiz-option bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 
+              text-purple-800 font-bold py-4 lg:py-6 rounded-xl text-lg lg:text-xl transition-all btn-bounce border-2 border-transparent hover:border-purple-300">
+              ${opt} cm²
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function selectAnswer(selected, correct) {
+      const buttons = document.querySelectorAll('.quiz-option');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        const btnValue = parseFloat(btn.textContent);
+        if (btnValue === correct) {
+          btn.classList.remove('from-purple-100', 'to-pink-100');
+          btn.classList.add('from-green-400', 'to-emerald-400', 'text-white');
+        } else if (btnValue === selected && selected !== correct) {
+          btn.classList.remove('from-purple-100', 'to-pink-100');
+          btn.classList.add('from-red-400', 'to-red-500', 'text-white');
+        }
+      });
+      
+      if (selected === correct) {
+        score++;
+        updateQuizScore();
+        showToast('🎉 Benar!', 'success');
+      } else {
+        showToast(`❌ Salah! Jawaban: ${correct} cm²`, 'error');
+      }
+      
+      setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < 5) {
+          showQuestion();
+        } else {
+          showQuizResult();
+        }
+      }, 1500);
+    }
+
+    function updateQuizScore() {
+      document.getElementById('quizScore').textContent = score;
+    }
+
+    function showQuizResult() {
+      document.getElementById('quizContent').classList.add('hidden');
+      document.getElementById('quizHeader').classList.add('hidden');
+      document.getElementById('quizResult').classList.remove('hidden');
+      
+      document.getElementById('finalScore').textContent = `Skor kamu: ${score}/5`;
+      
+      const messageEl = document.getElementById('scoreMessage');
+      if (score === 5) {
+        messageEl.innerHTML = '<span class="text-green-600">🌟 Sempurna! Kamu luar biasa! 🌟</span>';
+      } else if (score >= 3) {
+        messageEl.innerHTML = '<span class="text-blue-600">👍 Bagus! Terus berlatih ya!</span>';
+      } else {
+        messageEl.innerHTML = '<span class="text-orange-600">💪 Jangan menyerah! Coba lagi!</span>';
+      }
+    }
+
+    // Toast notification
+    function showToast(message, type) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      
+      toastMessage.textContent = message;
+      toast.className = `fixed bottom-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg text-white font-bold transition-all duration-300 z-50 ${type === 'success' ? 'success-bg' : 'error-bg'}`;
+      toast.style.opacity = '1';
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+      }, 2000);
+    }
+
+    // Initialize
+    applyConfig();
+    lucide.createIcons();
+    updateRhombus();
+    updateKite();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e1652abc562b5a8',t:'MTc3NDM2MjA5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

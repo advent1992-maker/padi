@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Sejarah Kerajaan Nusantara - Lengkap & Responsive</title>
+    <style>
+        :root {
+            --primary: #5d4037;
+            --accent: #ffb300;
+            --success: #2e7d32;
+            --bg-body: #f7f9fc;
+        }
+        body {
+            font-family: 'Arial Rounded MT Bold', sans-serif;
+            background-color: var(--bg-body);
+            margin: 0; padding: 0;
+            display: flex; justify-content: center;
+        }
+        .slide-container {
+            width: 100%; max-width: 1100px; min-height: 100vh;
+            background: white; border-radius: 0;
+            border: 4px solid var(--primary);
+            position: relative; display: flex; flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        @media (min-width: 768px) {
+            .slide-container { border-radius: 30px; min-height: 800px; margin: 10px; border-width: 8px; }
+        }
+
+        .slide { display: none; padding: 20px; flex-grow: 1; overflow-y: auto; animation: fadeIn 0.5s; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        h2 { text-align: center; color: var(--primary); font-size: 8vw; margin-bottom: 15px; border-bottom: 4px solid var(--accent); padding-bottom: 10px; }
+        h3 { color: var(--primary); font-size: 6vw; border-left: 10px solid var(--accent); padding-left: 15px; margin-top: 20px; }
+
+        @media (min-width: 768px) {
+            h2 { font-size: 45px; }
+            h3 { font-size: 35px; }
+            .slide { padding: 30px; }
+        }
+
+        .table-wrapper { width: 100%; overflow-x: auto; margin-top: 20px; border-radius: 10px; border: 1px solid #ddd; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th, td {
+            border: 2px solid #8d6e63; padding: 12px; text-align: left;
+            font-size: 16px; line-height: 1.4; word-wrap: break-word;
+        }
+        @media (min-width: 768px) {
+            th, td { font-size: 20px; padding: 15px; }
+        }
+        th { background-color: var(--primary); color: white; font-size: 18px; text-align: center; }
+        tr:nth-child(even) { background-color: #efebe9; }
+
+        .quiz-option {
+            display: block; width: 100%; padding: 15px; margin: 10px 0;
+            font-size: 18px; font-weight: bold; color: var(--primary);
+            background: white; border: 3px solid var(--primary);
+            border-radius: 15px; cursor: pointer; text-align: left;
+            transition: 0.2s;
+        }
+        @media (min-width: 768px) {
+            .quiz-option { font-size: 24px; padding: 20px; border-radius: 20px; border-width: 4px; }
+        }
+        .quiz-option:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        .nav-footer {
+            display: flex; justify-content: space-between;
+            padding: 15px; background: #d7ccc8;
+            border-top: 4px solid var(--primary); align-items: center;
+        }
+        .nav-btn {
+            background: var(--primary); color: white; border: none;
+            padding: 12px 20px; border-radius: 15px;
+            font-weight: bold; font-size: 18px; cursor: pointer;
+        }
+        @media (min-width: 768px) {
+            .nav-footer { padding: 20px 40px; }
+            .nav-btn { padding: 20px 45px; border-radius: 25px; font-size: 28px; }
+        }
+        .nav-btn:active { transform: scale(0.95); }
+        .nav-btn:disabled { background: #bcaaa4; cursor: not-allowed; }
+
+        .modal { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 85%; text-align: center; border: 6px solid var(--primary); }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle" style="font-size: 32px; border:none;">-</h2>
+            <p id="modalText" style="font-size: 20px; margin-bottom: 20px;"></p>
+            <button class="nav-btn" style="background: var(--accent); width:100%" onclick="closeModal()">OKE! 🚀</button>
+        </div>
+    </div>
+
+    <div class="slide active" id="s1">
+        <h2>🏰 Kerajaan di Indonesia</h2>
+        <div style="background: #fff8e1; border: 3px dashed var(--primary); padding: 20px; border-radius: 15px; font-size: 22px; text-align: center; margin-top: 20px;">
+            Materi :<br>
+            <b>7 Kerajaan Hindu, 2 Kerajaan Buddha, & 7 Kerajaan Islam</b>
+        </div>
+        <p style="font-size: 18px; text-align: center; margin-top: 30px; color: #555;">Geser tabel ke samping jika tampilan terpotong di HP.</p>
+    </div>
+
+    <div class="slide" id="s2">
+        <h3>🕉️ Hindu (1)</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Kerajaan & Tahun</th><th>Nama Raja</th><th>Peninggalan Sejarah</th></tr>
+                <tr><td><b>Kutai</b> (400 M)</td><td>Kudungga; Aswawarman; Mulawarman</td><td>Prasasti/Stupa berbentuk tugu batu bertuliskan huruf Pallawa.</td></tr>
+                <tr><td><b>Tarumanegara</b> (450 M)</td><td>Purnawarman</td><td>Prasasti Kebon Kopi; Jambu; Muara Cianten; Tugu; Lebak; Ciaruteun.</td></tr>
+                <tr><td><b>Kalinga</b> (674 M)</td><td>Ratu Shima</td><td>Prasasti Tukmas; Sojomerto; Candi Angin; Candi Bubrah.</td></tr>
+                <tr><td><b>Mataram Hindu</b> (730 M)</td><td>Sanjaya; Rakai Panangkaran; Raja Balitung</td><td>Kompleks Candi Prambanan.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide" id="s3">
+        <h3>🕉️ Hindu (2)</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Kerajaan & Tahun</th><th>Nama Raja</th><th>Peninggalan Sejarah</th></tr>
+                <tr><td><b>Kediri</b> (1117 M)</td><td>Jayabaya; Kertajaya</td><td>Prasasti Padlegan; Hantang; Kitab-kitab karya Mpu Panuluh dan Mpu Sedah.</td></tr>
+                <tr><td><b>Singosari</b> (1222 M)</td><td>Ken Arok; Kertanegara</td><td>Candi Jago; Kidal; Singosari; Kagenengan.</td></tr>
+                <tr><td><b>Majapahit</b> (1292 M)</td><td>Raden Wijaya; Jayanegara; Hayam Wuruk</td><td>Candi Penataran; Tikus; Sumber Jadi; Kitab Negarakertagama (Pancasila).</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide" id="s4">
+        <h3>☸️ Buddha</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Kerajaan & Tahun</th><th>Nama Raja</th><th>Peninggalan Sejarah</th></tr>
+                <tr><td><b>Sriwijaya</b> (600 M)</td><td>Balaputera Dewa; Sri Sangrama Wijaya</td><td>Prasasti Kedukan Bukit; Talang Tuo; Telaga Batu; Kota Kapur.</td></tr>
+                <tr><td><b>Mataram Buddha</b> (750 M)</td><td>Bhanu; Wisnu; Indra; Samaratungga</td><td>Candi Kalasan; Sewu; Pawon; Mendut; Borobudur; Ngawen.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide" id="s5">
+        <h3>☪️ Islam (1)</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Kerajaan & Tahun</th><th>Nama Raja</th><th>Peninggalan Sejarah</th></tr>
+                <tr><td><b>Samudera Pasai</b> (Abad 13)</td><td>Sultan Malik As-Salih; Sultan Ahmad; dsb</td><td>Batu Nisan Makam Sultan Malik As-Salih; Cakra Donya.</td></tr>
+                <tr><td><b>Aceh</b> (1514 M)</td><td>Ali Mughayat; Iskandar Muda; Iskandar Thani; dsb</td><td>Monumen Darussalam; Makam Sultan Iskandar Muda; Kherkoff.</td></tr>
+                <tr><td><b>Demak</b> (1400 M)</td><td>Raden Patah; Adipati Unus; Sultan Trenggono; dsb</td><td>Masjid Agung Demak; Piring Campa; Saka Tatal; Bedug.</td></tr>
+                <tr><td><b>Banten</b> (1400 M)</td><td>Sultan Hasanuddin; Sultan Ageng Tirtayasa; dsb</td><td>Masjid Banten; Benteng Speelwijck; Meriam Ki Amuk.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide" id="s6">
+        <h3>☪️ Islam (2)</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Kerajaan & Tahun</th><th>Nama Raja</th><th>Peninggalan Sejarah</th></tr>
+                <tr><td><b>Ternate</b> (1500 M)</td><td>Sultan Zaenal Abidin; Sultan Baabullah; dsb</td><td>Istana Sultan Ternate; Benteng Kerajaan; Masjid Ternate.</td></tr>
+                <tr><td><b>Tidore</b> (1500 M)</td><td>Sultan Mansur; Sultan Nuku</td><td>Benteng peninggalan Portugis dan Spanyol.</td></tr>
+                <tr><td><b>Gowa</b> (1600 M)</td><td>Sultan Alauddin; Sultan Hasanuddin; dsb</td><td>Benteng Ujung Pandang; Makam Sultan Hasanuddin.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide" id="s7">
+        <h2>🎮 Kuis</h2>
+        <div id="quiz-area">
+            <div style="font-size: 22px; font-weight: bold; text-align: center; color: var(--primary); margin-bottom: 20px;" id="q-text">Pertanyaan</div>
+            <div id="q-options"></div>
+            <div id="q-progress" style="text-align: center; margin-top: 20px; font-size: 16px; color: #777;">Soal 1/5</div>
+        </div>
+    </div>
+
+    <div class="nav-footer">
+        <button id="prevBtn" class="nav-btn" onclick="changeS(-1)" disabled>◀</button>
+        <button id="nextBtn" class="nav-btn" onclick="changeS(1)">▶</button>
+    </div>
+</div>
+
+<script>
+    let current = 1;
+    const total = 7;
+    const questions = [
+        { q: "Siapa raja Tarumanegara yang meninggalkan Prasasti Ciaruteun?", o: ["Mulawarman", "Purnawarman", "Jayabaya"], c: 1 },
+        { q: "Kitab Negarakertagama yang memuat kata Pancasila adalah peninggalan kerajaan?", o: ["Kediri", "Singosari", "Majapahit"], c: 2 },
+        { q: "Candi Borobudur dan Mendut adalah peninggalan kerajaan?", o: ["Sriwijaya", "Mataram Buddha", "Kalinga"], c: 1 },
+        { q: "Meriam Ki Amuk adalah benda sejarah dari kerajaan?", o: ["Banten", "Demak", "Aceh"], c: 0 },
+        { q: "Siapa raja Gowa yang dikenal sebagai Ayam Jantan dari Timur?", o: ["Sultan Baabullah", "Sultan Hasanuddin", "Sultan Nuku"], c: 1 }
+    ];
+    let qIdx = 0;
+
+    function changeS(n) {
+        document.getElementById('s' + current).classList.remove('active');
+        current += n;
+        document.getElementById('s' + current).classList.add('active');
+        document.getElementById('prevBtn').disabled = (current === 1);
+        document.getElementById('nextBtn').innerText = (current === total) ? "🏁" : "▶";
+        if(current === 7) loadQuiz();
+    }
+
+    function loadQuiz() {
+        if(qIdx >= questions.length) {
+            document.getElementById('quiz-area').innerHTML = "<h2 style='color:var(--success); border:none;'>🏆 SELESAI!</h2><p style='font-size:18px; text-align:center;'>Hebat! Materi telah selesai.</p><button class='nav-btn' style='margin: 20px auto; display: block;' onclick='location.reload()'>ULANGI</button>";
+            return;
+        }
+        const data = questions[qIdx];
+        document.getElementById('q-text').innerText = data.q;
+        document.getElementById('q-progress').innerText = `Soal ${qIdx + 1} / ${questions.length}`;
+        const optCont = document.getElementById('q-options');
+        optCont.innerHTML = "";
+        data.o.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = "quiz-option";
+            btn.innerText = opt;
+            btn.onclick = () => {
+                if(i === data.c) {
+                    openM("BENAR! ⭐", "Jawaban kamu tepat!");
+                    qIdx++;
+                    loadQuiz();
+                } else {
+                    openM("SALAH 😅", "Coba pelajari lagi tabelnya.");
+                }
+            };
+            optCont.appendChild(btn);
+        });
+    }
+
+    function openM(t, txt) {
+        document.getElementById('modalTitle').innerText = t;
+        document.getElementById('modalText').innerText = txt;
+        document.getElementById('infoModal').style.display = 'flex';
+    }
+    function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
+</script>
+</body>
+</html>

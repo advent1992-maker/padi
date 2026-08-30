@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# Jika host yang diakses adalah domain utama (bukan subdomain)
+RewriteCond %{HTTP_HOST} ^(www\.)?hariadventapps\.my\.id$ [NC]
+# Dan jika request datang ke subfolder /padi
+RewriteRule ^(.*)$ https://padi.hariadventapps.my.id/$1 [L,R=301]
+ErrorDocument 403 /403.php

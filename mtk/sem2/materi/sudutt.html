@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Interaktif - Sudut</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    .angle-interactive { transition: all 0.3s ease; }
+    .tab-btn.active { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; }
+    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+    .pulse-animation { animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .fade-in { animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .angle-line { transition: transform 0.5s ease; }
+    .glow-effect { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+    input[type="range"] {
+      -webkit-appearance: none;
+      height: 8px;
+      border-radius: 4px;
+      background: #e2e8f0;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+  <div id="app" class="h-full overflow-auto"><!-- Header -->
+   <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white py-4 md:py-6 px-4 shadow-lg">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex items-center justify-center gap-3">
+      <div class="bg-white/20 p-2 md:p-3 rounded-xl backdrop-blur-sm">
+       <svg class="w-8 h-8 md:w-10 md:h-10" viewbox="0 0 100 100" fill="none"><path d="M20 80 L80 80" stroke="white" stroke-width="4" stroke-linecap="round" /> <path d="M20 80 L60 30" stroke="white" stroke-width="4" stroke-linecap="round" /> <path d="M20 80 Q35 65 45 80" stroke="#fbbf24" stroke-width="3" fill="none" />
+       </svg>
+      </div>
+      <div class="text-center">
+       <h1 id="main-title" class="text-2xl md:text-4xl font-extrabold tracking-tight">Mengenal Sudut</h1>
+       <p id="subtitle" class="text-sm md:text-lg text-white/90 font-medium">Matematika Kelas 5 SD</p>
+      </div>
+     </div>
+    </div>
+   </header><!-- Navigation Tabs -->
+   <nav class="sticky top-0 z-20 bg-white/80 backdrop-blur-md shadow-sm">
+    <div class="max-w-6xl mx-auto px-2 md:px-4 py-2 md:py-3">
+     <div class="flex gap-1 md:gap-2 overflow-x-auto pb-1"><button onclick="showSection('pengertian')" class="tab-btn active flex-shrink-0 px-3 md:px-5 py-2 md:py-2.5 rounded-xl font-semibold text-sm md:text-base transition-all flex items-center gap-1.5 md:gap-2" data-tab="pengertian"> <i data-lucide="book-open" class="w-4 h-4"></i> <span>Pengertian</span> </button> <button onclick="showSection('jenis')" class="tab-btn flex-shrink-0 px-3 md:px-5 py-2 md:py-2.5 rounded-xl font-semibold text-sm md:text-base text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-1.5 md:gap-2" data-tab="jenis"> <i data-lucide="shapes" class="w-4 h-4"></i> <span>Jenis Sudut</span> </button> <button onclick="showSection('interaktif')" class="tab-btn flex-shrink-0 px-3 md:px-5 py-2 md:py-2.5 rounded-xl font-semibold text-sm md:text-base text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-1.5 md:gap-2" data-tab="interaktif"> <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> <span>Interaktif</span> </button> <button onclick="showSection('kuis')" class="tab-btn flex-shrink-0 px-3 md:px-5 py-2 md:py-2.5 rounded-xl font-semibold text-sm md:text-base text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-1.5 md:gap-2" data-tab="kuis"> <i data-lucide="trophy" class="w-4 h-4"></i> <span>Kuis</span> </button>
+     </div>
+    </div>
+   </nav><!-- Main Content -->
+   <main class="max-w-6xl mx-auto px-4 py-6 md:py-8"><!-- Section: Pengertian -->
+    <section id="section-pengertian" class="fade-in">
+     <div class="bg-white rounded-2xl md:rounded-3xl shadow-xl p-5 md:p-8 mb-6">
+      <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 flex items-center gap-3"><span class="bg-indigo-100 text-indigo-600 p-2 rounded-xl"> <i data-lucide="lightbulb" class="w-5 h-5 md:w-7 md:h-7"></i> </span> Apa itu Sudut?</h2>
+      <div class="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+       <div>
+        <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4"><strong class="text-indigo-600">Sudut</strong> adalah daerah yang dibentuk oleh <strong>dua buah sinar garis</strong> yang bertemu pada satu titik yang sama.</p>
+        <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-400 p-4 rounded-r-xl mb-4">
+         <h4 class="font-bold text-amber-700 mb-2 flex items-center gap-2"><i data-lucide="info" class="w-5 h-5"></i> Bagian-bagian Sudut:</h4>
+         <ul class="space-y-2 text-gray-700">
+          <li class="flex items-start gap-2"><span class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded mt-0.5">1</span> <span><strong>Titik Sudut</strong> - titik tempat dua sinar bertemu</span></li>
+          <li class="flex items-start gap-2"><span class="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded mt-0.5">2</span> <span><strong>Kaki Sudut</strong> - dua sinar yang membentuk sudut</span></li>
+          <li class="flex items-start gap-2"><span class="bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded mt-0.5">3</span> <span><strong>Daerah Sudut</strong> - area di antara dua kaki sudut</span></li>
+         </ul>
+        </div>
+       </div><!-- Ilustrasi Interaktif -->
+       <div class="flex justify-center">
+        <div class="relative bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 md:p-8">
+         <svg viewbox="0 0 200 160" class="w-full max-w-xs md:max-w-sm"><!-- Daerah sudut --> <path d="M30 130 L30 130 Q60 100 90 130 L30 130" fill="rgba(34, 197, 94, 0.2)" stroke="none" /> <!-- Kaki sudut 1 (horizontal) --> <line x1="30" y1="130" x2="180" y2="130" stroke="#3b82f6" stroke-width="4" stroke-linecap="round" /> <!-- Kaki sudut 2 (miring) --> <line x1="30" y1="130" x2="120" y2="40" stroke="#3b82f6" stroke-width="4" stroke-linecap="round" /> <!-- Busur sudut --> <path d="M70 130 Q65 110 55 100" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round" /> <!-- Titik sudut --> <circle cx="30" cy="130" r="8" fill="#ef4444" /> <!-- Labels --> <text x="20" y="150" class="text-xs font-bold" fill="#ef4444">
+           Titik Sudut
+          </text> <text x="130" y="125" class="text-xs font-bold" fill="#3b82f6">
+           Kaki Sudut
+          </text> <text x="80" y="55" class="text-xs font-bold" fill="#3b82f6">
+           Kaki Sudut
+          </text> <text x="75" y="115" class="text-xs font-bold" fill="#22c55e">
+           Sudut
+          </text>
+         </svg>
+        </div>
+       </div>
+      </div><!-- Contoh dalam kehidupan -->
+      <div class="mt-6 md:mt-8">
+       <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="eye" class="w-5 h-5 text-purple-600"></i> Contoh Sudut dalam Kehidupan Sehari-hari:</h4>
+       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div class="bg-gradient-to-br from-pink-50 to-rose-50 p-4 rounded-xl text-center card-hover cursor-pointer">
+         <div class="text-4xl mb-2">
+          🚪
+         </div>
+         <p class="text-sm font-medium text-gray-700">Pintu terbuka</p>
+        </div>
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 rounded-xl text-center card-hover cursor-pointer">
+         <div class="text-4xl mb-2">
+          ⏰
+         </div>
+         <p class="text-sm font-medium text-gray-700">Jarum jam</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl text-center card-hover cursor-pointer">
+         <div class="text-4xl mb-2">
+          ✂️
+         </div>
+         <p class="text-sm font-medium text-gray-700">Gunting terbuka</p>
+        </div>
+        <div class="bg-gradient-to-br from-amber-50 to-yellow-50 p-4 rounded-xl text-center card-hover cursor-pointer">
+         <div class="text-4xl mb-2">
+          📐
+         </div>
+         <p class="text-sm font-medium text-gray-700">Penggaris siku</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Section: Jenis-jenis Sudut -->
+    <section id="section-jenis" class="hidden fade-in">
+     <div class="bg-white rounded-2xl md:rounded-3xl shadow-xl p-5 md:p-8 mb-6">
+      <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 flex items-center gap-3"><span class="bg-purple-100 text-purple-600 p-2 rounded-xl"> <i data-lucide="shapes" class="w-5 h-5 md:w-7 md:h-7"></i> </span> Jenis-jenis Sudut</h2>
+      <div class="grid md:grid-cols-2 gap-4 md:gap-6"><!-- Sudut Lancip -->
+       <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5 md:p-6 card-hover border-2 border-emerald-200">
+        <div class="flex items-start gap-4">
+         <div class="flex-shrink-0">
+          <svg viewbox="0 0 80 80" class="w-16 h-16 md:w-20 md:h-20"><path d="M10 70 Q25 60 30 70" stroke="#10b981" stroke-width="2" fill="rgba(16, 185, 129, 0.2)" /> <line x1="10" y1="70" x2="70" y2="70" stroke="#10b981" stroke-width="3" stroke-linecap="round" /> <line x1="10" y1="70" x2="40" y2="25" stroke="#10b981" stroke-width="3" stroke-linecap="round" /> <circle cx="10" cy="70" r="4" fill="#10b981" />
+          </svg>
+         </div>
+         <div>
+          <h3 class="text-lg md:text-xl font-bold text-emerald-700 mb-1">Sudut Lancip</h3>
+          <p class="text-emerald-600 font-semibold text-sm md:text-base mb-2">0° &lt; sudut &lt; 90°</p>
+          <p class="text-gray-600 text-sm">Sudut yang besarnya lebih dari 0° dan kurang dari 90°</p>
+         </div>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2"><span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-medium">Contoh: 30°</span> <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-medium">45°</span> <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-medium">60°</span>
+        </div>
+       </div><!-- Sudut Siku-siku -->
+       <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-5 md:p-6 card-hover border-2 border-blue-200">
+        <div class="flex items-start gap-4">
+         <div class="flex-shrink-0">
+          <svg viewbox="0 0 80 80" class="w-16 h-16 md:w-20 md:h-20"><rect x="10" y="55" width="15" height="15" fill="none" stroke="#3b82f6" stroke-width="2" /> <line x1="10" y1="70" x2="70" y2="70" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" /> <line x1="10" y1="70" x2="10" y2="15" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" /> <circle cx="10" cy="70" r="4" fill="#3b82f6" />
+          </svg>
+         </div>
+         <div>
+          <h3 class="text-lg md:text-xl font-bold text-blue-700 mb-1">Sudut Siku-siku</h3>
+          <p class="text-blue-600 font-semibold text-sm md:text-base mb-2">sudut = 90°</p>
+          <p class="text-gray-600 text-sm">Sudut yang besarnya tepat 90°, ditandai dengan simbol kotak kecil</p>
+         </div>
+        </div>
+        <div class="mt-3"><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">Seperti pojok buku 📚</span>
+        </div>
+       </div><!-- Sudut Tumpul -->
+       <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-5 md:p-6 card-hover border-2 border-orange-200">
+        <div class="flex items-start gap-4">
+         <div class="flex-shrink-0">
+          <svg viewbox="0 0 80 80" class="w-16 h-16 md:w-20 md:h-20"><path d="M40 70 Q20 55 15 45" stroke="#f97316" stroke-width="2" fill="rgba(249, 115, 22, 0.2)" /> <line x1="40" y1="70" x2="75" y2="70" stroke="#f97316" stroke-width="3" stroke-linecap="round" /> <line x1="40" y1="70" x2="5" y2="25" stroke="#f97316" stroke-width="3" stroke-linecap="round" /> <circle cx="40" cy="70" r="4" fill="#f97316" />
+          </svg>
+         </div>
+         <div>
+          <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-1">Sudut Tumpul</h3>
+          <p class="text-orange-600 font-semibold text-sm md:text-base mb-2">90° &lt; sudut &lt; 180°</p>
+          <p class="text-gray-600 text-sm">Sudut yang besarnya lebih dari 90° dan kurang dari 180°</p>
+         </div>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-medium">Contoh: 120°</span> <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-medium">135°</span> <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-medium">150°</span>
+        </div>
+       </div><!-- Sudut Lurus -->
+       <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-5 md:p-6 card-hover border-2 border-rose-200">
+        <div class="flex items-start gap-4">
+         <div class="flex-shrink-0">
+          <svg viewbox="0 0 80 80" class="w-16 h-16 md:w-20 md:h-20"><path d="M40 50 A 20 20 0 0 1 40 50" stroke="#e11d48" stroke-width="2" /> <line x1="5" y1="50" x2="75" y2="50" stroke="#e11d48" stroke-width="3" stroke-linecap="round" /> <circle cx="40" cy="50" r="4" fill="#e11d48" /> <path d="M50 50 A 10 10 0 0 0 30 50" stroke="#e11d48" stroke-width="2" fill="none" />
+          </svg>
+         </div>
+         <div>
+          <h3 class="text-lg md:text-xl font-bold text-rose-700 mb-1">Sudut Lurus</h3>
+          <p class="text-rose-600 font-semibold text-sm md:text-base mb-2">sudut = 180°</p>
+          <p class="text-gray-600 text-sm">Sudut yang besarnya tepat 180°, membentuk garis lurus</p>
+         </div>
+        </div>
+        <div class="mt-3"><span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full text-xs font-medium">Seperti garis lurus ─</span>
+        </div>
+       </div><!-- Sudut Refleks -->
+       <div class="md:col-span-2 bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-5 md:p-6 card-hover border-2 border-violet-200">
+        <div class="flex flex-col md:flex-row items-start gap-4">
+         <div class="flex-shrink-0">
+          <svg viewbox="0 0 100 80" class="w-20 h-16 md:w-28 md:h-20"><path d="M30 60 Q60 80 70 40 Q75 20 50 15 Q30 15 25 35" stroke="#8b5cf6" stroke-width="2" fill="rgba(139, 92, 246, 0.15)" /> <line x1="30" y1="60" x2="85" y2="60" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" /> <line x1="30" y1="60" x2="55" y2="25" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" /> <circle cx="30" cy="60" r="4" fill="#8b5cf6" />
+          </svg>
+         </div>
+         <div>
+          <h3 class="text-lg md:text-xl font-bold text-violet-700 mb-1">Sudut Refleks</h3>
+          <p class="text-violet-600 font-semibold text-sm md:text-base mb-2">180° &lt; sudut &lt; 360°</p>
+          <p class="text-gray-600 text-sm">Sudut yang besarnya lebih dari 180° dan kurang dari 360°. Diukur dari sisi luar sudut.</p>
+          <div class="mt-3 flex flex-wrap gap-2"><span class="bg-violet-100 text-violet-700 px-3 py-1 rounded-full text-xs font-medium">Contoh: 210°</span> <span class="bg-violet-100 text-violet-700 px-3 py-1 rounded-full text-xs font-medium">270°</span> <span class="bg-violet-100 text-violet-700 px-3 py-1 rounded-full text-xs font-medium">300°</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Ringkasan -->
+      <div class="mt-6 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl p-5 md:p-6 text-white">
+       <h4 class="font-bold text-lg md:text-xl mb-4 flex items-center gap-2"><i data-lucide="clipboard-list" class="w-5 h-5"></i> Ringkasan Jenis Sudut</h4>
+       <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center text-sm">
+        <div class="bg-white/20 rounded-xl p-3">
+         <div class="font-bold">
+          Lancip
+         </div>
+         <div class="text-white/90">
+          0° - 90°
+         </div>
+        </div>
+        <div class="bg-white/20 rounded-xl p-3">
+         <div class="font-bold">
+          Siku-siku
+         </div>
+         <div class="text-white/90">
+          = 90°
+         </div>
+        </div>
+        <div class="bg-white/20 rounded-xl p-3">
+         <div class="font-bold">
+          Tumpul
+         </div>
+         <div class="text-white/90">
+          90° - 180°
+         </div>
+        </div>
+        <div class="bg-white/20 rounded-xl p-3">
+         <div class="font-bold">
+          Lurus
+         </div>
+         <div class="text-white/90">
+          = 180°
+         </div>
+        </div>
+        <div class="bg-white/20 rounded-xl p-3 col-span-2 md:col-span-1">
+         <div class="font-bold">
+          Refleks
+         </div>
+         <div class="text-white/90">
+          180° - 360°
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Section: Interaktif -->
+    <section id="section-interaktif" class="hidden fade-in">
+     <div class="bg-white rounded-2xl md:rounded-3xl shadow-xl p-5 md:p-8 mb-6">
+      <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 flex items-center gap-3"><span class="bg-pink-100 text-pink-600 p-2 rounded-xl"> <i data-lucide="mouse-pointer-click" class="w-5 h-5 md:w-7 md:h-7"></i> </span> Eksperimen Sudut Interaktif</h2>
+      <p class="text-gray-600 mb-6">Geser slider untuk mengubah besar sudut dan lihat jenis sudutnya!</p>
+      <div class="grid md:grid-cols-2 gap-6 md:gap-8 items-center"><!-- Canvas Sudut -->
+       <div class="flex justify-center">
+        <div class="relative bg-gradient-to-br from-slate-50 to-gray-100 rounded-2xl p-6 md:p-8 w-full max-w-md">
+         <svg id="angle-svg" viewbox="0 0 200 200" class="w-full"><!-- Grid background --> <defs>
+           <pattern id="grid" width="20" height="20" patternunits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e5e7eb" stroke-width="0.5" />
+           </pattern>
+          </defs> <rect width="200" height="200" fill="url(#grid)" /> <!-- Daerah sudut --> <path id="angle-area" d="" fill="rgba(99, 102, 241, 0.2)" /> <!-- Busur sudut --> <path id="angle-arc" d="" stroke="#6366f1" stroke-width="2" fill="none" /> <!-- Kaki sudut 1 (horizontal) --> <line x1="100" y1="150" x2="190" y2="150" stroke="#3b82f6" stroke-width="4" stroke-linecap="round" /> <!-- Kaki sudut 2 (berputar) --> <line id="rotating-line" x1="100" y1="150" x2="190" y2="150" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round" class="angle-line" /> <!-- Titik sudut --> <circle cx="100" cy="150" r="6" fill="#ef4444" /> <!-- Label sudut --> <text id="angle-label" x="100" y="100" text-anchor="middle" class="text-2xl font-bold" fill="#1f2937">
+           45°
+          </text>
+         </svg>
+        </div>
+       </div><!-- Controls -->
+       <div class="space-y-6"><!-- Slider -->
+        <div><label class="block text-gray-700 font-semibold mb-3"> Atur Besar Sudut: </label> <input type="range" id="angle-slider" min="0" max="360" value="45" class="w-full cursor-pointer" oninput="updateAngle(this.value)">
+         <div class="flex justify-between text-sm text-gray-500 mt-2"><span>0°</span> <span>90°</span> <span>180°</span> <span>270°</span> <span>360°</span>
+         </div>
+        </div><!-- Info Box -->
+        <div id="angle-info" class="bg-gradient-to-r from-emerald-50 to-teal-50 border-2 border-emerald-200 rounded-2xl p-5">
+         <div class="flex items-center gap-3 mb-2"><span class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold">Sudut Lancip</span>
+         </div>
+         <p id="angle-description" class="text-gray-700">Sudut ini kurang dari 90°, disebut <strong>sudut lancip</strong>.</p>
+        </div><!-- Quick Buttons -->
+        <div>
+         <p class="text-gray-700 font-semibold mb-3">Coba Sudut Cepat:</p>
+         <div class="flex flex-wrap gap-2"><button onclick="setAngle(30)" class="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl font-medium hover:bg-emerald-200 transition">30°</button> <button onclick="setAngle(45)" class="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl font-medium hover:bg-emerald-200 transition">45°</button> <button onclick="setAngle(90)" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-xl font-medium hover:bg-blue-200 transition">90°</button> <button onclick="setAngle(120)" class="px-4 py-2 bg-orange-100 text-orange-700 rounded-xl font-medium hover:bg-orange-200 transition">120°</button> <button onclick="setAngle(180)" class="px-4 py-2 bg-rose-100 text-rose-700 rounded-xl font-medium hover:bg-rose-200 transition">180°</button> <button onclick="setAngle(270)" class="px-4 py-2 bg-violet-100 text-violet-700 rounded-xl font-medium hover:bg-violet-200 transition">270°</button>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Mini Game: Tebak Sudut -->
+     <div class="bg-white rounded-2xl md:rounded-3xl shadow-xl p-5 md:p-8">
+      <h3 class="text-lg md:text-2xl font-bold text-gray-800 mb-4 flex items-center gap-3"><span class="bg-amber-100 text-amber-600 p-2 rounded-xl"> <i data-lucide="target" class="w-5 h-5 md:w-6 md:h-6"></i> </span> Mini Game: Tebak Sudut!</h3>
+      <div id="guess-game" class="text-center">
+       <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 mb-4">
+        <svg id="guess-svg" viewbox="0 0 200 150" class="w-full max-w-xs mx-auto"><path id="guess-area" d="" fill="rgba(251, 191, 36, 0.2)" /> <line x1="30" y1="120" x2="170" y2="120" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" /> <line id="guess-line" x1="30" y1="120" x2="170" y2="120" stroke="#d97706" stroke-width="4" stroke-linecap="round" /> <circle cx="30" cy="120" r="5" fill="#dc2626" />
+        </svg>
+        <p class="text-gray-700 mt-4 font-medium">Sudut di atas adalah jenis sudut apa?</p>
+       </div>
+       <div id="guess-options" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4"><button onclick="checkGuess('lancip')" class="guess-btn px-4 py-3 bg-gray-100 hover:bg-indigo-100 rounded-xl font-semibold transition">Lancip</button> <button onclick="checkGuess('siku')" class="guess-btn px-4 py-3 bg-gray-100 hover:bg-indigo-100 rounded-xl font-semibold transition">Siku-siku</button> <button onclick="checkGuess('tumpul')" class="guess-btn px-4 py-3 bg-gray-100 hover:bg-indigo-100 rounded-xl font-semibold transition">Tumpul</button> <button onclick="checkGuess('lurus')" class="guess-btn px-4 py-3 bg-gray-100 hover:bg-indigo-100 rounded-xl font-semibold transition">Lurus</button>
+       </div>
+       <div id="guess-feedback" class="hidden p-4 rounded-xl mb-4"></div><button onclick="newGuessGame()" class="px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold hover:shadow-lg transition flex items-center gap-2 mx-auto"> <i data-lucide="refresh-cw" class="w-4 h-4"></i> Soal Baru </button>
+      </div>
+     </div>
+    </section><!-- Section: Kuis -->
+    <section id="section-kuis" class="hidden fade-in">
+     <div class="bg-white rounded-2xl md:rounded-3xl shadow-xl p-5 md:p-8">
+      <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 flex items-center gap-3"><span class="bg-amber-100 text-amber-600 p-2 rounded-xl"> <i data-lucide="trophy" class="w-5 h-5 md:w-7 md:h-7"></i> </span> Kuis Sudut</h2><!-- Quiz Start Screen -->
+      <div id="quiz-start" class="text-center py-8">
+       <div class="text-6xl mb-4">
+        🎯
+       </div>
+       <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Siap Menguji Pemahamanmu?</h3>
+       <p class="text-gray-600 mb-6">Jawab 5 pertanyaan tentang sudut!</p><button onclick="startQuiz()" class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-bold text-lg hover:shadow-lg transition pulse-animation"> Mulai Kuis </button>
+      </div><!-- Quiz Questions -->
+      <div id="quiz-questions" class="hidden">
+       <div class="flex justify-between items-center mb-6"><span id="quiz-progress" class="text-gray-600 font-medium">Soal 1 dari 5</span> <span id="quiz-score" class="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full font-bold">Skor: 0</span>
+       </div>
+       <div id="quiz-question-container"><!-- Question will be rendered here -->
+       </div>
+      </div><!-- Quiz Result -->
+      <div id="quiz-result" class="hidden text-center py-8">
+       <div id="result-emoji" class="text-6xl mb-4">
+        🎉
+       </div>
+       <h3 id="result-title" class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Luar Biasa!</h3>
+       <p id="result-score" class="text-3xl font-bold text-indigo-600 mb-4">Skor: 100</p>
+       <p id="result-message" class="text-gray-600 mb-6">Kamu sudah memahami materi sudut dengan baik!</p><button onclick="restartQuiz()" class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-bold text-lg hover:shadow-lg transition"> Coba Lagi </button>
+      </div>
+     </div>
+    </section>
+   </main><!-- Footer -->
+   <footer class="bg-gray-800 text-white py-4 px-4 mt-auto">
+    <div class="max-w-6xl mx-auto text-center text-sm">
+     <p>Media Interaktif Matematika Kelas 5 - Materi Sudut</p>
+     <p class="text-gray-400 mt-1">Dibuat dengan ❤️ untuk pembelajaran yang menyenangkan</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Default config
+    const defaultConfig = {
+      main_title: 'Mengenal Sudut',
+      subtitle: 'Matematika Kelas 5 SD',
+      primary_color: '#6366f1',
+      secondary_color: '#8b5cf6',
+      background_color: '#f5f3ff',
+      text_color: '#1f2937',
+      accent_color: '#fbbf24'
+    };
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+          document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => window.elementSdk.setConfig({ background_color: value })
+            },
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (value) => window.elementSdk.setConfig({ primary_color: value })
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => window.elementSdk.setConfig({ text_color: value })
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['main_title', config.main_title || defaultConfig.main_title],
+          ['subtitle', config.subtitle || defaultConfig.subtitle]
+        ])
+      });
+    }
+
+    // Tab Navigation
+    function showSection(sectionName) {
+      // Hide all sections
+      document.querySelectorAll('[id^="section-"]').forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      // Show selected section
+      const section = document.getElementById(`section-${sectionName}`);
+      if (section) {
+        section.classList.remove('hidden');
+        section.classList.add('fade-in');
+      }
+      
+      // Update tab styles
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.classList.add('text-gray-600', 'hover:bg-gray-100');
+      });
+      
+      const activeTab = document.querySelector(`[data-tab="${sectionName}"]`);
+      if (activeTab) {
+        activeTab.classList.add('active');
+        activeTab.classList.remove('text-gray-600', 'hover:bg-gray-100');
+      }
+
+      // Initialize games when showing interactive section
+      if (sectionName === 'interaktif') {
+        updateAngle(document.getElementById('angle-slider').value);
+        newGuessGame();
+      }
+
+      lucide.createIcons();
+    }
+
+    // Interactive Angle
+    function updateAngle(degrees) {
+      const angle = parseInt(degrees);
+      const radians = (angle * Math.PI) / 180;
+      
+      const cx = 100, cy = 150, length = 90;
+      const x2 = cx + length * Math.cos(-radians);
+      const y2 = cy + length * Math.sin(-radians);
+      
+      // Update rotating line
+      const rotatingLine = document.getElementById('rotating-line');
+      rotatingLine.setAttribute('x2', x2);
+      rotatingLine.setAttribute('y2', y2);
+      
+      // Update angle label
+      document.getElementById('angle-label').textContent = `${angle}°`;
+      
+      // Update arc
+      const arcRadius = 30;
+      const arcX = cx + arcRadius * Math.cos(-radians);
+      const arcY = cy + arcRadius * Math.sin(-radians);
+      const largeArc = angle > 180 ? 1 : 0;
+      const arcPath = `M ${cx + arcRadius} ${cy} A ${arcRadius} ${arcRadius} 0 ${largeArc} 0 ${arcX} ${arcY}`;
+      document.getElementById('angle-arc').setAttribute('d', arcPath);
+      
+      // Update area
+      const areaPath = `M ${cx} ${cy} L ${cx + length} ${cy} A ${length} ${length} 0 ${largeArc} 0 ${x2} ${y2} Z`;
+      document.getElementById('angle-area').setAttribute('d', areaPath);
+      
+      // Update info box
+      updateAngleInfo(angle);
+    }
+
+    function updateAngleInfo(angle) {
+      const infoBox = document.getElementById('angle-info');
+      const description = document.getElementById('angle-description');
+      let type, desc, colorClass;
+      
+      if (angle === 0) {
+        type = 'Sudut Nol';
+        desc = 'Kedua kaki sudut berimpit, tidak membentuk sudut.';
+        colorClass = 'from-gray-50 to-slate-50 border-gray-200';
+      } else if (angle < 90) {
+        type = 'Sudut Lancip';
+        desc = `Sudut ${angle}° kurang dari 90°, disebut <strong>sudut lancip</strong>.`;
+        colorClass = 'from-emerald-50 to-teal-50 border-emerald-200';
+      } else if (angle === 90) {
+        type = 'Sudut Siku-siku';
+        desc = 'Sudut tepat 90°, disebut <strong>sudut siku-siku</strong>. Ditandai kotak kecil.';
+        colorClass = 'from-blue-50 to-indigo-50 border-blue-200';
+      } else if (angle < 180) {
+        type = 'Sudut Tumpul';
+        desc = `Sudut ${angle}° lebih dari 90° dan kurang dari 180°, disebut <strong>sudut tumpul</strong>.`;
+        colorClass = 'from-orange-50 to-amber-50 border-orange-200';
+      } else if (angle === 180) {
+        type = 'Sudut Lurus';
+        desc = 'Sudut tepat 180°, disebut <strong>sudut lurus</strong>. Membentuk garis lurus.';
+        colorClass = 'from-rose-50 to-pink-50 border-rose-200';
+      } else if (angle < 360) {
+        type = 'Sudut Refleks';
+        desc = `Sudut ${angle}° lebih dari 180°, disebut <strong>sudut refleks</strong>.`;
+        colorClass = 'from-violet-50 to-purple-50 border-violet-200';
+      } else {
+        type = 'Sudut Penuh';
+        desc = 'Sudut tepat 360°, disebut <strong>sudut penuh</strong>. Kembali ke posisi awal.';
+        colorClass = 'from-pink-50 to-rose-50 border-pink-200';
+      }
+      
+      infoBox.className = `bg-gradient-to-r ${colorClass} border-2 rounded-2xl p-5`;
+      infoBox.innerHTML = `
+        <div class="flex items-center gap-3 mb-2">
+          <span class="bg-indigo-500 text-white px-3 py-1 rounded-full text-sm font-bold">${type}</span>
+        </div>
+        <p class="text-gray-700">${desc}</p>
+      `;
+    }
+
+    function setAngle(degrees) {
+      document.getElementById('angle-slider').value = degrees;
+      updateAngle(degrees);
+    }
+
+    // Guess Game
+    let currentGuessAngle = 45;
+    let currentGuessType = 'lancip';
+
+    function newGuessGame() {
+      const types = [
+        { type: 'lancip', min: 15, max: 85 },
+        { type: 'siku', min: 90, max: 90 },
+        { type: 'tumpul', min: 95, max: 175 },
+        { type: 'lurus', min: 180, max: 180 }
+      ];
+      
+      const selected = types[Math.floor(Math.random() * types.length)];
+      currentGuessType = selected.type;
+      currentGuessAngle = Math.floor(Math.random() * (selected.max - selected.min + 1)) + selected.min;
+      
+      // Draw the angle
+      const radians = (currentGuessAngle * Math.PI) / 180;
+      const cx = 30, cy = 120, length = 130;
+      const x2 = cx + length * Math.cos(-radians);
+      const y2 = cy + length * Math.sin(-radians);
+      
+      document.getElementById('guess-line').setAttribute('x2', x2);
+      document.getElementById('guess-line').setAttribute('y2', y2);
+      
+      const areaPath = `M ${cx} ${cy} L ${cx + length} ${cy} A ${length} ${length} 0 0 0 ${x2} ${y2} Z`;
+      document.getElementById('guess-area').setAttribute('d', areaPath);
+      
+      // Reset feedback
+      document.getElementById('guess-feedback').classList.add('hidden');
+      document.querySelectorAll('.guess-btn').forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('bg-green-200', 'bg-red-200');
+        btn.classList.add('bg-gray-100');
+      });
+    }
+
+    function checkGuess(guess) {
+      const feedback = document.getElementById('guess-feedback');
+      feedback.classList.remove('hidden');
+      
+      document.querySelectorAll('.guess-btn').forEach(btn => btn.disabled = true);
+      
+      if (guess === currentGuessType) {
+        feedback.className = 'p-4 rounded-xl mb-4 bg-green-100 text-green-700';
+        feedback.innerHTML = `<span class="font-bold">✅ Benar!</span> Sudut ${currentGuessAngle}° adalah sudut ${getTypeName(currentGuessType)}.`;
+      } else {
+        feedback.className = 'p-4 rounded-xl mb-4 bg-red-100 text-red-700';
+        feedback.innerHTML = `<span class="font-bold">❌ Kurang tepat.</span> Sudut ${currentGuessAngle}° adalah sudut ${getTypeName(currentGuessType)}, bukan ${getTypeName(guess)}.`;
+      }
+    }
+
+    function getTypeName(type) {
+      const names = {
+        'lancip': 'lancip',
+        'siku': 'siku-siku',
+        'tumpul': 'tumpul',
+        'lurus': 'lurus'
+      };
+      return names[type] || type;
+    }
+
+    // Quiz
+    const quizQuestions = [
+      {
+        question: 'Sudut yang besarnya tepat 90° disebut...',
+        options: ['Sudut lancip', 'Sudut siku-siku', 'Sudut tumpul', 'Sudut lurus'],
+        correct: 1
+      },
+      {
+        question: 'Sudut 45° termasuk jenis sudut...',
+        options: ['Sudut lancip', 'Sudut siku-siku', 'Sudut tumpul', 'Sudut refleks'],
+        correct: 0
+      },
+      {
+        question: 'Sudut tumpul adalah sudut yang besarnya...',
+        options: ['Kurang dari 90°', 'Tepat 90°', 'Antara 90° dan 180°', 'Tepat 180°'],
+        correct: 2
+      },
+      {
+        question: 'Bagian sudut yang merupakan titik pertemuan dua sinar disebut...',
+        options: ['Kaki sudut', 'Titik sudut', 'Daerah sudut', 'Busur sudut'],
+        correct: 1
+      },
+      {
+        question: 'Sudut 180° disebut juga...',
+        options: ['Sudut tumpul', 'Sudut refleks', 'Sudut lurus', 'Sudut penuh'],
+        correct: 2
+      }
+    ];
+
+    let currentQuestion = 0;
+    let quizScore = 0;
+
+    function startQuiz() {
+      currentQuestion = 0;
+      quizScore = 0;
+      document.getElementById('quiz-start').classList.add('hidden');
+      document.getElementById('quiz-questions').classList.remove('hidden');
+      document.getElementById('quiz-result').classList.add('hidden');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = quizQuestions[currentQuestion];
+      document.getElementById('quiz-progress').textContent = `Soal ${currentQuestion + 1} dari ${quizQuestions.length}`;
+      document.getElementById('quiz-score').textContent = `Skor: ${quizScore}`;
+      
+      const container = document.getElementById('quiz-question-container');
+      container.innerHTML = `
+        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-5 md:p-6 mb-4">
+          <p class="text-lg md:text-xl font-semibold text-gray-800">${q.question}</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="quiz-options">
+          ${q.options.map((opt, i) => `
+            <button onclick="selectAnswer(${i})" class="quiz-option p-4 bg-white border-2 border-gray-200 rounded-xl font-medium text-left hover:border-indigo-400 hover:bg-indigo-50 transition">
+              <span class="inline-block w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full text-center leading-8 font-bold mr-3">${String.fromCharCode(65 + i)}</span>
+              ${opt}
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function selectAnswer(index) {
+      const q = quizQuestions[currentQuestion];
+      const options = document.querySelectorAll('.quiz-option');
+      
+      options.forEach((opt, i) => {
+        opt.disabled = true;
+        if (i === q.correct) {
+          opt.classList.add('border-green-500', 'bg-green-50');
+        } else if (i === index && index !== q.correct) {
+          opt.classList.add('border-red-500', 'bg-red-50');
+        }
+      });
+      
+      if (index === q.correct) {
+        quizScore += 20;
+        document.getElementById('quiz-score').textContent = `Skor: ${quizScore}`;
+      }
+      
+      setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < quizQuestions.length) {
+          showQuestion();
+        } else {
+          showResult();
+        }
+      }, 1500);
+    }
+
+    function showResult() {
+      document.getElementById('quiz-questions').classList.add('hidden');
+      document.getElementById('quiz-result').classList.remove('hidden');
+      
+      let emoji, title, message;
+      if (quizScore === 100) {
+        emoji = '🏆';
+        title = 'Sempurna!';
+        message = 'Luar biasa! Kamu menguasai materi sudut dengan sangat baik!';
+      } else if (quizScore >= 80) {
+        emoji = '🎉';
+        title = 'Hebat!';
+        message = 'Bagus sekali! Kamu sudah memahami materi sudut dengan baik!';
+      } else if (quizScore >= 60) {
+        emoji = '👍';
+        title = 'Bagus!';
+        message = 'Cukup baik! Terus belajar untuk meningkatkan pemahamanmu!';
+      } else {
+        emoji = '💪';
+        title = 'Semangat!';
+        message = 'Jangan menyerah! Pelajari lagi materinya dan coba lagi!';
+      }
+      
+      document.getElementById('result-emoji').textContent = emoji;
+      document.getElementById('result-title').textContent = title;
+      document.getElementById('result-score').textContent = `Skor: ${quizScore}`;
+      document.getElementById('result-message').textContent = message;
+    }
+
+    function restartQuiz() {
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-start').classList.remove('hidden');
+    }
+
+    // Initialize
+    lucide.createIcons();
+    updateAngle(45);
+    newGuessGame();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e1677d1423e4ad1',t:'MTc3NDM2MzYxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

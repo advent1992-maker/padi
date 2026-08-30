@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belajar Singkatan dan Akronim</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;family=Comic+Neue:wght@700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    
+    .fun-title { font-family: 'Comic Neue', cursive; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
+      50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); }
+    }
+    
+    @keyframes bounce-in {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes slide-up {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    
+    @keyframes star-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .float-animation { animation: float 3s ease-in-out infinite; }
+    .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .bounce-in { animation: bounce-in 0.5s ease-out forwards; }
+    .slide-up { animation: slide-up 0.4s ease-out forwards; }
+    .shake { animation: shake 0.5s ease-in-out; }
+    .star-spin { animation: star-spin 1s linear infinite; }
+    
+    .card-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+    .card-3d:hover {
+      transform: translateY(-5px) rotateX(5deg);
+    }
+    
+    .btn-bounce:active {
+      transform: scale(0.95);
+    }
+    
+    .progress-bar {
+      background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+      background-size: 200% 100%;
+      animation: shimmer 2s linear infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    
+    .mascot {
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+    
+    .option-card {
+      transition: all 0.2s ease;
+    }
+    .option-card:hover:not(.disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15);
+    }
+    
+    .confetti-piece {
+      position: absolute;
+      animation: confetti 1s ease-out forwards;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-screen m-0 p-0">
+  <div id="app" class="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500">
+   <div class="min-h-full p-4 md:p-6 lg:p-8"><!-- Header -->
+    <header class="text-center mb-6 md:mb-8">
+     <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 mb-4"><span class="text-2xl">📚</span> <span class="text-white font-bold text-lg md:text-xl">Bahasa Indonesia Kelas 5</span> <span class="text-2xl">✨</span>
+     </div>
+     <h1 id="main-title" class="fun-title text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white drop-shadow-lg mb-2">Singkatan &amp; Akronim</h1>
+     <p id="welcome-text" class="text-white/90 text-lg md:text-xl lg:text-2xl">Ayo belajar sambil bermain! 🎮</p>
+    </header><!-- Navigation Tabs -->
+    <nav id="nav-tabs" class="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-8"><button onclick="showSection('materi')" data-tab="materi" class="nav-btn active flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-base transition-all btn-bounce bg-yellow-400 text-yellow-900 shadow-lg"> <i data-lucide="book-open" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Materi</span> </button> <button onclick="showSection('contoh')" data-tab="contoh" class="nav-btn flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-base transition-all btn-bounce bg-white/30 text-white hover:bg-white/50"> <i data-lucide="list" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Contoh</span> </button> <button onclick="showSection('kuis')" data-tab="kuis" class="nav-btn flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-base transition-all btn-bounce bg-white/30 text-white hover:bg-white/50"> <i data-lucide="help-circle" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Kuis</span> </button> <button onclick="showSection('game')" data-tab="game" class="nav-btn flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-base transition-all btn-bounce bg-white/30 text-white hover:bg-white/50"> <i data-lucide="gamepad-2" class="w-4 h-4 md:w-5 md:h-5"></i> <span>Game</span> </button>
+    </nav><!-- Content Sections -->
+    <main class="max-w-[95%] xl:max-w-screen-2xl mx-auto">
+     <section id="section-materi" class="content-section">
+      <div class="grid md:grid-cols-2 gap-4 md:gap-6"><!-- Singkatan Card -->
+       <div class="card-3d bg-white rounded-3xl p-6 md:p-8 shadow-2xl">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center float-animation"><span class="text-3xl md:text-4xl">📝</span>
+         </div>
+         <h2 class="fun-title text-2xl md:text-3xl font-bold text-blue-600">Singkatan</h2>
+        </div>
+        <div class="bg-blue-50 rounded-2xl p-4 md:p-5 mb-4">
+         <p class="text-gray-700 text-base md:text-lg leading-relaxed"><strong class="text-blue-600">Singkatan</strong> adalah bentuk pendek dari suatu kata atau frasa yang dibaca <span class="bg-yellow-200 px-2 py-1 rounded font-bold">huruf per huruf</span>.</p>
+        </div>
+        <div class="space-y-3">
+         <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-100 to-transparent rounded-xl"><span class="text-2xl">✅</span>
+          <p class="text-gray-700"><strong>SD</strong> dibaca <em>"es-de"</em></p>
+         </div>
+         <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-100 to-transparent rounded-xl"><span class="text-2xl">✅</span>
+          <p class="text-gray-700"><strong>SMP</strong> dibaca <em>"es-em-pe"</em></p>
+         </div>
+         <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-100 to-transparent rounded-xl"><span class="text-2xl">✅</span>
+          <p class="text-gray-700"><strong>PBB</strong> dibaca <em>"pe-be-be"</em></p>
+         </div>
+        </div>
+        <div class="mt-4 p-3 bg-yellow-100 rounded-xl border-l-4 border-yellow-400">
+         <p class="text-sm md:text-base text-yellow-800">💡 <strong>Tips:</strong> Singkatan biasanya ditulis dengan huruf kapital semua!</p>
+        </div>
+       </div><!-- Akronim Card -->
+       <div class="card-3d bg-white rounded-3xl p-6 md:p-8 shadow-2xl">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center float-animation" style="animation-delay: 0.5s;"><span class="text-3xl md:text-4xl">🔤</span>
+         </div>
+         <h2 class="fun-title text-2xl md:text-3xl font-bold text-green-600">Akronim</h2>
+        </div>
+        <div class="bg-green-50 rounded-2xl p-4 md:p-5 mb-4">
+         <p class="text-gray-700 text-base md:text-lg leading-relaxed"><strong class="text-green-600">Akronim</strong> adalah singkatan dari beberapa kata yang digabung dan dibaca <span class="bg-yellow-200 px-2 py-1 rounded font-bold">seperti kata biasa</span>.</p>
+        </div>
+        <div class="space-y-3">
+         <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-green-100 to-transparent rounded-xl"><span class="text-2xl">✅</span>
+          <p class="text-gray-700"><strong>ASEAN</strong> dibaca <em>"asean"</em></p>
+         </div>
+         <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-green-100 to-transparent rounded-xl"><span class="text-2xl">✅</span>
+          <p class="text-gray-700"><strong>SIM</strong> dibaca <em>"sim"</em></p>
+         </div>
+         <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-green-100 to-transparent rounded-xl"><span class="text-2xl">✅</span>
+          <p class="text-gray-700"><strong>BUMN</strong> dibaca <em>"bumn"</em></p>
+         </div>
+        </div>
+        <div class="mt-4 p-3 bg-green-100 rounded-xl border-l-4 border-green-400">
+         <p class="text-sm md:text-base text-green-800">💡 <strong>Tips:</strong> Akronim bisa ditulis huruf kapital semua atau huruf awal kapital saja!</p>
+        </div>
+       </div>
+      </div><!-- Perbedaan Section -->
+      <div class="mt-6 bg-white rounded-3xl p-6 md:p-8 shadow-2xl">
+       <h3 class="fun-title text-2xl md:text-3xl font-bold text-center text-purple-600 mb-6">🎯 Perbedaan Singkatan &amp; Akronim</h3>
+       <div class="overflow-x-auto">
+        <table class="w-full text-left">
+         <thead>
+          <tr class="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+           <th class="p-4 rounded-tl-xl text-base md:text-lg">Aspek</th>
+           <th class="p-4 text-base md:text-lg">Singkatan 📝</th>
+           <th class="p-4 rounded-tr-xl text-base md:text-lg">Akronim 🔤</th>
+          </tr>
+         </thead>
+         <tbody class="text-sm md:text-base">
+          <tr class="bg-purple-50">
+           <td class="p-4 font-bold">Cara Baca</td>
+           <td class="p-4">Huruf per huruf</td>
+           <td class="p-4">Seperti kata biasa</td>
+          </tr>
+          <tr class="bg-white">
+           <td class="p-4 font-bold">Contoh</td>
+           <td class="p-4">SD, SMP, PBB</td>
+           <td class="p-4">SIM, ASEAN, NATO</td>
+          </tr>
+          <tr class="bg-purple-50">
+           <td class="p-4 font-bold rounded-bl-xl">Penulisan</td>
+           <td class="p-4">Huruf kapital semua</td>
+           <td class="p-4 rounded-br-xl">Kapital semua atau awal saja</td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </section><!-- CONTOH Section -->
+     <section id="section-contoh" class="content-section hidden">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl">
+       <h2 class="fun-title text-2xl md:text-3xl font-bold text-center text-orange-500 mb-6">📋 Daftar Contoh Lengkap</h2>
+       <div class="grid md:grid-cols-2 gap-6"><!-- Singkatan List -->
+        <div>
+         <h3 class="flex items-center gap-2 text-xl font-bold text-blue-600 mb-4"><span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">📝</span> Singkatan</h3>
+         <div class="space-y-2" id="singkatan-list"><!-- Filled by JS -->
+         </div>
+        </div><!-- Akronim List -->
+        <div>
+         <h3 class="flex items-center gap-2 text-xl font-bold text-green-600 mb-4"><span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">🔤</span> Akronim</h3>
+         <div class="space-y-2" id="akronim-list"><!-- Filled by JS -->
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- KUIS Section -->
+     <section id="section-kuis" class="content-section hidden">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl"><!-- Quiz Header -->
+       <div id="quiz-header" class="text-center mb-6">
+        <h2 class="fun-title text-2xl md:text-3xl font-bold text-purple-600 mb-2">🧠 Kuis Interaktif</h2>
+        <p class="text-gray-600">Uji pemahamanmu tentang singkatan dan akronim!</p>
+       </div><!-- Quiz Start Screen -->
+       <div id="quiz-start" class="text-center py-8">
+        <div class="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 float-animation"><span class="text-5xl md:text-6xl">🎯</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Siap Mengerjakan Kuis?</h3>
+        <p class="text-gray-600 mb-6">10 soal menanti untuk kamu jawab!</p><button onclick="startQuiz()" class="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full shadow-lg hover:shadow-xl transition-all btn-bounce pulse-glow"> Mulai Kuis! 🚀 </button>
+       </div><!-- Quiz Question Screen -->
+       <div id="quiz-question" class="hidden"><!-- Progress -->
+        <div class="mb-6">
+         <div class="flex justify-between items-center mb-2"><span class="text-sm font-bold text-gray-600">Soal <span id="current-q">1</span>/10</span> <span class="text-sm font-bold text-purple-600">Skor: <span id="quiz-score">0</span></span>
+         </div>
+         <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
+          <div id="quiz-progress" class="h-full progress-bar rounded-full transition-all duration-500" style="width: 10%"></div>
+         </div>
+        </div><!-- Question -->
+        <div id="question-container" class="text-center py-6">
+         <div class="inline-block px-4 py-2 bg-purple-100 rounded-full text-purple-600 font-bold mb-4" id="question-type">
+          Singkatan atau Akronim?
+         </div>
+         <h3 id="question-text" class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-8"><!-- Question here --></h3><!-- Options -->
+         <div id="quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto"><!-- Options here -->
+         </div>
+        </div><!-- Feedback -->
+        <div id="quiz-feedback" class="hidden text-center py-4">
+         <div id="feedback-icon" class="text-6xl mb-2"></div>
+         <p id="feedback-text" class="text-xl font-bold"></p>
+         <p id="feedback-explanation" class="text-gray-600 mt-2"></p><button onclick="nextQuestion()" class="mt-4 px-6 py-3 bg-purple-500 text-white font-bold rounded-full hover:bg-purple-600 transition-all btn-bounce"> Lanjut → </button>
+        </div>
+       </div><!-- Quiz Result Screen -->
+       <div id="quiz-result" class="hidden text-center py-8">
+        <div id="result-emoji" class="text-7xl md:text-8xl mb-4"></div>
+        <h3 id="result-title" class="text-2xl md:text-3xl font-bold mb-2"></h3>
+        <p id="result-score" class="text-xl text-gray-600 mb-6"></p>
+        <div id="result-stars" class="flex justify-center gap-2 mb-6"><!-- Stars here -->
+        </div><button onclick="restartQuiz()" class="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full shadow-lg hover:shadow-xl transition-all btn-bounce"> Main Lagi! 🔄 </button>
+       </div>
+      </div>
+     </section><!-- GAME Section -->
+     <section id="section-game" class="content-section hidden">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl">
+       <h2 class="fun-title text-2xl md:text-3xl font-bold text-center text-red-500 mb-6">🎮 Game Cocokkan Pasangan</h2><!-- Game Start -->
+       <div id="game-start" class="text-center py-8">
+        <div class="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-red-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 float-animation"><span class="text-5xl md:text-6xl">🃏</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Cocokkan Singkatan/Akronim!</h3>
+        <p class="text-gray-600 mb-6">Hubungkan singkatan atau akronim dengan kepanjangannya!</p><button onclick="startGame()" class="px-8 py-4 bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold text-lg rounded-full shadow-lg hover:shadow-xl transition-all btn-bounce pulse-glow"> Main Sekarang! 🎯 </button>
+       </div><!-- Game Play -->
+       <div id="game-play" class="hidden"><!-- Game Stats -->
+        <div class="flex justify-between items-center mb-6 p-4 bg-gray-100 rounded-xl">
+         <div class="text-center">
+          <p class="text-sm text-gray-500">Pasangan</p>
+          <p class="text-xl font-bold text-gray-800"><span id="matched-pairs">0</span>/6</p>
+         </div>
+         <div class="text-center">
+          <p class="text-sm text-gray-500">Waktu</p>
+          <p class="text-xl font-bold text-red-500" id="game-timer">00:00</p>
+         </div>
+         <div class="text-center">
+          <p class="text-sm text-gray-500">Percobaan</p>
+          <p class="text-xl font-bold text-gray-800" id="game-attempts">0</p>
+         </div>
+        </div><!-- Matching Game Area -->
+        <div class="grid md:grid-cols-2 gap-6"><!-- Left Column - Singkatan/Akronim -->
+         <div>
+          <h4 class="font-bold text-gray-700 mb-3 text-center">Singkatan/Akronim</h4>
+          <div id="game-left" class="space-y-3"><!-- Cards here -->
+          </div>
+         </div><!-- Right Column - Kepanjangan -->
+         <div>
+          <h4 class="font-bold text-gray-700 mb-3 text-center">Kepanjangan</h4>
+          <div id="game-right" class="space-y-3"><!-- Cards here -->
+          </div>
+         </div>
+        </div>
+       </div><!-- Game Result -->
+       <div id="game-result" class="hidden text-center py-8">
+        <div class="relative inline-block">
+         <div id="game-result-emoji" class="text-7xl md:text-8xl mb-4">
+          🏆
+         </div>
+         <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+        </div>
+        <h3 id="game-result-title" class="text-2xl md:text-3xl font-bold mb-2">Hebat!</h3>
+        <p id="game-result-text" class="text-xl text-gray-600 mb-6"></p><button onclick="restartGame()" class="px-8 py-4 bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold text-lg rounded-full shadow-lg hover:shadow-xl transition-all btn-bounce"> Main Lagi! 🔄 </button>
+       </div>
+      </div>
+     </section>
+    </main><!-- Footer -->
+    <footer class="text-center mt-8 pb-4">
+     <p class="text-white/70 text-sm">Made with ❤️ untuk Siswa Kelas 5 Indonesia</p>
+    </footer>
+   </div>
+  </div>
+  <script>
+    // ============ DATA ============
+    const singkatanData = [
+      { short: "SD", full: "Sekolah Dasar", cara: "es-de" },
+      { short: "SMP", full: "Sekolah Menengah Pertama", cara: "es-em-pe" },
+      { short: "SMA", full: "Sekolah Menengah Atas", cara: "es-em-a" },
+      { short: "PBB", full: "Perserikatan Bangsa-Bangsa", cara: "pe-be-be" },
+      { short: "DPR", full: "Dewan Perwakilan Rakyat", cara: "de-pe-er" },
+      { short: "MPR", full: "Majelis Permusyawaratan Rakyat", cara: "em-pe-er" },
+      { short: "TNI", full: "Tentara Nasional Indonesia", cara: "te-en-i" },
+      { short: "KTP", full: "Kartu Tanda Penduduk", cara: "ka-te-pe" },
+      { short: "RI", full: "Republik Indonesia", cara: "er-i" },
+      { short: "RT", full: "Rukun Tetangga", cara: "er-te" },
+      { short: "RW", full: "Rukun Warga", cara: "er-we" },
+      { short: "HP", full: "Handphone", cara: "ha-pe" }
+    ];
+
+    const akronimData = [
+      { short: "ASEAN", full: "Association of Southeast Asian Nations", cara: "asean" },
+      { short: "SIM", full: "Surat Izin Mengemudi", cara: "sim" },
+      { short: "BUMN", full: "Badan Usaha Milik Negara", cara: "bumn" },
+      { short: "Posyandu", full: "Pos Pelayanan Terpadu", cara: "posyandu" },
+      { short: "Puskesmas", full: "Pusat Kesehatan Masyarakat", cara: "puskesmas" },
+      { short: "Bansos", full: "Bantuan Sosial", cara: "bansos" },
+      { short: "Ormas", full: "Organisasi Masyarakat", cara: "ormas" },
+      { short: "Pemilu", full: "Pemilihan Umum", cara: "pemilu" },
+      { short: "Pilkada", full: "Pemilihan Kepala Daerah", cara: "pilkada" },
+      { short: "Tilang", full: "Bukti Pelanggaran", cara: "tilang" },
+      { short: "Jabodetabek", full: "Jakarta Bogor Depok Tangerang Bekasi", cara: "jabodetabek" },
+      { short: "Satpam", full: "Satuan Pengamanan", cara: "satpam" }
+    ];
+
+    // Quiz questions
+    const quizQuestions = [
+      { q: "SD", options: ["Singkatan", "Akronim"], answer: 0, explanation: "SD dibaca 'es-de' (huruf per huruf), jadi SINGKATAN" },
+      { q: "SIM", options: ["Singkatan", "Akronim"], answer: 1, explanation: "SIM dibaca 'sim' (seperti kata biasa), jadi AKRONIM" },
+      { q: "PBB", options: ["Singkatan", "Akronim"], answer: 0, explanation: "PBB dibaca 'pe-be-be' (huruf per huruf), jadi SINGKATAN" },
+      { q: "Puskesmas", options: ["Singkatan", "Akronim"], answer: 1, explanation: "Puskesmas dibaca 'puskesmas' (seperti kata biasa), jadi AKRONIM" },
+      { q: "DPR", options: ["Singkatan", "Akronim"], answer: 0, explanation: "DPR dibaca 'de-pe-er' (huruf per huruf), jadi SINGKATAN" },
+      { q: "ASEAN", options: ["Singkatan", "Akronim"], answer: 1, explanation: "ASEAN dibaca 'asean' (seperti kata biasa), jadi AKRONIM" },
+      { q: "TNI", options: ["Singkatan", "Akronim"], answer: 0, explanation: "TNI dibaca 'te-en-i' (huruf per huruf), jadi SINGKATAN" },
+      { q: "Pemilu", options: ["Singkatan", "Akronim"], answer: 1, explanation: "Pemilu dibaca 'pemilu' (seperti kata biasa), jadi AKRONIM" },
+      { q: "KTP", options: ["Singkatan", "Akronim"], answer: 0, explanation: "KTP dibaca 'ka-te-pe' (huruf per huruf), jadi SINGKATAN" },
+      { q: "Posyandu", options: ["Singkatan", "Akronim"], answer: 1, explanation: "Posyandu dibaca 'posyandu' (seperti kata biasa), jadi AKRONIM" }
+    ];
+
+    // ============ STATE ============
+    let currentSection = 'materi';
+    let quizState = { current: 0, score: 0, answered: false };
+    let gameState = { selected: null, matched: 0, attempts: 0, timer: 0, interval: null };
+
+    // ============ CONFIG ============
+    const defaultConfig = {
+      main_title: "Singkatan & Akronim",
+      welcome_text: "Ayo belajar sambil bermain! 🎮",
+      background_color: "#8b5cf6",
+      surface_color: "#ffffff",
+      text_color: "#1f2937",
+      primary_action_color: "#fbbf24",
+      secondary_action_color: "#a855f7",
+      font_family: "Nunito",
+      font_size: 16
+    };
+
+    // ============ NAVIGATION ============
+    function showSection(section) {
+      currentSection = section;
+      
+      // Update tabs
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const isActive = btn.dataset.tab === section;
+        btn.classList.toggle('bg-yellow-400', isActive);
+        btn.classList.toggle('text-yellow-900', isActive);
+        btn.classList.toggle('shadow-lg', isActive);
+        btn.classList.toggle('bg-white/30', !isActive);
+        btn.classList.toggle('text-white', !isActive);
+        btn.classList.toggle('hover:bg-white/50', !isActive);
+      });
+      
+      // Update sections
+      document.querySelectorAll('.content-section').forEach(s => {
+        s.classList.add('hidden');
+      });
+      document.getElementById(`section-${section}`).classList.remove('hidden');
+      document.getElementById(`section-${section}`).classList.add('slide-up');
+    }
+
+    // ============ CONTOH LIST ============
+    function renderContohList() {
+      const singkatanList = document.getElementById('singkatan-list');
+      const akronimList = document.getElementById('akronim-list');
+      
+      singkatanList.innerHTML = singkatanData.map(item => `
+        <div class="flex items-center justify-between p-3 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+          <div>
+            <span class="font-bold text-blue-600">${item.short}</span>
+            <span class="text-gray-500 mx-2">→</span>
+            <span class="text-gray-700">${item.full}</span>
+          </div>
+          <span class="text-xs bg-blue-200 text-blue-700 px-2 py-1 rounded-full">${item.cara}</span>
+        </div>
+      `).join('');
+      
+      akronimList.innerHTML = akronimData.map(item => `
+        <div class="flex items-center justify-between p-3 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
+          <div>
+            <span class="font-bold text-green-600">${item.short}</span>
+            <span class="text-gray-500 mx-2">→</span>
+            <span class="text-gray-700 text-sm">${item.full}</span>
+          </div>
+          <span class="text-xs bg-green-200 text-green-700 px-2 py-1 rounded-full">${item.cara}</span>
+        </div>
+      `).join('');
+    }
+
+    // ============ QUIZ ============
+    function startQuiz() {
+      quizState = { current: 0, score: 0, answered: false };
+      document.getElementById('quiz-start').classList.add('hidden');
+      document.getElementById('quiz-question').classList.remove('hidden');
+      document.getElementById('quiz-result').classList.add('hidden');
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = quizQuestions[quizState.current];
+      document.getElementById('current-q').textContent = quizState.current + 1;
+      document.getElementById('quiz-score').textContent = quizState.score;
+      document.getElementById('quiz-progress').style.width = `${((quizState.current + 1) / 10) * 100}%`;
+      document.getElementById('question-text').textContent = q.q;
+      document.getElementById('quiz-feedback').classList.add('hidden');
+      
+      const optionsHtml = q.options.map((opt, i) => `
+        <button onclick="selectAnswer(${i})" class="option-card p-4 md:p-6 bg-gray-100 rounded-2xl font-bold text-lg md:text-xl text-gray-800 hover:bg-purple-100 transition-all btn-bounce">
+          ${opt === 'Singkatan' ? '📝' : '🔤'} ${opt}
+        </button>
+      `).join('');
+      
+      document.getElementById('quiz-options').innerHTML = optionsHtml;
+    }
+
+    function selectAnswer(idx) {
+      if (quizState.answered) return;
+      quizState.answered = true;
+      
+      const q = quizQuestions[quizState.current];
+      const isCorrect = idx === q.answer;
+      
+      if (isCorrect) quizState.score++;
+      
+      // Update option styles
+      const options = document.querySelectorAll('.option-card');
+      options.forEach((opt, i) => {
+        opt.classList.add('disabled');
+        if (i === q.answer) {
+          opt.classList.remove('bg-gray-100');
+          opt.classList.add('bg-green-400', 'text-white');
+        } else if (i === idx && !isCorrect) {
+          opt.classList.remove('bg-gray-100');
+          opt.classList.add('bg-red-400', 'text-white', 'shake');
+        }
+      });
+      
+      // Show feedback
+      const feedback = document.getElementById('quiz-feedback');
+      document.getElementById('feedback-icon').textContent = isCorrect ? '🎉' : '😅';
+      document.getElementById('feedback-text').textContent = isCorrect ? 'Benar!' : 'Kurang Tepat!';
+      document.getElementById('feedback-text').className = `text-xl font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`;
+      document.getElementById('feedback-explanation').textContent = q.explanation;
+      feedback.classList.remove('hidden');
+      feedback.classList.add('bounce-in');
+    }
+
+    function nextQuestion() {
+      quizState.current++;
+      quizState.answered = false;
+      
+      if (quizState.current >= quizQuestions.length) {
+        showQuizResult();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    function showQuizResult() {
+      document.getElementById('quiz-question').classList.add('hidden');
+      document.getElementById('quiz-result').classList.remove('hidden');
+      
+      const score = quizState.score;
+      const percentage = (score / 10) * 100;
+      
+      let emoji, title;
+      if (percentage >= 90) { emoji = '🏆'; title = 'Luar Biasa!'; }
+      else if (percentage >= 70) { emoji = '🌟'; title = 'Hebat!'; }
+      else if (percentage >= 50) { emoji = '👍'; title = 'Bagus!'; }
+      else { emoji = '💪'; title = 'Tetap Semangat!'; }
+      
+      document.getElementById('result-emoji').textContent = emoji;
+      document.getElementById('result-title').textContent = title;
+      document.getElementById('result-title').className = `text-2xl md:text-3xl font-bold mb-2 ${percentage >= 70 ? 'text-green-600' : percentage >= 50 ? 'text-yellow-600' : 'text-orange-600'}`;
+      document.getElementById('result-score').textContent = `Skor: ${score}/10 (${percentage}%)`;
+      
+      // Stars
+      const stars = Math.ceil(percentage / 20);
+      let starsHtml = '';
+      for (let i = 0; i < 5; i++) {
+        starsHtml += `<span class="text-4xl ${i < stars ? 'star-spin' : 'opacity-30'}">${i < stars ? '⭐' : '☆'}</span>`;
+      }
+      document.getElementById('result-stars').innerHTML = starsHtml;
+    }
+
+    function restartQuiz() {
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-start').classList.remove('hidden');
+    }
+
+    // ============ MATCHING GAME ============
+    const gameData = [
+      { short: "SD", full: "Sekolah Dasar" },
+      { short: "SIM", full: "Surat Izin Mengemudi" },
+      { short: "PBB", full: "Perserikatan Bangsa-Bangsa" },
+      { short: "Pemilu", full: "Pemilihan Umum" },
+      { short: "TNI", full: "Tentara Nasional Indonesia" },
+      { short: "Puskesmas", full: "Pusat Kesehatan Masyarakat" }
+    ];
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function startGame() {
+      gameState = { selected: null, matched: 0, attempts: 0, timer: 0, interval: null };
+      
+      document.getElementById('game-start').classList.add('hidden');
+      document.getElementById('game-play').classList.remove('hidden');
+      document.getElementById('game-result').classList.add('hidden');
+      
+      // Reset stats
+      document.getElementById('matched-pairs').textContent = '0';
+      document.getElementById('game-attempts').textContent = '0';
+      document.getElementById('game-timer').textContent = '00:00';
+      
+      // Start timer
+      gameState.interval = setInterval(() => {
+        gameState.timer++;
+        const mins = Math.floor(gameState.timer / 60).toString().padStart(2, '0');
+        const secs = (gameState.timer % 60).toString().padStart(2, '0');
+        document.getElementById('game-timer').textContent = `${mins}:${secs}`;
+      }, 1000);
+      
+      renderGameCards();
+    }
+
+    function renderGameCards() {
+      const shuffledLeft = shuffle(gameData);
+      const shuffledRight = shuffle(gameData);
+      
+      const leftHtml = shuffledLeft.map((item, i) => `
+        <button onclick="selectGameCard('left', ${i}, '${item.short}')" 
+                data-value="${item.short}" 
+                id="left-${i}"
+                class="game-card w-full p-4 bg-blue-100 hover:bg-blue-200 rounded-xl font-bold text-blue-800 text-lg transition-all btn-bounce text-center">
+          ${item.short}
+        </button>
+      `).join('');
+      
+      const rightHtml = shuffledRight.map((item, i) => `
+        <button onclick="selectGameCard('right', ${i}, '${item.short}')" 
+                data-value="${item.short}" 
+                id="right-${i}"
+                class="game-card w-full p-4 bg-green-100 hover:bg-green-200 rounded-xl font-medium text-green-800 text-sm md:text-base transition-all btn-bounce text-center">
+          ${item.full}
+        </button>
+      `).join('');
+      
+      document.getElementById('game-left').innerHTML = leftHtml;
+      document.getElementById('game-right').innerHTML = rightHtml;
+    }
+
+    function selectGameCard(side, index, value) {
+      const card = document.getElementById(`${side}-${index}`);
+      
+      if (card.classList.contains('matched')) return;
+      
+      // Remove previous selection from same side
+      document.querySelectorAll(`#game-${side} .game-card`).forEach(c => {
+        if (!c.classList.contains('matched')) {
+          c.classList.remove('ring-4', 'ring-yellow-400', 'bg-yellow-100');
+          if (side === 'left') c.classList.add('bg-blue-100');
+          else c.classList.add('bg-green-100');
+        }
+      });
+      
+      // Highlight selected
+      card.classList.remove('bg-blue-100', 'bg-green-100');
+      card.classList.add('ring-4', 'ring-yellow-400', 'bg-yellow-100');
+      
+      if (!gameState.selected || gameState.selected.side === side) {
+        gameState.selected = { side, index, value };
+      } else {
+        // Check match
+        gameState.attempts++;
+        document.getElementById('game-attempts').textContent = gameState.attempts;
+        
+        if (gameState.selected.value === value) {
+          // Match found!
+          gameState.matched++;
+          document.getElementById('matched-pairs').textContent = gameState.matched;
+          
+          // Mark as matched
+          const card1 = document.getElementById(`${gameState.selected.side}-${gameState.selected.index}`);
+          const card2 = card;
+          
+          [card1, card2].forEach(c => {
+            c.classList.remove('ring-4', 'ring-yellow-400', 'bg-yellow-100', 'bg-blue-100', 'bg-green-100');
+            c.classList.add('matched', 'bg-purple-400', 'text-white');
+            c.onclick = null;
+          });
+          
+          // Check win
+          if (gameState.matched >= 6) {
+            setTimeout(showGameResult, 500);
+          }
+        } else {
+          // No match - shake and reset
+          const card1 = document.getElementById(`${gameState.selected.side}-${gameState.selected.index}`);
+          [card1, card].forEach(c => c.classList.add('shake'));
+          
+          setTimeout(() => {
+            [card1, card].forEach(c => {
+              c.classList.remove('shake', 'ring-4', 'ring-yellow-400', 'bg-yellow-100');
+            });
+            card1.classList.add(gameState.selected.side === 'left' ? 'bg-blue-100' : 'bg-green-100');
+            card.classList.add(side === 'left' ? 'bg-blue-100' : 'bg-green-100');
+          }, 500);
+        }
+        
+        gameState.selected = null;
+      }
+    }
+
+    function showGameResult() {
+      clearInterval(gameState.interval);
+      
+      document.getElementById('game-play').classList.add('hidden');
+      document.getElementById('game-result').classList.remove('hidden');
+      
+      const time = gameState.timer;
+      const attempts = gameState.attempts;
+      
+      let emoji, title;
+      if (attempts <= 8) { emoji = '🏆'; title = 'Sempurna!'; }
+      else if (attempts <= 12) { emoji = '🌟'; title = 'Luar Biasa!'; }
+      else { emoji = '👍'; title = 'Bagus!'; }
+      
+      document.getElementById('game-result-emoji').textContent = emoji;
+      document.getElementById('game-result-title').textContent = title;
+      
+      const mins = Math.floor(time / 60);
+      const secs = time % 60;
+      document.getElementById('game-result-text').textContent = 
+        `Selesai dalam ${mins > 0 ? mins + ' menit ' : ''}${secs} detik dengan ${attempts} percobaan!`;
+      
+      // Confetti effect
+      createConfetti();
+    }
+
+    function createConfetti() {
+      const container = document.getElementById('confetti-container');
+      container.innerHTML = '';
+      const colors = ['#fbbf24', '#ef4444', '#22c55e', '#3b82f6', '#a855f7', '#ec4899'];
+      
+      for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '50%';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        container.appendChild(confetti);
+      }
+    }
+
+    function restartGame() {
+      document.getElementById('game-result').classList.add('hidden');
+      document.getElementById('game-start').classList.remove('hidden');
+    }
+
+    // ============ ELEMENT SDK ============
+    async function initElementSdk() {
+      if (!window.elementSdk) return;
+      
+      await window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const title = config.main_title || defaultConfig.main_title;
+          const welcome = config.welcome_text || defaultConfig.welcome_text;
+          const bgColor = config.background_color || defaultConfig.background_color;
+          const surfaceColor = config.surface_color || defaultConfig.surface_color;
+          const textColor = config.text_color || defaultConfig.text_color;
+          const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+          const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+          const fontFamily = config.font_family || defaultConfig.font_family;
+          const fontSize = config.font_size || defaultConfig.font_size;
+          
+          document.getElementById('main-title').textContent = title;
+          document.getElementById('welcome-text').textContent = welcome;
+          
+         const appEl = document.getElementById('app');
+appEl.style.background = `linear-gradient(135deg, ${bgColor}, ${secondaryColor}, #ec4899)`;
+appEl.style.backgroundAttachment = 'fixed';
+appEl.style.backgroundSize = 'cover';
+          
+          // Apply font
+          document.body.style.fontFamily = `${fontFamily}, Nunito, sans-serif`;
+          
+          // Apply font size scaling
+          document.body.style.fontSize = `${fontSize}px`;
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); }
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["main_title", config.main_title || defaultConfig.main_title],
+          ["welcome_text", config.welcome_text || defaultConfig.welcome_text]
+        ])
+      });
+    }
+
+    // ============ INIT ============
+    initElementSdk();
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderContohList();
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e15c8c96785ea81',t:'MTc3NDM1NjQ0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

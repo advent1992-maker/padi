@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root { --primary: #2e7d32; --accent: #ff9800; --bg-slide: #ffffff; }
+        body { font-family: 'Arial Rounded MT Bold', sans-serif; background-color: #f0f4f8; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .slide-container { width: 100%; max-width: 900px; min-height: 650px; background: white; border-radius: 25px; border: 6px solid var(--primary); position: relative; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-top: 10px; overflow: hidden; }
+        .slide { display: none; padding: 5%; animation: fadeIn 0.5s; flex-grow: 1; overflow-y: auto; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h2 { text-align: center; color: var(--primary); font-size: calc(24px + 1.2vw); margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .highlight-box { background: #e8f5e9; border: 3px solid var(--primary); padding: 20px; border-radius: 15px; margin-bottom: 20px; font-size: calc(18px + 0.4vw); text-align: center; }
+        p, li { font-size: calc(16px + 0.3vw); color: #333; line-height: 1.6; }
+        .img-placeholder { width: 100%; height: auto; min-height: 250px; background: #f9f9f9; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 15px 0; border: 3px dashed #bbb; position: relative; overflow: hidden; }
+        .img-placeholder img { max-width: 95%; height: auto; border-radius: 10px; }
+        .interactive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .game-btn { background: #fff; border: none; border-bottom: 8px solid #1b5e20; padding: 20px; border-radius: 15px; cursor: pointer; font-weight: bold; color: var(--primary); font-size: calc(16px + 0.3vw); box-shadow: 0 5px 0 #eee; transition: 0.1s; width: 100%; }
+        .game-btn:active { transform: translateY(4px); border-bottom-width: 0; box-shadow: none; background: var(--primary); color: white; }
+        .modal { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; border-radius: 20px; }
+        .modal-content { background: white; padding: 35px; border-radius: 25px; width: 80%; text-align: center; border: 6px solid var(--primary); }
+        .nav-footer { display: flex; justify-content: space-between; padding: 15px 25px; background: #eceff1; border-top: 3px solid #cfd8dc; align-items: center; }
+        .nav-btn { background: var(--accent); color: white; border: none; padding: 15px 30px; border-radius: 15px; font-weight: bold; font-size: calc(16px + 0.3vw); cursor: pointer; }
+        .nav-btn:disabled { background: #ccc; }
+        #quiz-container { text-align: center; }
+        .option-container { margin-top: 20px; display: grid; gap: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle" style="color:var(--primary); font-size: 2.5em;">Info</h2>
+            <p id="modalText" style="font-size: 24px; color: #333;"></p>
+            <button class="nav-btn" onclick="closeModal()">OKE! 🚀</button>
+        </div>
+    </div>
+
+    <div class="slide active" id="s1">
+        <h2>🗺️ Apa Itu Peta?</h2>
+        <div class="highlight-box">
+            <b>Peta</b> adalah gambaran seluruh atau sebagian permukaan bumi pada bidang datar yang diperkecil dengan skala tertentu.
+        </div>
+        <div class="img-placeholder"><img src="peta_geografis.png" alt="Peta Roket"></div>
+        <p style="text-align:center;">Orang yang membuat peta disebut <b>Kartografer</b>.</p>
+    </div>
+
+    <div class="slide" id="s2">
+        <h2>🚩 Komponen Peta (Bag. 1)</h2>
+        <ul>
+            <li><b>Judul Peta:</b> Menginformasikan jenis peta.</li>
+            <li><b>Arah Mata Angin:</b> Alat bantu menentukan arah dari peta.</li>
+            <li><b>Legenda:</b> Menjelaskan keterangan simbol pada suatu peta.</li>
+        </ul>
+    </div>
+
+    <div class="slide" id="s3">
+        <h2>🚩 Komponen Peta (Bag. 2)</h2>
+        <ul>
+            <li><b>Simbol:</b> Tanda untuk mewakili kondisi sesungguhnya.</li>
+            <li><b>Peta Sisipan (Inset):</b> Peta lebih detail yang disisipkan pada peta utama.</li>
+            <li><b>Tata Warna:</b> Penggambaran keadaan tempat (Biru: perairan, Hijau: daratan rendah, Kuning-Coklat: daratan tinggi).</li>
+        </ul>
+    </div>
+
+    <div class="slide" id="s4">
+        <h2>📏 Mengenal Skala</h2>
+        <div class="highlight-box">
+            <b>Skala</b> adalah perbandingan ukuran besarnya gambar dengan keadaan sebenarnya.
+        </div>
+        <p>Contoh: Skala <b>1 : 425.000</b>.</p>
+        <p>Artinya: 1 cm di peta mewakili 425.000 cm (4,25 km) kondisi asli.</p>
+    </div>
+
+    <div class="slide" id="s5">
+        <h2>🧮 Mari Menghitung!</h2>
+        <div class="highlight-box">
+            Skala <b>1 : 200.000</b>. Jarak di peta <b>3 cm</b>. Berapa jarak aslinya?
+        </div>
+        <p><b>Hitung:</b> 3 cm × 200.000 = 600.000 cm.</p>
+        <p><b>KM:</b> 600.000 ÷ 100.000 = <b>6 KM</b>.</p>
+    </div>
+
+    <div class="slide" id="s6">
+        <h2>🏔️ Simbol Alam</h2>
+        <div class="interactive-grid">
+            <button class="game-btn" onclick="openM('Segitiga', 'Gunungapi')">▲ Gunungapi</button>
+            <button class="game-btn" onclick="openM('Abu-abu', 'Dataran Tinggi')">⬛ Dataran Tinggi</button>
+            <button class="game-btn" onclick="openM('Putih', 'Dataran Rendah')">⬜ Dataran Rendah</button>
+            <button class="game-btn" onclick="openM('Biru Tua', 'Laut Dangkal')">🟦 Laut Dangkal</button>
+        </div>
+    </div>
+
+    <div class="slide" id="s7">
+        <h2>🛣️ Simbol Budaya</h2>
+        <ul>
+            <li><b>Garis Ganda:</b> Jalan Raya.</li>
+            <li><b>Garis Merah:</b> Jalan Desa.</li>
+            <li><b>Garis Bersekat:</b> Rel Kereta Api.</li>
+        </ul>
+    </div>
+
+    <div class="slide" id="s8">
+        <h2>🏙️ Kota & Batas</h2>
+        <div class="interactive-grid">
+            <button class="game-btn" onclick="openM('Titik Putus', 'Batas Negara')">Batas Negara</button>
+            <button class="game-btn" onclick="openM('Garis Putus', 'Batas Provinsi')">Batas Provinsi</button>
+            <button class="game-btn" onclick="openM('Lingkaran', 'Ibukota Negara')">Ibukota Negara</button>
+            <button class="game-btn" onclick="openM('Kotak Hitam', 'Ibu Kota Provinsi')">Ibu Kota Provinsi</button>
+        </div>
+    </div>
+
+    <div class="slide" id="s9">
+        <h2>🎮 Uji Pemahaman Detektif Peta</h2>
+        <div id="quiz-container">
+            <div class="highlight-box" id="question-text">Memuat pertanyaan...</div>
+            <div class="option-container" id="answer-options"></div>
+            <p id="score-text" style="margin-top:20px; font-weight:bold;"></p>
+        </div>
+    </div>
+
+    <div class="nav-footer">
+        <button id="prevBtn" class="nav-btn" onclick="changeS(-1)" disabled>KEMBALI</button>
+        <span id="pageTxt" style="font-weight:bold; font-size: 20px;">1 / 9</span>
+        <button id="nextBtn" class="nav-btn" onclick="changeS(1)">LANJUT</button>
+    </div>
+</div>
+
+<script>
+    let current = 1;
+    const total = 9;
+
+    // Data Uji Pemahaman
+    const quizData = [
+        { q: "Siapa sebutan untuk pembuat peta?", a: ["Kartografer", "Fotografer", "Arsitek"], c: 0 },
+        { q: "Warna Biru pada peta biasanya menggambarkan wilayah?", a: ["Hutan", "Perairan", "Gurun"], c: 1 },
+        { q: "Skala 1:100.000, maka 1 cm di peta mewakili berapa KM?", a: ["10 KM", "100 KM", "1 KM"], c: 2 },
+        { q: "Simbol Segitiga melambangkan?", a: ["Sungai", "Gunung", "Jalan"], c: 1 },
+        { q: "Peta kecil yang disisipkan di peta utama disebut?", a: ["Inset", "Legenda", "Skala"], c: 0 }
+    ];
+    let currentQuiz = 0;
+
+    function changeS(n) {
+        document.getElementById('s' + current).classList.remove('active');
+        current += n;
+        document.getElementById('s' + current).classList.add('active');
+        document.getElementById('prevBtn').disabled = (current === 1);
+        document.getElementById('nextBtn').innerText = (current === total) ? "SELESAI" : "LANJUT";
+        document.getElementById('pageTxt').innerText = current + " / " + total;
+        if(current === 9) loadQuiz();
+    }
+
+    function openM(t, txt) {
+        document.getElementById('modalTitle').innerText = t;
+        document.getElementById('modalText').innerText = txt;
+        document.getElementById('infoModal').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
+
+    function loadQuiz() {
+        const data = quizData[currentQuiz];
+        document.getElementById('question-text').innerText = data.q;
+        const container = document.getElementById('answer-options');
+        container.innerHTML = "";
+        data.a.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = "game-btn";
+            btn.innerText = opt;
+            btn.onclick = () => checkAns(i);
+            container.appendChild(btn);
+        });
+        document.getElementById('score-text').innerText = `Soal ${currentQuiz + 1} dari ${quizData.length}`;
+    }
+
+    function checkAns(idx) {
+        if(idx === quizData[currentQuiz].c) {
+            openM("BENAR! ⭐", "Jawaban kamu tepat sekali!");
+            currentQuiz++;
+            if(currentQuiz < quizData.length) loadQuiz();
+            else document.getElementById('quiz-container').innerHTML = "<h3>🏆 Uji Pemahaman SELESAI! Kamu Hebat!<br>Lanjutkan Uji Pemahamanmu dengan mengerjakan Kuis dibawah ya </br></h3>";
+        } else {
+            openM("UPS! 😅", "Coba diingat lagi materinya ya.");
+        }
+    }
+</script>
+</body>
+</html>

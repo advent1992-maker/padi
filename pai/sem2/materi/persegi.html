@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Font Standar & Bersih */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            margin: 0;
+            padding: 5px;
+        }
+        .slide-container {
+            max-width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            margin: auto;
+        }
+
+        .slide { display: none; padding: 15px; animation: fadeIn 0.3s; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .box {
+            background: #f1f8ff;
+            border: 1.5px dashed #03a9f4;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        canvas {
+            background: white;
+            border: 1px solid #ccc;
+            display: block;
+            margin: 10px auto;
+            max-width: 90%;
+        }
+        .rumus-tag {
+            background: #4caf50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 13px;
+            display: inline-block;
+        }
+
+        .btn-isi {
+            width: 100%;
+            background: #03a9f4;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Navigasi Agar Tidak Bertumpuk */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+            align-items: center;
+        }
+        .nav-btn {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .nav-btn:disabled { background: #ccc; }
+
+        /* VIDEO RESPONSIVE (PENTING) */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Rasio 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div class="slide active" id="s1">
+        <h4 style="text-align: center; margin: 0 0 10px 0;">1. Luas Persegi</h4>
+        <div class="box">
+            <div class="rumus-tag">L = Sisi x Sisi</div>
+            <canvas id="canvasPersegi" width="160" height="160"></canvas>
+            <button class="btn-isi" onclick="mainkanPersegi()">Simulasi Isi Ubin</button>
+            <p id="infoP" style="font-size: 12px; color: #666; margin-top: 10px;">Klik tombol untuk menghitung</p>
+        </div>
+    </div>
+
+    <div class="slide" id="s2">
+        <h4 style="text-align: center; margin: 0 0 10px 0;">2. Luas Persegi Panjang</h4>
+        <div class="box">
+            <div class="rumus-tag">L = Panjang x Lebar</div>
+            <canvas id="canvasPanjang" width="200" height="120"></canvas>
+            <button class="btn-isi" onclick="mainkanPanjang()">Simulasi Isi Cokelat</button>
+            <p id="infoPP" style="font-size: 12px; color: #666; margin-top: 10px;">Klik tombol untuk menghitung</p>
+        </div>
+    </div>
+
+    <div class="slide" id="s3">
+        <h4 style="text-align: center; margin: 0 0 10px 0;">Tonton Penjelasan</h4>
+        <div class="video-container">
+            <iframe
+        src="https://www.youtube.com/embed/xm8NzPoErt0?si=PrjQ9gnzcDd9w-iN"
+        title="Video Pembelajaran"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+    </iframe>
+        </div>
+        <p style="text-align: center; font-size: 12px; margin-top: 10px;">Yuk simak videonya sampai habis!</p>
+    </div>
+
+    <div class="nav-footer">
+        <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)" disabled>Kembali</button>
+        <span id="pageInfo" style="font-size: 12px; color: #777; font-weight: bold;">1 / 3</span>
+        <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)">Lanjut</button>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 1;
+    function changeSlide(n) {
+        document.getElementById('s' + currentSlide).classList.remove('active');
+        currentSlide += n;
+        document.getElementById('s' + currentSlide).classList.add('active');
+
+        document.getElementById('prevBtn').disabled = (currentSlide === 1);
+        document.getElementById('nextBtn').innerText = (currentSlide === 3) ? "Selesai" : "Lanjut";
+        document.getElementById('pageInfo').innerText = currentSlide + " / 3";
+    }
+
+    // Fungsi menggambar ubin
+    function drawGrid(id, w, h) {
+        const ctx = document.getElementById(id).getContext("2d");
+        ctx.strokeStyle = "#eee"; ctx.beginPath();
+        for (let i = 0; i <= w; i += 40) { ctx.moveTo(i, 0); ctx.lineTo(i, h); }
+        for (let j = 0; j <= h; j += 40) { ctx.moveTo(0, j); ctx.lineTo(w, j); }
+        ctx.stroke();
+    }
+
+    function isiWarna(id, w, h, warna, infoId, teks) {
+        const ctx = document.getElementById(id).getContext("2d");
+        ctx.fillStyle = warna;
+        let count = 0;
+        for (let i = 0; i < w; i += 40) {
+            for (let j = 0; j < h; j += 40) {
+                setTimeout(() => { ctx.fillRect(i+1, j+1, 38, 38); }, count * 40);
+                count++;
+            }
+        }
+        document.getElementById(infoId).innerHTML = "<b>" + teks + "</b>";
+    }
+
+    function mainkanPersegi() { isiWarna('canvasPersegi', 160, 160, '#ffd54f', 'infoP', 'Luas = 4 x 4 = 16 ubin'); }
+    function mainkanPanjang() { isiWarna('canvasPanjang', 200, 120, '#a1887f', 'infoPP', 'Luas = 5 x 3 = 15 kotak'); }
+
+    window.onload = () => {
+        drawGrid('canvasPersegi', 160, 160);
+        drawGrid('canvasPanjang', 200, 120);
+    }
+</script>
+
+</body>
+</html>

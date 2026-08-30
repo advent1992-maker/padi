@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luas Bangun Datar - Matematika Kelas 5</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    .shape-grid {
+      display: grid;
+      gap: 2px;
+    }
+    .grid-cell {
+      aspect-ratio: 1;
+      transition: all 0.3s ease;
+    }
+    .grid-cell.filled {
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      border: 1px solid #2563eb;
+    }
+    .grid-cell.empty {
+      background: rgba(255,255,255,0.3);
+      border: 1px dashed #93c5fd;
+    }
+    .btn-nav {
+      transition: all 0.2s ease;
+    }
+    .btn-nav:hover {
+      transform: scale(1.05);
+    }
+    .btn-nav:active {
+      transform: scale(0.98);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    .slide-in {
+      animation: slideIn 0.5s ease forwards;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    .correct-flash {
+      animation: correctFlash 0.5s ease;
+    }
+    @keyframes correctFlash {
+      0%, 100% { background-color: inherit; }
+      50% { background-color: #22c55e; }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 overflow-auto">
+  <div id="app" class="h-full w-full flex flex-col"><!-- Header -->
+   <header class="bg-white/95 backdrop-blur-sm shadow-lg px-4 py-3 md:px-8 md:py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+     <div class="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg"><i data-lucide="shapes" class="w-6 h-6 md:w-8 md:h-8 text-white"></i>
+     </div>
+     <div>
+      <h1 id="main-title" class="text-lg md:text-2xl lg:text-3xl font-extrabold text-gray-800">Luas Bangun Datar</h1>
+      <p class="text-xs md:text-sm text-gray-500">Matematika Kelas 5 SD</p>
+     </div>
+    </div>
+    <div class="flex items-center gap-2 md:gap-4">
+     <div id="score-display" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-400 px-4 py-2 rounded-full"><i data-lucide="star" class="w-5 h-5 text-white"></i> <span id="score-text" class="font-bold text-white">0</span>
+     </div><button id="home-btn" class="btn-nav bg-gray-100 hover:bg-gray-200 p-2 md:p-3 rounded-xl"> <i data-lucide="home" class="w-5 h-5 md:w-6 md:h-6 text-gray-700"></i> </button>
+    </div>
+   </header><!-- Main Content -->
+   <main class="flex-1 p-4 md:p-6 lg:p-8 overflow-auto"><!-- Home Screen -->
+    <div id="home-screen" class="h-full flex flex-col items-center justify-center gap-6 md:gap-8">
+     <div class="text-center text-white mb-4 slide-in">
+      <div class="text-6xl md:text-8xl mb-4">
+       📐
+      </div>
+      <h2 class="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-2">Ayo Belajar!</h2>
+      <p id="teacher-display" class="text-lg md:text-xl opacity-90">Bersama Pak/Bu Guru</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full max-w-4xl"><!-- Materi Persegi --> <button onclick="showSection('materi-persegi')" class="card-hover bg-white rounded-2xl p-6 md:p-8 shadow-xl flex flex-col items-center gap-4">
+       <div class="w-20 h-20 md:w-24 md:h-24 bg-blue-100 rounded-2xl flex items-center justify-center">
+        <div class="w-12 h-12 md:w-16 md:h-16 bg-blue-500 rounded-lg"></div>
+       </div>
+       <div class="text-center">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800">Persegi</h3>
+        <p class="text-sm md:text-base text-gray-500">Pelajari rumus &amp; cara hitung</p>
+       </div><span class="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-semibold">Materi</span> </button> <!-- Materi Persegi Panjang --> <button onclick="showSection('materi-persegipanjang')" class="card-hover bg-white rounded-2xl p-6 md:p-8 shadow-xl flex flex-col items-center gap-4">
+       <div class="w-20 h-20 md:w-24 md:h-24 bg-purple-100 rounded-2xl flex items-center justify-center">
+        <div class="w-16 h-10 md:w-20 md:h-12 bg-purple-500 rounded-lg"></div>
+       </div>
+       <div class="text-center">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800">Persegi Panjang</h3>
+        <p class="text-sm md:text-base text-gray-500">Pelajari rumus &amp; cara hitung</p>
+       </div><span class="bg-purple-100 text-purple-700 px-4 py-1 rounded-full text-sm font-semibold">Materi</span> </button> <!-- Latihan Interaktif --> <button onclick="showSection('latihan')" class="card-hover bg-white rounded-2xl p-6 md:p-8 shadow-xl flex flex-col items-center gap-4">
+       <div class="w-20 h-20 md:w-24 md:h-24 bg-green-100 rounded-2xl flex items-center justify-center"><i data-lucide="gamepad-2" class="w-12 h-12 md:w-16 md:h-16 text-green-500"></i>
+       </div>
+       <div class="text-center">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800">Latihan Interaktif</h3>
+        <p class="text-sm md:text-base text-gray-500">Hitung luas dengan grid</p>
+       </div><span class="bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm font-semibold">Praktik</span> </button> <!-- Kuis --> <button onclick="showSection('kuis')" class="card-hover bg-white rounded-2xl p-6 md:p-8 shadow-xl flex flex-col items-center gap-4">
+       <div class="w-20 h-20 md:w-24 md:h-24 bg-orange-100 rounded-2xl flex items-center justify-center"><i data-lucide="trophy" class="w-12 h-12 md:w-16 md:h-16 text-orange-500"></i>
+       </div>
+       <div class="text-center">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800">Kuis</h3>
+        <p class="text-sm md:text-base text-gray-500">Uji pemahamanmu!</p>
+       </div><span class="bg-orange-100 text-orange-700 px-4 py-1 rounded-full text-sm font-semibold">Tantangan</span> </button>
+     </div>
+    </div><!-- Materi Persegi -->
+    <div id="materi-persegi" class="hidden h-full">
+     <div class="max-w-5xl mx-auto">
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden slide-in">
+       <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 md:p-8 text-white">
+        <h2 class="text-2xl md:text-4xl font-extrabold flex items-center gap-3">
+         <div class="w-10 h-10 bg-white/20 rounded-lg"></div> Luas Persegi</h2>
+       </div>
+       <div class="p-6 md:p-8 space-y-6"><!-- Visual -->
+        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+         <div class="relative">
+          <div class="w-40 h-40 md:w-56 md:h-56 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg shadow-xl flex items-center justify-center"><span class="text-white text-lg md:text-xl font-bold">s × s</span>
+          </div>
+          <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-blue-700 text-white px-4 py-1 rounded-full text-sm md:text-base font-semibold">
+           sisi (s)
+          </div>
+          <div class="absolute top-1/2 -right-3 -translate-y-1/2 bg-blue-700 text-white px-4 py-1 rounded-full text-sm md:text-base font-semibold rotate-90 origin-center">
+           sisi (s)
+          </div>
+         </div>
+         <div class="flex-1 text-center md:text-left">
+          <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mb-4">
+           <p class="text-gray-600 mb-2">Rumus Luas Persegi:</p>
+           <p class="text-3xl md:text-5xl font-extrabold text-blue-600">L = s × s</p>
+           <p class="text-xl md:text-2xl font-bold text-blue-500 mt-2">atau L = s²</p>
+          </div>
+          <div class="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-4">
+           <p class="text-gray-700"><span class="font-bold">Ingat!</span> Semua sisi persegi sama panjang</p>
+          </div>
+         </div>
+        </div><!-- Contoh -->
+        <div class="bg-gray-50 rounded-2xl p-6">
+         <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="lightbulb" class="w-6 h-6 text-yellow-500"></i> Contoh Soal</h3>
+         <div class="bg-white rounded-xl p-4 md:p-6 shadow">
+          <p class="text-lg md:text-xl text-gray-700 mb-4">Sebuah persegi memiliki sisi <strong>5 cm</strong>. Berapa luasnya?</p>
+          <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-xl">
+           <p class="font-semibold text-gray-800">Penyelesaian:</p>
+           <p class="text-gray-700">L = s × s</p>
+           <p class="text-gray-700">L = 5 × 5</p>
+           <p class="text-xl md:text-2xl font-bold text-green-600">L = 25 cm²</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Materi Persegi Panjang -->
+    <div id="materi-persegipanjang" class="hidden h-full">
+     <div class="max-w-5xl mx-auto">
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden slide-in">
+       <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 md:p-8 text-white">
+        <h2 class="text-2xl md:text-4xl font-extrabold flex items-center gap-3">
+         <div class="w-14 h-8 bg-white/20 rounded-lg"></div> Luas Persegi Panjang</h2>
+       </div>
+       <div class="p-6 md:p-8 space-y-6"><!-- Visual -->
+        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+         <div class="relative">
+          <div class="w-56 h-36 md:w-72 md:h-44 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg shadow-xl flex items-center justify-center"><span class="text-white text-lg md:text-xl font-bold">p × l</span>
+          </div>
+          <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-purple-700 text-white px-4 py-1 rounded-full text-sm md:text-base font-semibold">
+           panjang (p)
+          </div>
+          <div class="absolute top-1/2 -right-3 -translate-y-1/2 bg-purple-700 text-white px-4 py-1 rounded-full text-sm md:text-base font-semibold rotate-90 origin-center">
+           lebar (l)
+          </div>
+         </div>
+         <div class="flex-1 text-center md:text-left">
+          <div class="bg-purple-50 border-2 border-purple-200 rounded-2xl p-6 mb-4">
+           <p class="text-gray-600 mb-2">Rumus Luas Persegi Panjang:</p>
+           <p class="text-3xl md:text-5xl font-extrabold text-purple-600">L = p × l</p>
+          </div>
+          <div class="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-4">
+           <p class="text-gray-700"><span class="font-bold">Ingat!</span> Panjang selalu lebih besar dari lebar</p>
+          </div>
+         </div>
+        </div><!-- Contoh -->
+        <div class="bg-gray-50 rounded-2xl p-6">
+         <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="lightbulb" class="w-6 h-6 text-yellow-500"></i> Contoh Soal</h3>
+         <div class="bg-white rounded-xl p-4 md:p-6 shadow">
+          <p class="text-lg md:text-xl text-gray-700 mb-4">Sebuah persegi panjang memiliki panjang <strong>8 cm</strong> dan lebar <strong>5 cm</strong>. Berapa luasnya?</p>
+          <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-xl">
+           <p class="font-semibold text-gray-800">Penyelesaian:</p>
+           <p class="text-gray-700">L = p × l</p>
+           <p class="text-gray-700">L = 8 × 5</p>
+           <p class="text-xl md:text-2xl font-bold text-green-600">L = 40 cm²</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Latihan Interaktif -->
+    <div id="latihan" class="hidden h-full">
+     <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden slide-in">
+       <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-6 md:p-8 text-white">
+        <h2 class="text-2xl md:text-4xl font-extrabold flex items-center gap-3"><i data-lucide="grid-3x3" class="w-8 h-8 md:w-10 md:h-10"></i> Latihan Interaktif</h2>
+        <p class="opacity-90 mt-2">Klik tombol untuk mengubah ukuran dan hitung luasnya!</p>
+       </div>
+       <div class="p-6 md:p-8">
+        <div class="flex flex-col lg:flex-row gap-6"><!-- Grid Area -->
+         <div class="flex-1">
+          <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-4 md:p-6">
+           <div id="interactive-grid" class="shape-grid mx-auto" style="width: fit-content;"></div>
+          </div>
+         </div><!-- Controls -->
+         <div class="lg:w-72 space-y-4">
+          <div class="bg-gray-50 rounded-xl p-4"><label class="block text-sm font-semibold text-gray-600 mb-2">Panjang</label>
+           <div class="flex items-center gap-3"><button onclick="changeSize('panjang', -1)" class="btn-nav w-10 h-10 bg-red-100 hover:bg-red-200 rounded-full flex items-center justify-center"> <i data-lucide="minus" class="w-5 h-5 text-red-600"></i> </button> <span id="panjang-value" class="text-2xl font-bold text-gray-800 w-12 text-center">5</span> <button onclick="changeSize('panjang', 1)" class="btn-nav w-10 h-10 bg-green-100 hover:bg-green-200 rounded-full flex items-center justify-center"> <i data-lucide="plus" class="w-5 h-5 text-green-600"></i> </button>
+           </div>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-4"><label class="block text-sm font-semibold text-gray-600 mb-2">Lebar</label>
+           <div class="flex items-center gap-3"><button onclick="changeSize('lebar', -1)" class="btn-nav w-10 h-10 bg-red-100 hover:bg-red-200 rounded-full flex items-center justify-center"> <i data-lucide="minus" class="w-5 h-5 text-red-600"></i> </button> <span id="lebar-value" class="text-2xl font-bold text-gray-800 w-12 text-center">4</span> <button onclick="changeSize('lebar', 1)" class="btn-nav w-10 h-10 bg-green-100 hover:bg-green-200 rounded-full flex items-center justify-center"> <i data-lucide="plus" class="w-5 h-5 text-green-600"></i> </button>
+           </div>
+          </div>
+          <div class="bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl p-4 text-white text-center">
+           <p class="text-sm opacity-90">Rumus: <span id="rumus-display">5 × 4</span></p>
+           <p class="text-3xl font-extrabold mt-1">Luas = <span id="luas-display">20</span></p>
+           <p class="text-sm opacity-90">satuan persegi</p>
+          </div>
+          <div id="shape-type" class="bg-yellow-100 border-2 border-yellow-300 rounded-xl p-3 text-center"><span class="font-bold text-yellow-800">Persegi Panjang</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Kuis -->
+    <div id="kuis" class="hidden h-full">
+     <div class="max-w-3xl mx-auto">
+      <div id="kuis-container" class="bg-white rounded-3xl shadow-2xl overflow-hidden slide-in"><!-- Kuis Start -->
+       <div id="kuis-start" class="p-8 text-center">
+        <div class="text-6xl mb-4">
+         🏆
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">Siap Untuk Kuis?</h2>
+        <p class="text-gray-600 mb-6">Jawab 5 pertanyaan tentang luas bangun datar!</p><button onclick="startKuis()" class="btn-nav bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xl font-bold px-8 py-4 rounded-2xl shadow-lg"> Mulai Kuis! </button>
+       </div><!-- Kuis Question -->
+       <div id="kuis-question" class="hidden">
+        <div class="bg-gradient-to-r from-orange-500 to-pink-500 p-6 text-white">
+         <div class="flex justify-between items-center"><span class="text-lg font-semibold">Soal <span id="soal-number">1</span>/5</span>
+          <div class="flex items-center gap-2"><i data-lucide="star" class="w-5 h-5"></i> <span id="kuis-score" class="font-bold">0</span>
+          </div>
+         </div>
+        </div>
+        <div class="p-6 md:p-8">
+         <div id="question-visual" class="flex justify-center mb-6"></div>
+         <p id="question-text" class="text-xl md:text-2xl text-gray-800 text-center mb-6 font-semibold"></p>
+         <div id="answer-options" class="grid grid-cols-2 gap-4"></div>
+         <div id="feedback" class="hidden mt-6 p-4 rounded-xl text-center text-lg font-semibold"></div>
+        </div>
+       </div><!-- Kuis Result -->
+       <div id="kuis-result" class="hidden p-8 text-center">
+        <div id="result-emoji" class="text-6xl md:text-8xl mb-4"></div>
+        <h2 id="result-title" class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2"></h2>
+        <p id="result-score" class="text-xl text-gray-600 mb-6"></p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center"><button onclick="startKuis()" class="btn-nav bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold px-6 py-3 rounded-xl"> Coba Lagi </button> <button onclick="showSection('home')" class="btn-nav bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold px-6 py-3 rounded-xl"> Kembali </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+  <script>
+    // Default config
+    const defaultConfig = {
+      app_title: 'Luas Bangun Datar',
+      teacher_name: 'Pak/Bu Guru',
+      primary_color: '#7c3aed',
+      secondary_color: '#3b82f6',
+      accent_color: '#f59e0b',
+      background_color: '#ffffff',
+      text_color: '#1f2937'
+    };
+
+    let config = { ...defaultConfig };
+
+    // Interactive grid state
+    let gridState = { panjang: 5, lebar: 4 };
+    
+    // Kuis state
+    let kuisState = {
+      currentQuestion: 0,
+      score: 0,
+      questions: []
+    };
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          updateUI();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            {
+              get: () => cfg.primary_color || defaultConfig.primary_color,
+              set: (v) => { cfg.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); }
+            },
+            {
+              get: () => cfg.secondary_color || defaultConfig.secondary_color,
+              set: (v) => { cfg.secondary_color = v; window.elementSdk.setConfig({ secondary_color: v }); }
+            },
+            {
+              get: () => cfg.accent_color || defaultConfig.accent_color,
+              set: (v) => { cfg.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); }
+            },
+            {
+              get: () => cfg.background_color || defaultConfig.background_color,
+              set: (v) => { cfg.background_color = v; window.elementSdk.setConfig({ background_color: v }); }
+            },
+            {
+              get: () => cfg.text_color || defaultConfig.text_color,
+              set: (v) => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['app_title', cfg.app_title || defaultConfig.app_title],
+          ['teacher_name', cfg.teacher_name || defaultConfig.teacher_name]
+        ])
+      });
+    }
+
+    function updateUI() {
+      document.getElementById('main-title').textContent = config.app_title || defaultConfig.app_title;
+      document.getElementById('teacher-display').textContent = `Bersama ${config.teacher_name || defaultConfig.teacher_name}`;
+    }
+
+    // Navigation
+    function showSection(sectionId) {
+      const sections = ['home-screen', 'materi-persegi', 'materi-persegipanjang', 'latihan', 'kuis'];
+      sections.forEach(s => {
+        const el = document.getElementById(s);
+        if (el) el.classList.add('hidden');
+      });
+      
+      if (sectionId === 'home') {
+        document.getElementById('home-screen').classList.remove('hidden');
+      } else {
+        const target = document.getElementById(sectionId);
+        if (target) target.classList.remove('hidden');
+      }
+      
+      if (sectionId === 'latihan') {
+        updateGrid();
+      }
+      
+      lucide.createIcons();
+    }
+
+    document.getElementById('home-btn').addEventListener('click', () => showSection('home'));
+
+    // Interactive Grid Functions
+    function changeSize(dimension, delta) {
+      const min = 1, max = 10;
+      if (dimension === 'panjang') {
+        gridState.panjang = Math.max(min, Math.min(max, gridState.panjang + delta));
+      } else {
+        gridState.lebar = Math.max(min, Math.min(max, gridState.lebar + delta));
+      }
+      updateGrid();
+    }
+
+    function updateGrid() {
+      const grid = document.getElementById('interactive-grid');
+      const { panjang, lebar } = gridState;
+      const luas = panjang * lebar;
+      const isSquare = panjang === lebar;
+      
+      // Update values
+      document.getElementById('panjang-value').textContent = panjang;
+      document.getElementById('lebar-value').textContent = lebar;
+      document.getElementById('rumus-display').textContent = `${panjang} × ${lebar}`;
+      document.getElementById('luas-display').textContent = luas;
+      
+      // Update shape type
+      const shapeType = document.getElementById('shape-type');
+      if (isSquare) {
+        shapeType.innerHTML = '<span class="font-bold text-blue-800">Persegi</span>';
+        shapeType.className = 'bg-blue-100 border-2 border-blue-300 rounded-xl p-3 text-center';
+      } else {
+        shapeType.innerHTML = '<span class="font-bold text-purple-800">Persegi Panjang</span>';
+        shapeType.className = 'bg-purple-100 border-2 border-purple-300 rounded-xl p-3 text-center';
+      }
+      
+      // Build grid
+      const cellSize = Math.min(40, Math.floor(280 / Math.max(panjang, lebar)));
+      grid.style.gridTemplateColumns = `repeat(${panjang}, ${cellSize}px)`;
+      grid.innerHTML = '';
+      
+      for (let i = 0; i < luas; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'grid-cell filled rounded-sm';
+        cell.style.width = `${cellSize}px`;
+        cell.style.height = `${cellSize}px`;
+        cell.style.animationDelay = `${i * 20}ms`;
+        grid.appendChild(cell);
+      }
+    }
+
+    // Kuis Functions
+    function generateQuestions() {
+      const questions = [];
+      
+      // Generate 5 random questions
+      for (let i = 0; i < 5; i++) {
+        const isSquare = Math.random() > 0.5;
+        
+        if (isSquare) {
+          const side = Math.floor(Math.random() * 9) + 2; // 2-10
+          const correctAnswer = side * side;
+          questions.push({
+            type: 'persegi',
+            side,
+            text: `Sebuah persegi memiliki sisi ${side} cm. Berapa luasnya?`,
+            correctAnswer,
+            options: generateOptions(correctAnswer)
+          });
+        } else {
+          const panjang = Math.floor(Math.random() * 8) + 3; // 3-10
+          const lebar = Math.floor(Math.random() * (panjang - 1)) + 1; // 1 to panjang-1
+          const correctAnswer = panjang * lebar;
+          questions.push({
+            type: 'persegipanjang',
+            panjang,
+            lebar,
+            text: `Sebuah persegi panjang memiliki panjang ${panjang} cm dan lebar ${lebar} cm. Berapa luasnya?`,
+            correctAnswer,
+            options: generateOptions(correctAnswer)
+          });
+        }
+      }
+      
+      return questions;
+    }
+
+    function generateOptions(correct) {
+      const options = [correct];
+      while (options.length < 4) {
+        let wrong;
+        const variation = Math.floor(Math.random() * 3);
+        if (variation === 0) wrong = correct + Math.floor(Math.random() * 10) + 1;
+        else if (variation === 1) wrong = Math.max(1, correct - Math.floor(Math.random() * 10) - 1);
+        else wrong = correct * 2;
+        
+        if (!options.includes(wrong) && wrong > 0) {
+          options.push(wrong);
+        }
+      }
+      return options.sort(() => Math.random() - 0.5);
+    }
+
+    function startKuis() {
+      kuisState = {
+        currentQuestion: 0,
+        score: 0,
+        questions: generateQuestions()
+      };
+      
+      document.getElementById('kuis-start').classList.add('hidden');
+      document.getElementById('kuis-result').classList.add('hidden');
+      document.getElementById('kuis-question').classList.remove('hidden');
+      document.getElementById('score-display').classList.remove('hidden');
+      
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = kuisState.questions[kuisState.currentQuestion];
+      
+      document.getElementById('soal-number').textContent = kuisState.currentQuestion + 1;
+      document.getElementById('kuis-score').textContent = kuisState.score;
+      document.getElementById('score-text').textContent = kuisState.score;
+      document.getElementById('question-text').textContent = q.text;
+      document.getElementById('feedback').classList.add('hidden');
+      
+      // Visual
+      const visual = document.getElementById('question-visual');
+      if (q.type === 'persegi') {
+        visual.innerHTML = `
+          <div class="relative">
+            <div class="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg shadow-lg flex items-center justify-center">
+              <span class="text-white font-bold">${q.side} cm</span>
+            </div>
+          </div>
+        `;
+      } else {
+        const width = Math.min(160, q.panjang * 16);
+        const height = Math.min(100, q.lebar * 16);
+        visual.innerHTML = `
+          <div class="relative">
+            <div class="bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg shadow-lg flex items-center justify-center" style="width: ${width}px; height: ${height}px;">
+              <span class="text-white font-bold text-sm">${q.panjang}×${q.lebar}</span>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Options
+      const optionsContainer = document.getElementById('answer-options');
+      optionsContainer.innerHTML = '';
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-nav bg-gray-100 hover:bg-gray-200 p-4 rounded-xl text-xl font-bold text-gray-800 transition-all';
+        btn.textContent = `${opt} cm²`;
+        btn.onclick = () => checkAnswer(opt, btn);
+        optionsContainer.appendChild(btn);
+      });
+      
+      lucide.createIcons();
+    }
+
+    function checkAnswer(selected, btn) {
+      const q = kuisState.questions[kuisState.currentQuestion];
+      const feedback = document.getElementById('feedback');
+      const allBtns = document.querySelectorAll('#answer-options button');
+      
+      allBtns.forEach(b => {
+        b.disabled = true;
+        b.classList.add('opacity-50');
+      });
+      
+      if (selected === q.correctAnswer) {
+        kuisState.score += 20;
+        btn.classList.remove('opacity-50');
+        btn.classList.add('bg-green-500', 'text-white');
+        feedback.textContent = '🎉 Benar! Hebat!';
+        feedback.className = 'mt-6 p-4 rounded-xl text-center text-lg font-semibold bg-green-100 text-green-800';
+        createConfetti();
+      } else {
+        btn.classList.remove('opacity-50');
+        btn.classList.add('bg-red-500', 'text-white');
+        allBtns.forEach(b => {
+          if (parseInt(b.textContent) === q.correctAnswer) {
+            b.classList.remove('opacity-50');
+            b.classList.add('bg-green-500', 'text-white');
+          }
+        });
+        feedback.textContent = `❌ Jawaban yang benar adalah ${q.correctAnswer} cm²`;
+        feedback.className = 'mt-6 p-4 rounded-xl text-center text-lg font-semibold bg-red-100 text-red-800';
+      }
+      
+      feedback.classList.remove('hidden');
+      document.getElementById('kuis-score').textContent = kuisState.score;
+      document.getElementById('score-text').textContent = kuisState.score;
+      
+      setTimeout(() => {
+        kuisState.currentQuestion++;
+        if (kuisState.currentQuestion < 5) {
+          showQuestion();
+        } else {
+          showResult();
+        }
+      }, 1500);
+    }
+
+    function showResult() {
+      document.getElementById('kuis-question').classList.add('hidden');
+      document.getElementById('kuis-result').classList.remove('hidden');
+      
+      const score = kuisState.score;
+      let emoji, title;
+      
+      if (score === 100) {
+        emoji = '🏆';
+        title = 'Sempurna!';
+        createConfetti();
+      } else if (score >= 80) {
+        emoji = '🌟';
+        title = 'Luar Biasa!';
+      } else if (score >= 60) {
+        emoji = '👍';
+        title = 'Bagus!';
+      } else if (score >= 40) {
+        emoji = '💪';
+        title = 'Terus Berlatih!';
+      } else {
+        emoji = '📚';
+        title = 'Pelajari Lagi ya!';
+      }
+      
+      document.getElementById('result-emoji').textContent = emoji;
+      document.getElementById('result-title').textContent = title;
+      document.getElementById('result-score').textContent = `Skor kamu: ${score}/100`;
+    }
+
+    function createConfetti() {
+      const colors = ['#f59e0b', '#3b82f6', '#22c55e', '#ec4899', '#8b5cf6'];
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.cssText = `
+          left: ${Math.random() * 100}%;
+          top: -10px;
+          width: ${Math.random() * 10 + 5}px;
+          height: ${Math.random() * 10 + 5}px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+          animation: fall ${Math.random() * 2 + 2}s linear forwards;
+        `;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+      }
+      
+      // Add fall animation if not exists
+      if (!document.getElementById('confetti-style')) {
+        const style = document.createElement('style');
+        style.id = 'confetti-style';
+        style.textContent = `
+          @keyframes fall {
+            to {
+              transform: translateY(100vh) rotate(720deg);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+
+    // Initialize
+    lucide.createIcons();
+    updateUI();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e164a78a6c3ba3d',t:'MTc3NDM2MTc1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
